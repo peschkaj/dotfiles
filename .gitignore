@@ -1,4 +1,6 @@
 **/backups/**/*
-auto-save-list/**/*
+dot_emacs.d/auto-save-list/**/*
+#  Kiss my ass, emacs WIP files
+*\~
 .DS_Store
 slack-rtm
