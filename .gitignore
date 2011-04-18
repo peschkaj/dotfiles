@@ -1,6 +1,10 @@
 **/backups/**/*
 dot_emacs.d/auto-save-list/**/*
-#  Kiss my ass, emacs WIP files
-*\~
 .DS_Store
 slack-rtm
+
+# specifically ignore emacs places file, mainly because I don't know what it is and I suspect it changes a lot
+dot_emacs.d/places
+
+# Kiss my ass, emacs WIP files
+*\~
