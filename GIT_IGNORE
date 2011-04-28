@@ -1,0 +1,3 @@
+# ignore emacs TAGS
+TAGS
+.DS_STORE
