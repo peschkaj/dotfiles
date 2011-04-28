@@ -1,7 +1,10 @@
+**/backups/*
 **/backups/**/*
 dot_emacs.d/auto-save-list/**/*
 .DS_Store
 slack-rtm
+.org-id-locations
+places
 
 # Kiss my ass, emacs WIP files
 *\~
