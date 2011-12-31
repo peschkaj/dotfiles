@@ -1,0 +1,3 @@
+[submodule "dot_emacs.d/plugins/yasnippet"]
+	path = dot_emacs.d/plugins/yasnippet
+	url = https://github.com/capitaomorte/yasnippet.git
