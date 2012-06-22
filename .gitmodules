@@ -1,0 +1,5 @@
+
+
+[submodule "dot_emacs.d/site-lisp/yasnippet"]
+	path = dot_emacs.d/site-lisp/yasnippet
+	url = https://github.com/capitaomorte/yasnippet.git
