@@ -5,6 +5,7 @@ dot_emacs.d/auto-save-list/**/*
 slack-rtm
 .org-id-locations
 places
+bash/remotes.sh
 
 # Kiss my ass, emacs WIP files
 *\~
