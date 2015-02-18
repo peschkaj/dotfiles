@@ -18,4 +18,4 @@ select lower(user) || '@' || substr( global_name, 1,
 set sqlprompt '&gname> '
 set termout on
 
-define _editor=emacsclient
+define _editor="emacsclient -t "
