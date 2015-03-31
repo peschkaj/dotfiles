@@ -9,3 +9,5 @@ bash/remotes.sh
 
 # Kiss my ass, emacs WIP files
 *\~
+
+*.pyc
