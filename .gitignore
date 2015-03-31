@@ -10,4 +10,13 @@ bash/remotes.sh
 # Kiss my ass, emacs WIP files
 *\~
 
-*.pyc
+Sublime\ Text\ 2/**/*.pyc
+Sublime\ Text\ 2/Packages/ssl-linux/**/*
+Sublime\ Text\ 2/Packages/User/Package\ Control.cache/**/*
+Sublime\ Text\ 2/**/Package Control.last-run
+Sublime\ Text\ 2/**/Package Control.ca-list
+Sublime\ Text\ 2/**/Package Control.ca-bundle
+Sublime\ Text\ 2/**/Package Control.system-ca-bundle
+Sublime\ Text\ 2/**/Package Control.cache/**/*
+Sublime\ Text\ 2/**/Package Control.ca-certs/**/*
+Sublime\ Text\ 2/**/*.cache
