@@ -1,0 +1,1 @@
+{"description": "Extends Monokai from Soda with additional syntax highlighting for Markdown, LESS, HTML, Handlebars and more.", "url": "https://github.com/jonschlinkert", "platforms": ["*"], "version": "2015.03.29.16.16.46", "sublime_text": "*", "dependencies": []}

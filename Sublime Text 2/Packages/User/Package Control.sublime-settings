@@ -1,0 +1,20 @@
+{
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Git Config",
+		"GitGutter",
+		"Markdown Preview",
+		"MarkdownEditing",
+		"Monokai Extended",
+		"Oracle PL SQL",
+		"Origami",
+		"Package Control",
+		"sublime-github",
+		"SublimeGit",
+		"Theme - Afterglow",
+		"Theme - Soda"
+	]
+}

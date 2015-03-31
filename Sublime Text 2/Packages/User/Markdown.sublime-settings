@@ -1,0 +1,8 @@
+{
+	"color_scheme": "Packages/Theme - Afterglow/Afterglow-markdown.tmTheme",
+	"extensions":
+	[
+		"md"
+	],
+	"line_numbers": true
+}
