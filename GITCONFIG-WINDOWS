@@ -1,0 +1,7 @@
+# Only use this for a Windows machine. 
+[include]
+  path = D:/src/peschkaj/dotfiles/git/gitconfig
+[include]
+  path = D:/src/peschkaj/dotfiles/git/gitconfig-github
+[include]
+  path = D:/src/peschkaj/dotfiles/git/gitconfig-windows
