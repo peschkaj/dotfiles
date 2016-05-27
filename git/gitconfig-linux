@@ -1,0 +1,7 @@
+[core]
+	editor = emacs
+  autocrlf = input
+[merge]
+	tool = p4merge
+[mergetool]
+	keepBackup = false
