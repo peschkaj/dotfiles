@@ -259,12 +259,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-;  (set-face-attribute 'default nil :family "Source Code Pro")
-;  (set-face-attribute 'default nil :height 128)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (setq magit-repository-directories '("~/src/"))
   (global-git-commit-mode t)
+  (setq powerline-default-separator 'arrow)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
