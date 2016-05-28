@@ -1,5 +1,5 @@
 [core]
-	editor = emacs
+	editor = "emacsclient -t"
   autocrlf = input
 [merge]
 	tool = p4merge
