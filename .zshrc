@@ -104,7 +104,7 @@ export RUST_SRC_PATH=/home/jeremiah/src/rust-lang/rust/src
 export PATH="$PATH:/home/jeremiah/bin:/home/jeremiah/bin/p4/bin"
 
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -t"
+export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c -a emacs"
 alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 

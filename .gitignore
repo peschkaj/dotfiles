@@ -9,6 +9,7 @@ bash/remotes.sh
 
 # Kiss my ass, emacs WIP files
 *\~
+*\#*
 
 Sublime\ Text\ 2/**/*.pyc
 Sublime\ Text\ 2/Packages/User/Package\ Control.cache/**/*
