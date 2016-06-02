@@ -11,6 +11,7 @@ deb http://apt.insynchq.com/ubuntu xenial non-free contrib
 ```
 apt-add-repository ppa:numix/ppa
 apt-add-repository ppa:nilarimogard/webupd8
+add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 ```
 
 ## Packages to install
