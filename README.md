@@ -40,3 +40,13 @@ add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 * krita
 * gnome-tweak-tool
 * unity-tweak-tool
+
+## bumblebee configuration
+
+Before venturing down this route, it may be possible to simply install bumblebee and have everything work just fine. Doublecheck the status of Issue #759: [Bumblebee not working in Ubuntu 16.04](https://github.com/Bumblebee-Project/Bumblebee/issues/759#issuecomment-222922338)
+
+To get bumblebee (graphics switching) working correctly, follow the instructions at [Nvidia with Bumblebee installation for 16.04](http://askubuntu.com/a/749724/285038).
+
+Supporting information can be found at [Bumblebee on a Lenovo T440p [NVidia GT 730M] with XUbuntu/Ubuntu 16.04 LTS](http://lenovolinux.blogspot.com.au/2016/05/bumblebee-on-lenovo-t440p-nvidia-gt.html)
+
+Obviously, neither of the previous posts are necessary if the system in question only has one graphics card.
