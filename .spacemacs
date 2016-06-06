@@ -249,11 +249,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (setq-default rust-enable-racer t)
-  (setq company-tooltip-align-annotations t)
-  ; Add signature
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -268,10 +264,14 @@ you should place your code here."
   (setq magit-repository-directories '("~/src/"))
   (global-git-commit-mode t)
   (setq powerline-default-separator 'arrow)
+
+  ; somebody set us up the rust
+  (setq-default rust-enable-racer t)
+  (racer-turn-on-eldoc)
+  (setq company-tooltip-align-annotations t)
+  (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
   (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
   (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src")
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
 
   )
 
