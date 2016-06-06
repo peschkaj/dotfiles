@@ -250,7 +250,6 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (setq-default rust-enable-racer t)
-  (setq-default rust-enable-racer t)
   (setq company-tooltip-align-annotations t)
   ; Add signature
   (add-hook 'racer-mode-hook #'eldoc-mode)
@@ -271,6 +270,7 @@ you should place your code here."
   (setq powerline-default-separator 'arrow)
   (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
   (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src")
+  (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
 
   )

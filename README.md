@@ -12,6 +12,7 @@ deb http://apt.insynchq.com/ubuntu xenial non-free contrib
 apt-add-repository ppa:numix/ppa
 apt-add-repository ppa:nilarimogard/webupd8
 add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
+add-apt-repository ppa:moka/daily
 ```
 
 ## Packages to install
@@ -40,6 +41,11 @@ add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 * krita
 * gnome-tweak-tool
 * unity-tweak-tool
+* moka-icon-theme
+
+## Theme Tweaks
+
+To get firefox to display correctly, follow the instructions in [Fixes/Tweaks For Best Dark Theme Functionality.](Fixes/Tweaks For Best Dark Theme Functionality.) - but only if using a full dark theme (e.g. Arc Dark).
 
 ## bumblebee configuration
 
