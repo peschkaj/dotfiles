@@ -11,8 +11,8 @@ deb http://apt.insynchq.com/ubuntu xenial non-free contrib
 ```
 apt-add-repository ppa:numix/ppa
 apt-add-repository ppa:nilarimogard/webupd8
-add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 add-apt-repository ppa:moka/daily
+apt-add-repository ppa:eosrei/fonts
 ```
 
 ## Packages to install
@@ -42,6 +42,7 @@ add-apt-repository ppa:moka/daily
 * gnome-tweak-tool
 * unity-tweak-tool
 * moka-icon-theme
+* fonts-emojione-svginot
 
 ## Theme Tweaks
 
