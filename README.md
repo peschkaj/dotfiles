@@ -13,12 +13,16 @@ apt-add-repository ppa:numix/ppa
 apt-add-repository ppa:nilarimogard/webupd8
 add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 add-apt-repository ppa:moka/daily
+add-apt-repository ppa:leolik/leolik 
+add-apt-repository ppa:nilarimogard/webupd8
+add-apt-repository ppa:numix/ppa
 ```
 
 ## Packages to install
 
 * build-essential
 * nvidia-361
+* notifyosdconfig
 * prime-indicator
 * bbswitch
 * bbswitch-dkms
@@ -32,7 +36,7 @@ add-apt-repository ppa:moka/daily
 * exfat-fuse-utils
 * insync
 * zsh
-* arc-theme
+* arc-theme (see [Install package arc-theme](http://software.opensuse.org/download.html?project=home%3AHorst3180&package=arc-theme) for more details)
 * paper-icon-theme
 * numix-icon-theme
 * numix-icon-theme-circle
@@ -42,6 +46,34 @@ add-apt-repository ppa:moka/daily
 * gnome-tweak-tool
 * unity-tweak-tool
 * moka-icon-theme
+
+## Install oh-my-zsh
+
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+mv .zshrc .zshrc.old
+ln -s ~/src/peschkaj/dotfiles/.zshrc .zshrc
+```
+
+## Install spacemacs
+
+```
+cd ~
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
+```
+
+## Powerline Fonts
+
+Install powerline fonts from [the github repository](https://github.com/powerline/fonts)
+
+```
+mkdir -p ~/src/powerline
+cd ~/src/powerline
+git clone https://github.com/powerline/fonts
+cd fonts
+./install.sh
+```
 
 ## Theme Tweaks
 

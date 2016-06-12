@@ -2,6 +2,12 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+(defun system-is-armchair-traveler ()
+  (interactive)
+  "Return true if this is running on armchair-traveler"
+  (string-equal system-name "armchair-traveler")
+  )
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -39,7 +45,7 @@ values."
      rust
      javascript
      react
-     themes-megapack
+     ;themes-megapack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -48,6 +54,7 @@ values."
    dotspacemacs-additional-packages
    '(
      editorconfig
+     color-theme-flatland
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -117,10 +124,10 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 24
+                               :size 28
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.6)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -241,7 +248,16 @@ values."
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
    dotspacemacs-whitespace-cleanup 'changed
-   ))
+   )
+  ;; make the fonts big for those 4k displays!
+  (if (system-is-armchair-traveler)
+      (setq-default dotspacemacs-default-font '("Source Code Pro"
+                                                :size 14.0
+                                                :weight normal
+                                                :width normal
+                                                :powerline-scale 1.1))
+    )
+)
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -282,8 +298,10 @@ you should place your code here."
    web-mode-markup-indent-offset 2
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
+   web-mode-attr-indent-offset 2
   )
+  (spacemacs/load-theme 'flatland)
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
