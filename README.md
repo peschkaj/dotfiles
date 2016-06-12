@@ -11,11 +11,11 @@ deb http://apt.insynchq.com/ubuntu xenial non-free contrib
 ```
 apt-add-repository ppa:numix/ppa
 apt-add-repository ppa:nilarimogard/webupd8
-add-apt-repository ppa:ubuntu-mozilla-daily/firefox-aurora
 add-apt-repository ppa:moka/daily
-add-apt-repository ppa:leolik/leolik 
+add-apt-repository ppa:leolik/leolik
 add-apt-repository ppa:nilarimogard/webupd8
 add-apt-repository ppa:numix/ppa
+apt-add-repository ppa:eosrei/fonts
 ```
 
 ## Packages to install
@@ -46,6 +46,7 @@ add-apt-repository ppa:numix/ppa
 * gnome-tweak-tool
 * unity-tweak-tool
 * moka-icon-theme
+* fonts-emojione-svginot
 
 ## Install oh-my-zsh
 
