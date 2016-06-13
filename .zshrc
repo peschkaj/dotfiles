@@ -100,6 +100,7 @@ load-nvmrc
 
 export CARGO_HOME=/home/jeremiah/.cargo
 export RUST_SRC_PATH=/home/jeremiah/src/rust-lang/rust/src
+export RUST_NEW_ERROR_FORMAT=true
 
 export PATH="$PATH:/home/jeremiah/bin:/home/jeremiah/bin/p4/bin"
 
