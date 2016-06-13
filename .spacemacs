@@ -32,8 +32,10 @@ values."
      auto-completion
      ;; better-defaults
      emacs-lisp
+     emoji
      git
      github
+     html
      markdown
      ;; org
      ;; (shell :variables
@@ -55,6 +57,8 @@ values."
    '(
      editorconfig
      color-theme-flatland
+     ember-yasnippets
+     ember-mode
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -276,6 +280,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (exec-path-from-shell-initialize)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (setq magit-repository-directories '("~/src/"))
