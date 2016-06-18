@@ -270,6 +270,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (exec-path-from-shell-initialize)
   (setq powerline-default-separator 'arrow)
   )
 
@@ -280,7 +281,6 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (exec-path-from-shell-initialize)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
   (setq magit-repository-directories '("~/src/"))
@@ -294,7 +294,7 @@ you should place your code here."
   (add-hook 'racer-mode-hook #'company-mode)
   (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
   (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
-  (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src")
+  (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src/")
 
   ; oh, node...
   (setq tern-command '("node" "/home/jeremiah/.nvm/versions/node/v5.11.1/bin/tern"))
