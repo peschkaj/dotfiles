@@ -289,6 +289,9 @@ you should place your code here."
   ; somebody set us up the rust
   (setq-default rust-enable-racer t)
   (setq company-tooltip-align-annotations t)
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
   (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
   (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
   (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src")
