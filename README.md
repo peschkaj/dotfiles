@@ -30,6 +30,7 @@ apt-add-repository ppa:eosrei/fonts
 * powertop
 * cpufrequtils
 * emacs
+* exuberant-tags
 * git
 * htop
 * exfat-fuse
@@ -80,7 +81,28 @@ cd fonts
 
 To get firefox to display correctly, follow the instructions in [Fixes/Tweaks For Best Dark Theme Functionality.](Fixes/Tweaks For Best Dark Theme Functionality.) - but only if using a full dark theme (e.g. Arc Dark).
 
-## bumblebee configuration
+## Global `.gitignore`
+
+This doesn't work if it's configured in an include file, don't know why, but hey... I have a workaround.
+
+```
+ln -s ~/src/peschkaj/dotfiles/GIT_IGNORE ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
+```
+
+## Graphics
+
+### NVidia Graphics Driver PPAs
+
+Add the graphics driver PPA:
+
+```
+sudo apt-add-repository ppa:graphics-drivers/ppa
+```
+
+Check NVidia to see what the most recent driver is and install that.
+
+### bumblebee configuration (optional)
 
 Before venturing down this route, it may be possible to simply install bumblebee and have everything work just fine. Doublecheck the status of Issue #759: [Bumblebee not working in Ubuntu 16.04](https://github.com/Bumblebee-Project/Bumblebee/issues/759#issuecomment-222922338)
 

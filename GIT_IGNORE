@@ -3,3 +3,5 @@ TAGS
 .DS_STORE
 dot_emacs.d/elpa
 dot_emacs.d/url
+rusty-tags.emacs
+rusty-tags.vi
