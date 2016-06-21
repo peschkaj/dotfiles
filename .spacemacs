@@ -287,6 +287,10 @@ you should place your code here."
   (setq magit-repository-directories '("~/src/"))
   (global-git-commit-mode t)
 
+  ; C/C++ configuration
+  (setq c-default-style "linux"
+        c-basic-offset 4)
+
   ; somebody set us up the rust
   (setq-default rust-enable-racer t)
   (setq company-tooltip-align-annotations t)
