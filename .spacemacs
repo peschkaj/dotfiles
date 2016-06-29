@@ -301,18 +301,13 @@ you should place your code here."
   (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
   (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src/")
 
-  ; oh, node...
   (setq tern-command '("node" "/home/jeremiah/.nvm/versions/node/v5.11.1/bin/tern"))
-  (setq-default
-   ;; js2-mode
-   js2-basic-offset 2
-   ;; web-mode
-   css-indent-offset 2
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2
-  )
+  (setq-default js2-basic-offset 2
+                css-indent-offset 2
+                web-mode-markup-indent-offset 2
+                web-mode-css-indent-offset 2
+                web-mode-code-indent-offset 2
+                web-mode-attr-indent-offset 2)
   (spacemacs/load-theme 'flatland)
 )
 
