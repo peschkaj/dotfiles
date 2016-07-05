@@ -20,7 +20,7 @@ apt-add-repository ppa:eosrei/fonts
 
 ## Packages to install
 
-* build-essential
+
 * nvidia-361
 * notifyosdconfig
 * prime-indicator
@@ -29,9 +29,6 @@ apt-add-repository ppa:eosrei/fonts
 * primus
 * powertop
 * cpufrequtils
-* emacs
-* exuberant-tags
-* git
 * htop
 * exfat-fuse
 * exfat-fuse-utils
@@ -48,6 +45,38 @@ apt-add-repository ppa:eosrei/fonts
 * unity-tweak-tool
 * moka-icon-theme
 * fonts-emojione-svginot
+
+### VM Tools
+
+* remmina
+* qemu-kvm
+* docker-engine
+* aufs
+* linux-image-extra (may require a specific kernel version)
+* virt-manager
+
+### Development Tools
+
+* markdown
+* libssl-dev
+* build-essential
+* gdb
+* cmake
+* clang
+* clang-3.8-doc
+* llvm-3.8-doc
+* clang-format
+* emacs
+* exuberant-ctags
+* git
+* valgrind
+* valgrind-dbg
+* exuberant-ctags
+* lldb
+* lldb-3.8-dev
+* libboost-all-dev
+
+
 
 ## Install oh-my-zsh
 
