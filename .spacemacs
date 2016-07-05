@@ -287,6 +287,13 @@ you should place your code here."
   (setq magit-repository-directories '("~/src/"))
   (global-git-commit-mode t)
 
+  (when (configuration-layer/layer-usedp 'markdown)
+    (setq auto-mode-alist (cons '("\\.md$" . gfm-mode) auto-mode-alist))
+    (setq auto-mode-alist (cons '("\\.mdown$" . gfm-mode) auto-mode-alist))
+    (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
+    (setq auto-mode-alist (cons '("\\.markdown$" . gfm-mode) auto-mode-alist)))
+
+
   ; C/C++ configuration
   (setq c-default-style "linux"
         c-basic-offset 4)
