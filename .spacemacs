@@ -316,6 +316,8 @@ you should place your code here."
                 web-mode-code-indent-offset 2
                 web-mode-attr-indent-offset 2)
   (spacemacs/load-theme 'flatland)
+
+  (add-to-list 'default-frame-alist '(height . 24))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
