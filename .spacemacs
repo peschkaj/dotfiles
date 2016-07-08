@@ -316,6 +316,10 @@ you should place your code here."
                 web-mode-code-indent-offset 2
                 web-mode-attr-indent-offset 2)
   (spacemacs/load-theme 'flatland)
+
+  (defun my-gfm-mode-hook ()
+    (visual-line-mode 1))
+  (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
