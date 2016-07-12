@@ -324,6 +324,7 @@ you should place your code here."
   ; C/C++ configuration
   (setq c-default-style "linux"
         c-basic-offset 4)
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
   ; somebody set us up the rust
   (setq-default rust-enable-racer t)
@@ -347,6 +348,8 @@ you should place your code here."
   (defun my-gfm-mode-hook ()
     (visual-line-mode 1))
   (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
+  (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+  (setq tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
