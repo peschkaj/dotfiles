@@ -39,9 +39,11 @@ values."
      html
      markdown
      ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom
+            shell-default-shell 'ansi-term
+            shell-default-term-shell "/usr/bin/zsh")
      spell-checking
      syntax-checking
      version-control
@@ -57,7 +59,7 @@ values."
    dotspacemacs-additional-packages
    '(
      editorconfig
-     color-theme-flatland
+     ;; color-theme-flatland
      ember-yasnippets
      ember-mode
      )
@@ -70,7 +72,7 @@ values."
 
 (defun dotspacemacs/init ()
   "Initialization function.
-This function is called at the very startup of Spacemacs initialization
+This function is called at the very startup of Spacemacs initialization 
 before layers configuration.
 You should not put any user code in there besides modifying the variable
 values."
@@ -271,7 +273,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (exec-path-from-shell-initialize)
+  ;; (exec-path-from-shell-initialize)
   (setq powerline-default-separator 'arrow)
   )
 
@@ -293,6 +295,31 @@ you should place your code here."
     (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
     (setq auto-mode-alist (cons '("\\.markdown$" . gfm-mode) auto-mode-alist)))
 
+
+  ;; Spell check set up
+  (setq-default dotspacemacs-configuration-layers
+                '((spell-checking :variables spell-checking-enable-by-default nil)))
+  (dolist (hook '(lisp-mode-hook
+                  emacs-lisp-mode-hook
+                  ruby-mode-hook
+                  yaml-mode
+                  python-mode-hook
+                  shell-mode-hook
+                  php-mode-hook
+                  css-mode-hook
+                  nxml-mode-hook
+                  crontab-mode-hook
+                  perl-mode-hook
+                  javascript-mode-hook
+                  rust-mode-hook
+                  c++-mode-hook
+                  c-mode-common-hook
+                  LaTeX-mode-hook))
+    (add-hook hook 'flyspell-prog-mode))
+  (dolist (hook '(text-mode
+                  markdown-mode
+                  gfm-mode))
+    (add-hook hook 'flyspell-mode))
 
   ; C/C++ configuration
   (setq c-default-style "linux"
