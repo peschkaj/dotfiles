@@ -44,7 +44,8 @@ values."
             shell-default-position 'bottom
             shell-default-shell 'ansi-term
             shell-default-term-shell "/usr/bin/zsh")
-     spell-checking
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil)
      syntax-checking
      version-control
      rust
@@ -297,8 +298,9 @@ you should place your code here."
 
 
   ;; Spell check set up
-  (setq-default dotspacemacs-configuration-layers
-                '((spell-checking :variables spell-checking-enable-by-default nil)))
+  ;; (setq-default dotspacemacs-configuration-layers
+  ;;               '((spell-checking :variables spell-checking-enable-by-default nil)))
+  (setq flyspell-mode 0)
   (dolist (hook '(lisp-mode-hook
                   emacs-lisp-mode-hook
                   ruby-mode-hook
@@ -336,7 +338,7 @@ you should place your code here."
   (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
   (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src/")
 
-  (setq tern-command '("node" "/home/jeremiah/.nvm/versions/node/v5.11.1/bin/tern"))
+  ;; (setq tern-command '("node" "/home/jeremiah/.nvm/versions/node/v5.11.1/bin/tern"))
   (setq-default js2-basic-offset 2
                 css-indent-offset 2
                 web-mode-markup-indent-offset 2
@@ -350,6 +352,12 @@ you should place your code here."
   (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
   (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
   (setq tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
+
+  ;; set up ace window to make it a little more sane
+  (setq aw-dispatch-always t)
+  ;; Yeah, because I can really remember ASDFGHJKL and know which one is 7. LOL
+  (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
