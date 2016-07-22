@@ -126,6 +126,7 @@ values."
                          monokai
                          zenburn
                          flatland
+                         gruber-darker
                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
