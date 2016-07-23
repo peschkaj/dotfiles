@@ -129,3 +129,5 @@ function emacs {
 
 export SCALA_HOME=/usr/local/share/scala
 export PATH=$PATH:$SCALA_HOME/bin
+
+alias vout="valgrind --track-origins=yes ./a.out"
