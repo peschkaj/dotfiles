@@ -30,10 +30,13 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
-     c-c++
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-support t
+      )
      better-defaults
      emacs-lisp
-     emoji
+     ;; emoji
      git
      github
      html
@@ -49,8 +52,8 @@ values."
      syntax-checking
      version-control
      rust
-     javascript
-     react
+     ;javascript
+     ;react
      ;themes-megapack
      )
    ;; List of additional packages that will be installed without being
@@ -61,8 +64,8 @@ values."
    '(
      editorconfig
      ;; color-theme-flatland
-     ember-yasnippets
-     ember-mode
+     ;; ember-yasnippets
+     ;; ember-mode
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -327,11 +330,10 @@ you should place your code here."
   ; C/C++ configuration
   (setq c-default-style "linux"
         c-basic-offset 4)
-  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
   ; somebody set us up the rust
   (setq-default rust-enable-racer t)
-  (setq company-tooltip-align-annotations t)
+  ;(setq company-tooltip-align-annotations t)
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (add-hook 'racer-mode-hook #'company-mode)
@@ -339,13 +341,13 @@ you should place your code here."
   (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
   (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src/")
 
-  ;; (setq tern-command '("node" "/home/jeremiah/.nvm/versions/node/v5.11.1/bin/tern"))
-  (setq-default js2-basic-offset 2
-                css-indent-offset 2
-                web-mode-markup-indent-offset 2
-                web-mode-css-indent-offset 2
-                web-mode-code-indent-offset 2
-                web-mode-attr-indent-offset 2)
+  ;; (setq tern-command '("node" "/home/jeremiah/.nvm/versions/node/v6.2.1/bin/tern"))
+  ;; (setq-default js2-basic-offset 2
+  ;;               css-indent-offset 2
+  ;;               web-mode-markup-indent-offset 2
+  ;;               web-mode-css-indent-offset 2
+  ;;               web-mode-code-indent-offset 2
+  ;;               web-mode-attr-indent-offset 2)
   (spacemacs/load-theme 'flatland)
 
   (defun my-gfm-mode-hook ()
@@ -358,7 +360,6 @@ you should place your code here."
   (setq aw-dispatch-always t)
   ;; Yeah, because I can really remember ASDFGHJKL and know which one is 7. LOL
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
-
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
