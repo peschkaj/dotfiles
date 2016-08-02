@@ -360,6 +360,11 @@ you should place your code here."
   (setq aw-dispatch-always t)
   ;; Yeah, because I can really remember ASDFGHJKL and know which one is 7. LOL
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
+
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "google-chrome")
+
+  (setq-default flycheck-disabled-checkers '(c/c++-cppcheck))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
