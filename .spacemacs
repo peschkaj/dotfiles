@@ -365,6 +365,12 @@ you should place your code here."
         browse-url-generic-program "google-chrome")
 
   (setq-default flycheck-disabled-checkers '(c/c++-cppcheck))
+
+  ;; Disables suspend keys so we aren't locking up emacs in a GUI
+  (when (display-graphic-p)
+    (global-unset-key [(control z)])
+    (global-unset-key [(control x)(control z)])
+    )
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
