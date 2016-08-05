@@ -33,7 +33,10 @@ values."
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t
-      )
+            )
+     gtags
+     semantic
+
      better-defaults
      emacs-lisp
      ;; emoji
@@ -54,7 +57,8 @@ values."
      rust
      ;javascript
      ;react
-     ;themes-megapack
+                                        ;themes-megapack
+     irony-mode
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -89,7 +93,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -361,10 +365,16 @@ you should place your code here."
   ;; Yeah, because I can really remember ASDFGHJKL and know which one is 7. LOL
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
 
-  (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "google-chrome")
-
   (setq-default flycheck-disabled-checkers '(c/c++-cppcheck))
+
+  (semantic-add-system-include "/usr/include")
+  (semantic-add-system-include "/usr/local/include")
+
+  ;; machine specific configuration
+  (if (system-is-armchair-traveler)
+      (setq browse-url-browser-function 'browse-url-generic
+            browse-url-generic-program "google-chrome")
+    )
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
