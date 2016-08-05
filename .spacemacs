@@ -374,6 +374,10 @@ you should place your code here."
   (if (system-is-armchair-traveler)
       (setq browse-url-browser-function 'browse-url-generic
             browse-url-generic-program "google-chrome")
+  ;; Disables suspend keys so we aren't locking up emacs in a GUI
+  (when (display-graphic-p)
+    (global-unset-key [(control z)])
+    (global-unset-key [(control x)(control z)])
     )
 )
 
