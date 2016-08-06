@@ -35,6 +35,7 @@ values."
             c-c++-enable-clang-support t
             )
      gtags
+     rtags
      semantic
 
      better-defaults
@@ -334,6 +335,10 @@ you should place your code here."
   ; C/C++ configuration
   (setq c-default-style "linux"
         c-basic-offset 4)
+  ;; rtags setup is moved to the private rtags package
+  ;; irony-mode configuration is handled in the private irony-mode package
+
+
 
   ; somebody set us up the rust
   (setq-default rust-enable-racer t)
