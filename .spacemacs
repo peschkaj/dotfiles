@@ -34,12 +34,16 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t
             )
-     gtags
+     ;; Disabling semantic because it gets in the way of M-v when stickyfunc
+     ;; minor mode is enabled
+     ;; (semantic :variables
+     ;;           global-semantic-stickyfunc-mode nil)
+     irony-mode
      rtags
-     semantic
 
      better-defaults
      emacs-lisp
+     scheme
      ;; emoji
      git
      github
@@ -55,11 +59,10 @@ values."
                      spell-checking-enable-by-default nil)
      syntax-checking
      version-control
-     rust
+     ;rust
      ;javascript
      ;react
-                                        ;themes-megapack
-     irony-mode
+     ;themes-megapack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -372,18 +375,14 @@ you should place your code here."
 
   (setq-default flycheck-disabled-checkers '(c/c++-cppcheck))
 
-  (semantic-add-system-include "/usr/include")
-  (semantic-add-system-include "/usr/local/include")
-
   ;; machine specific configuration
   (if (system-is-armchair-traveler)
       (setq browse-url-browser-function 'browse-url-generic
             browse-url-generic-program "google-chrome"))
   ;; Disables suspend keys so we aren't locking up emacs in a GUI
-  (when (display-graphic-p)
-    (global-unset-key [(control z)])
-    (global-unset-key [(control x)(control z)])
-    )
+  (global-unset-key (kbd "C-z"))
+  (global-unset-key (kbd "C-x C-z"))
+
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
