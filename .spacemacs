@@ -30,14 +30,14 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
+     semantic
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t
             )
      ;; Disabling semantic because it gets in the way of M-v when stickyfunc
      ;; minor mode is enabled
-     ;; (semantic :variables
-     ;;           global-semantic-stickyfunc-mode nil)
+
      irony-mode
      rtags
 
@@ -49,7 +49,7 @@ values."
      github
      html
      markdown
-     ;; org
+     org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -59,7 +59,7 @@ values."
                      spell-checking-enable-by-default nil)
      syntax-checking
      version-control
-     ;rust
+     rust
      ;javascript
      ;react
      ;themes-megapack
@@ -382,7 +382,6 @@ you should place your code here."
   ;; Disables suspend keys so we aren't locking up emacs in a GUI
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
-
 )
 
 ;; Do not write anything past this comment. This is where Emacs will

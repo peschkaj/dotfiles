@@ -1,6 +1,6 @@
 # dotfiles!
 
-## /etc/sources.list
+## /etc/apt/sources.list
 
 ```
 deb http://apt.insynchq.com/ubuntu xenial non-free contrib
@@ -13,38 +13,37 @@ apt-add-repository ppa:numix/ppa
 apt-add-repository ppa:nilarimogard/webupd8
 add-apt-repository ppa:moka/daily
 add-apt-repository ppa:leolik/leolik
-add-apt-repository ppa:nilarimogard/webupd8
-add-apt-repository ppa:numix/ppa
 apt-add-repository ppa:eosrei/fonts
 ```
 
 ## Packages to install
 
-
-* nvidia-361
 * notifyosdconfig
-* prime-indicator
-* bbswitch
-* bbswitch-dkms
-* primus
-* powertop
-* cpufrequtils
 * htop
 * exfat-fuse
 * exfat-fuse-utils
 * insync
 * zsh
-* arc-theme (see [Install package arc-theme](http://software.opensuse.org/download.html?project=home%3AHorst3180&package=arc-theme) for more details)
 * paper-icon-theme
-* numix-icon-theme
-* numix-icon-theme-circle
 * acpid
-* tlp
-* krita
 * gnome-tweak-tool
 * unity-tweak-tool
 * moka-icon-theme
 * fonts-emojione-svginot
+
+### For a Laptop
+
+* tlp
+* cpufrequtils
+* powertop
+
+### Clone the flatabulous theme
+
+```
+cd ~
+mkdir .themes
+git clone git@github.com:anmoljagetia/Flatabulous.git
+```
 
 ### VM Tools
 
@@ -75,8 +74,20 @@ apt-add-repository ppa:eosrei/fonts
 * lldb
 * lldb-3.8-dev
 * libboost-all-dev
+* racket racket-common racket-doc
+* guile-2.0
+* lua5.3 liblua5.3-dev
+* mit-scheme
+* global
 
 
+### Graphics Drivers
+
+* prime-indicator
+* bbswitch
+* bbswitch-dkms
+* primus
+* nvidia-361 - change this to the current nvida driver
 
 ## Install oh-my-zsh
 
@@ -92,7 +103,11 @@ ln -s ~/src/peschkaj/dotfiles/.zshrc .zshrc
 cd ~
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
+rm -rf ~/.emacs.d/private/
+ln -s /home/jeremiah/src/peschkaj/dotfiles/spacemacs-private ~/.emacs.d/private
 ```
+
+
 
 ## Powerline Fonts
 
@@ -106,9 +121,6 @@ cd fonts
 ./install.sh
 ```
 
-## Theme Tweaks
-
-To get firefox to display correctly, follow the instructions in [Fixes/Tweaks For Best Dark Theme Functionality.](Fixes/Tweaks For Best Dark Theme Functionality.) - but only if using a full dark theme (e.g. Arc Dark).
 
 ## Global `.gitignore`
 
@@ -140,3 +152,13 @@ To get bumblebee (graphics switching) working correctly, follow the instructions
 Supporting information can be found at [Bumblebee on a Lenovo T440p [NVidia GT 730M] with XUbuntu/Ubuntu 16.04 LTS](http://lenovolinux.blogspot.com.au/2016/05/bumblebee-on-lenovo-t440p-nvidia-gt.html)
 
 Obviously, neither of the previous posts are necessary if the system in question only has one graphics card.
+
+## Theme Tweaks
+
+To get firefox to display correctly, follow the instructions in [Fixes/Tweaks For Best Dark Theme Functionality.](Fixes/Tweaks For Best Dark Theme Functionality.) - but only if using a full dark theme (e.g. Arc Dark).
+
+## Removed Items
+
+* ~~arc-theme (see [Install package arc-theme](http://software.opensuse.org/download.html?project=home%3AHorst3180&package=arc-theme) for more details)~~
+* ~~numix-icon-theme~~
+* ~~numix-icon-theme-circle~~
