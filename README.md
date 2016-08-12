@@ -18,6 +18,13 @@ apt-add-repository ppa:eosrei/fonts
 
 Add the [paper icon repository](https://snwh.org/paper/download) 
 
+And then the docker configuration:
+```
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+sudo apt-get update
+```
+
 ## Packages to install
 
 * notifyosdconfig
@@ -52,7 +59,7 @@ git clone git@github.com:anmoljagetia/Flatabulous.git
 * remmina
 * qemu-kvm
 * docker-engine
-* aufs
+* aufs-tools
 * linux-image-extra (may require a specific kernel version)
 * virt-manager
 
