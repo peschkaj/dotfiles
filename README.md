@@ -1,54 +1,85 @@
 # dotfiles!
 
-## /etc/apt/sources.list
+## Initial Set Up
+
+``` shell
+sudo apt install git
+mkdir -p ~/src/peschkaj
+cd ~/src/peschkaj
+git clone git@github.com:peschkaj/dotfiles.git
+
+ln -s ~/.zshrc ~/src/peschkaj/dotfiles/.zshrc
+```
+
+### Prepare for spacemacs
 
 ```
-deb http://apt.insynchq.com/ubuntu xenial non-free contrib
+cd ~
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
+rm -rf ~/.emacs.d/private/
+ln -s /home/jeremiah/src/peschkaj/dotfiles/spacemacs-private ~/.emacs.d/private
+```
+
+## /etc/apt/sources.list
+
+``` shell
+cd ~
+wget -qO - https://d2t3ff60b2tol4.cloudfront.net/services@insynchq.com.gpg.key \
+| sudo apt-key add -
+sudo echo "\n\n\ndeb http://apt.insynchq.com/ubuntu xenial non-free contrib" >> /etc/apt/sources.list
 ```
 
 ## PPAs
 
-```
-apt-add-repository ppa:numix/ppa
-apt-add-repository ppa:nilarimogard/webupd8
-add-apt-repository ppa:moka/daily
-add-apt-repository ppa:leolik/leolik
-apt-add-repository ppa:eosrei/fonts
+``` shell
+sudo add-apt-repository ppa:numix/ppa
+sudo add-apt-repository ppa:nilarimogard/webupd8
+sudo add-apt-repository ppa:moka/daily
+sudo add-apt-repository ppa:leolik/leolik
+sudo add-apt-repository ppa:eosrei/fonts
+sudo add-apt-repository ppa:noobslab/icons
+sudo add-apt-repository ppa:leolik/leolik
+sudo add-apt-repository ppa:snwh/pulp
+
+sudo apt update && sudo apt upgrade
 ```
 
-Add the [paper icon repository](https://snwh.org/paper/download) 
+Add the [paper icon repository](https://snwh.org/paper/download)
 
 And then the docker configuration:
-```
+``` shell
 sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
 sudo apt-get update
 ```
 
-## Packages to install
+## Packages to installed
 
-* notifyosdconfig
-* htop
-* exfat-fuse
-* exfat-fuse-utils
-* insync
-* zsh
-* paper-icon-theme
-* acpid
-* gnome-tweak-tool
-* unity-tweak-tool
-* moka-icon-theme
-* fonts-emojione-svginot
+``` shell
+sudo apt install notifyosdconfig \
+                 htop \
+                 exfat-fuse exfat-fuse-utils \
+                 insync \
+                 zsh \
+                 paper-icon-theme paper-gtk-theme paper-cursor-theme \
+                 moka-icon-theme \
+                 acpid \
+                 gnome-tweak-tool unity-tweak-tool \
+                 fonts-emojione-svginot
+```
 
 ### For a Laptop
 
-* tlp
-* cpufrequtils
-* powertop
+``` shell
+sudo apt install tlp \
+                 cpufrequtils \
+                 powertop
+```
 
 ### Clone the flatabulous theme
 
-```
+``` shell
 cd ~
 mkdir .themes
 git clone git@github.com:anmoljagetia/Flatabulous.git
@@ -56,7 +87,7 @@ git clone git@github.com:anmoljagetia/Flatabulous.git
 
 ### Install the Source Code Pro font
 
-```
+``` shell
 #!/bin/sh
 
 echo "installing fonts at $PWD to ~/.fonts/"
@@ -69,49 +100,39 @@ echo "finished installing"
 
 ### VM Tools
 
-* remmina
-* qemu-kvm
-* docker-engine
-* aufs-tools
-* linux-image-extra (may require a specific kernel version)
-* virt-manager
+``` shell
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+```
+
+Now install VM tooling:
+
+``` shell
+sudo apt install remmina \
+                 qemu-kvm \
+                 docker-engine \
+                 aufs \
+                 virt-manager
+```
 
 ### Development Tools
 
-* markdown
-* libssl-dev
-* build-essential
-* gdb
-* cmake
-* cmake-extras
-* bless
-* clang
-* clang-3.8-doc
-* libclang-3.8-dev
-* llvm
-* llvm-dev
-* llvm-3.8-doc
-* clang-format
-* emacs
-* exuberant-ctags
-* git
-* valgrind
-* valgrind-dbg
-* lldb
-* lldb-3.8-dev
-* libboost-all-dev
-* racket racket-common racket-doc
-* guile-2.0
-* lua5.3 liblua5.3-dev
-* mit-scheme
-* global
- 
-**rtags**
+``` shell
+sudo apt install markdown libssl-dev gdb cmake \
+                 clang llvm lldb libclang-dev clang-format \
+                 clang-3.8-doc llvm-3.8-doc lldb lldb-3.8-dev \
+                 zsh-doc \
+                 exuberant-ctags valgrind valgrind-dbg libboost-all-dev \
+                 racket racket-common racket-doc \
+                 guile-2.0 lua5.3 liblua5.3-dev \
+                 mit-scheme global \
+                 emacs
 ```
-# Create a valid symlink for llvm-config
-sudo ln -s /usr/bin/llvm-config-3.8 /usr/local/bin/llvm-config
 
-cd src
+**rtags**
+
+```
+cd ~/src
 git clone --recursive https://github.com/Andersbakken/rtags.git
 cd rtags
 mkdir build
@@ -121,32 +142,37 @@ make
 sudo make install
 ```
 
+Create a user daemon according to [Integration with `systemd`](https://github.com/Andersbakken/rtags#integration-with-systemd-gnu-linux)
+
+**Rust**
+
+```
+curl https://sh.rustup.rs -sSf | sh
+mkdir -p ~/src/rust-lang
+cd ~/src/rust-lang
+git clone git@github.com:rust-lang/rust.git
+
+rustup default nightly
+```
 
 ### Graphics Drivers
 
-* prime-indicator
-* bbswitch
-* bbswitch-dkms
-* primus
-* nvidia-361 - change this to the current nvida driver
+``` shell
+sudo apt install prime-indicator \
+                 bbswitch \
+                 bbswitch-dkms \
+                 primus
+```
+
+**Manually** add the NVidia repo and select the current NVidia driver.
 
 ## Install oh-my-zsh
 
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-mv .zshrc .zshrc.old
-ln -s ~/src/peschkaj/dotfiles/.zshrc .zshrc
 ```
 
-## Install spacemacs
 
-```
-cd ~
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
-rm -rf ~/.emacs.d/private/
-ln -s /home/jeremiah/src/peschkaj/dotfiles/spacemacs-private ~/.emacs.d/private
-```
 
 
 
@@ -169,7 +195,19 @@ This doesn't work if it's configured in an include file, don't know why, but hey
 
 ```
 ln -s ~/src/peschkaj/dotfiles/GIT_IGNORE ~/.gitignore_global
-git config --global core.excludesfile ~/.gitignore_global
+
+cat << EOF > ~/.gitconfig
+[include]
+    path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig
+[include]
+    path = /home/jeremiah/src/peschkaj/dotfiles/git/github
+[include]
+    path = /home/jeremiah/src/peschkaj/dotfiles/git/linux
+
+[core]
+    excludesfile = /home/jeremiah/.gitignore_global
+
+EOF
 ```
 
 ## Graphics

@@ -83,21 +83,21 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="subl ~/.zshrc"
 alias ohmyzsh="subl ~/.oh-my-zsh"
 
-export NVM_DIR="/home/jeremiah/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#export NVM_DIR="/home/jeremiah/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # place this after nvm initialization!
-autoload -U add-zsh-hook
-load-nvmrc() {
-    if [[ -f .nvmrc && -r .nvmrc ]]; then
-        nvm use
-    elif [[ $(nvm version) != $(nvm version default)  ]]; then
-        echo "Reverting to nvm default version"
-        nvm use default
-    fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+#autoload -U add-zsh-hook
+#load-nvmrc() {
+#    if [[ -f .nvmrc && -r .nvmrc ]]; then
+#        nvm use
+#    elif [[ $(nvm version) != $(nvm version default)  ]]; then
+#        echo "Reverting to nvm default version"
+#        nvm use default
+#    fi
+#}
+#add-zsh-hook chpwd load-nvmrc
+#load-nvmrc
 
 export CARGO_HOME=/home/jeremiah/.cargo
 export RUST_SRC_PATH=/home/jeremiah/src/rust-lang/rust/src
