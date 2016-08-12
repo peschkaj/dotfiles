@@ -13,12 +13,16 @@ ln -s ~/.zshrc ~/src/peschkaj/dotfiles/.zshrc
 
 ### Prepare for spacemacs
 
+**N.B.** First emacs launch is going to take _forever_. If any of the ELPA repositories are down, this launch will fail until they're available.
+
 ```
 cd ~
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
 rm -rf ~/.emacs.d/private/
 ln -s /home/jeremiah/src/peschkaj/dotfiles/spacemacs-private ~/.emacs.d/private
+
+sudo cp ~/src/peschkaj/dotfiles/emc.sh /usr/local/bin/emc.sh
 ```
 
 ## /etc/apt/sources.list
@@ -41,6 +45,7 @@ sudo add-apt-repository ppa:eosrei/fonts
 sudo add-apt-repository ppa:noobslab/icons
 sudo add-apt-repository ppa:leolik/leolik
 sudo add-apt-repository ppa:snwh/pulp
+sudo apt-add-repository ppa:graphics-drivers/ppa
 
 sudo apt update && sudo apt upgrade
 ```
@@ -98,6 +103,16 @@ fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
 echo "finished installing"
 ```
 
+### Powerline Fonts
+
+``` shell
+mkdir -p ~/src/powerline/
+cd ~/src/powerline
+git clone https://github.com/powerline/fonts
+cd fonts
+./install.sh
+```
+
 ### VM Tools
 
 ``` shell
@@ -118,16 +133,20 @@ sudo apt install remmina \
 ### Development Tools
 
 ``` shell
-sudo apt install markdown libssl-dev gdb cmake \
-                 clang llvm lldb libclang-dev clang-format \
+sudo apt install markdown libssl-dev gdb \
+                 cmake cmake-extras bless \
+                 clang llvm llvm-dev lldb libclang-dev clang-format \
                  clang-3.8-doc llvm-3.8-doc lldb lldb-3.8-dev \
                  zsh-doc \
                  exuberant-ctags valgrind valgrind-dbg libboost-all-dev \
                  racket racket-common racket-doc \
                  guile-2.0 lua5.3 liblua5.3-dev \
                  mit-scheme global \
-                 emacs
+                 emacs-lucid ncurses-term \
+                 gnutls-bin libgnutls-dev
 ```
+
+After installing emacs, edit `/usr/share/applications/emacs24-lucid.application` to point to the `/usr/local/bin/emc.sh` script.
 
 **rtags**
 
