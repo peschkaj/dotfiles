@@ -16,6 +16,8 @@ add-apt-repository ppa:leolik/leolik
 apt-add-repository ppa:eosrei/fonts
 ```
 
+Add the [paper icon repository](https://snwh.org/paper/download) 
+
 ## Packages to install
 
 * notifyosdconfig
