@@ -344,7 +344,7 @@ you should place your code here."
 
   ; somebody set us up the rust
   (setq-default rust-enable-racer t)
-  ;(setq company-tooltip-align-annotations t)
+  (setq company-tooltip-align-annotations t)
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (add-hook 'racer-mode-hook #'company-mode)
