@@ -83,8 +83,13 @@ echo "finished installing"
 * build-essential
 * gdb
 * cmake
+* cmake-extras
+* bless
 * clang
 * clang-3.8-doc
+* libclang-3.8-dev
+* llvm
+* llvm-dev
 * llvm-3.8-doc
 * clang-format
 * emacs
@@ -92,7 +97,6 @@ echo "finished installing"
 * git
 * valgrind
 * valgrind-dbg
-* exuberant-ctags
 * lldb
 * lldb-3.8-dev
 * libboost-all-dev
@@ -101,6 +105,21 @@ echo "finished installing"
 * lua5.3 liblua5.3-dev
 * mit-scheme
 * global
+ 
+**rtags**
+```
+# Create a valid symlink for llvm-config
+sudo ln -s /usr/bin/llvm-config-3.8 /usr/local/bin/llvm-config
+
+cd src
+git clone --recursive https://github.com/Andersbakken/rtags.git
+cd rtags
+mkdir build
+cd build
+LIBCLANG_LLVM_CONFIG_EXECUTABLE=/usr/local/bin/llvm-config cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DRTAGS_NO_BUILD_CLANG=1 ..
+make
+sudo make install
+```
 
 
 ### Graphics Drivers
