@@ -53,8 +53,8 @@ ZSH_THEME="kolo"
 plugins=(git debian docker emacs history systemd)
 
 # User configuration
+## PATH moved to .zshenv
 
-export PATH="/home/jeremiah/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -83,27 +83,9 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="emacs ~/.zshrc"
 alias ohmyzsh="emacs ~/.oh-my-zsh"
 
-#export NVM_DIR="/home/jeremiah/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# place this after nvm initialization!
-#autoload -U add-zsh-hook
-#load-nvmrc() {
-#    if [[ -f .nvmrc && -r .nvmrc ]]; then
-#        nvm use
-#    elif [[ $(nvm version) != $(nvm version default)  ]]; then
-#        echo "Reverting to nvm default version"
-#        nvm use default
-#    fi
-#}
-#add-zsh-hook chpwd load-nvmrc
-#load-nvmrc
-
-export CARGO_HOME=/home/jeremiah/.cargo
-export RUST_SRC_PATH=/home/jeremiah/src/rust-lang/rust/src
 export RUST_NEW_ERROR_FORMAT=true
 
-export PATH="$PATH:/home/jeremiah/bin:/home/jeremiah/bin/p4/bin"
+export PATH="$PATH:/home/jeremiah/bin/p4/bin"
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -c"
@@ -127,7 +109,6 @@ function emacs {
     setsid emacsclient -n -a /usr/bin/emacs ${args[*]}
 }
 
-export SCALA_HOME=/usr/local/share/scala
-export PATH=$PATH:$SCALA_HOME/bin
+
 
 alias vout="valgrind --track-origins=yes --leak-check=full ./a.out"

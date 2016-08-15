@@ -285,7 +285,10 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  ;; (exec-path-from-shell-initialize)
+
+  (add-to-list 'exec-path-from-shell-variables "RUST_SRC_PATH")
+  (add-to-list 'exec-path-from-shell-variables "CARGO_HOME")
+
   (setq powerline-default-separator 'arrow)
   )
 
@@ -334,7 +337,7 @@ you should place your code here."
                   gfm-mode))
     (add-hook hook 'flyspell-mode))
 
-  ; C/C++ configuration
+  ;; C/C++ configuration
   (setq c-default-style "linux"
         c-basic-offset 4)
   ;; rtags setup is moved to the private rtags package
@@ -342,15 +345,15 @@ you should place your code here."
 
 
 
-  ; somebody set us up the rust
+  ;; somebody set us up the rust
   (setq-default rust-enable-racer t)
+  (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
+  (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src/")
   (setq company-tooltip-align-annotations t)
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (add-hook 'racer-mode-hook #'company-mode)
   (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
-  (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
-  (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src/")
 
   ;; (setq tern-command '("node" "/home/jeremiah/.nvm/versions/node/v6.2.1/bin/tern"))
   ;; (setq-default js2-basic-offset 2
@@ -381,6 +384,8 @@ you should place your code here."
   ;; Disables suspend keys so we aren't locking up emacs in a GUI
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
+
+  (exec-path-from-shell-initialize)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
