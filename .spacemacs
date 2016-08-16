@@ -59,8 +59,6 @@ values."
      syntax-checking
      version-control
      rust
-     ;javascript
-     ;react
      ;themes-megapack
      )
    ;; List of additional packages that will be installed without being
@@ -71,8 +69,6 @@ values."
    '(
      editorconfig
      ;; color-theme-flatland
-     ;; ember-yasnippets
-     ;; ember-mode
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -355,13 +351,6 @@ you should place your code here."
   (add-hook 'racer-mode-hook #'company-mode)
   (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 
-  ;; (setq tern-command '("node" "/home/jeremiah/.nvm/versions/node/v6.2.1/bin/tern"))
-  ;; (setq-default js2-basic-offset 2
-  ;;               css-indent-offset 2
-  ;;               web-mode-markup-indent-offset 2
-  ;;               web-mode-css-indent-offset 2
-  ;;               web-mode-code-indent-offset 2
-  ;;               web-mode-attr-indent-offset 2)
   (spacemacs/load-theme 'flatland)
 
   (defun my-gfm-mode-hook ()
