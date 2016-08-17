@@ -8,7 +8,7 @@ mkdir -p ~/src/peschkaj
 cd ~/src/peschkaj
 git clone git@github.com:peschkaj/dotfiles.git
 
-ln -s ~/.zshrc ~/src/peschkaj/dotfiles/.zshrc
+ln -s ~/src/peschkaj/dotfiles/.zshrc ~/.zshrc
 ```
 
 ### Prepare for spacemacs
@@ -37,15 +37,15 @@ sudo echo "\n\n\ndeb http://apt.insynchq.com/ubuntu xenial non-free contrib" >> 
 ## PPAs
 
 ``` shell
-sudo add-apt-repository ppa:numix/ppa
-sudo add-apt-repository ppa:nilarimogard/webupd8
-sudo add-apt-repository ppa:moka/daily
-sudo add-apt-repository ppa:leolik/leolik
-sudo add-apt-repository ppa:eosrei/fonts
-sudo add-apt-repository ppa:noobslab/icons
-sudo add-apt-repository ppa:leolik/leolik
-sudo add-apt-repository ppa:snwh/pulp
-sudo apt-add-repository ppa:graphics-drivers/ppa
+sudo add-apt-repository -y ppa:numix/ppa
+sudo add-apt-repository -y ppa:nilarimogard/webupd8
+sudo add-apt-repository -y ppa:moka/daily
+sudo add-apt-repository -y ppa:leolik/leolik
+sudo add-apt-repository -y ppa:eosrei/fonts
+sudo add-apt-repository -y ppa:noobslab/icons
+sudo add-apt-repository -y ppa:leolik/leolik
+sudo add-apt-repository -y ppa:snwh/pulp
+sudo apt-add-repository -y ppa:graphics-drivers/ppa
 
 sudo apt update && sudo apt upgrade
 ```
