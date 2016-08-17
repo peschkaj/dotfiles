@@ -64,7 +64,7 @@ sudo apt-get update
 ``` shell
 sudo apt install notifyosdconfig \
                  htop \
-                 exfat-fuse exfat-fuse-utils \
+                 exfat-fuse exfat-utils \
                  insync \
                  zsh \
                  paper-icon-theme paper-gtk-theme paper-cursor-theme \
