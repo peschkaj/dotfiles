@@ -36,6 +36,9 @@ values."
             )
      ;; Disabling semantic because it gets in the way of M-v when stickyfunc
      ;; minor mode is enabled
+     ;; (semantic :variables
+     ;;           global-semantic-stickyfunc-mode -1
+     ;;           semantic-stickyfunc-mode -1)
 
      irony-mode
      rtags
@@ -375,6 +378,27 @@ you should place your code here."
   (global-unset-key (kbd "C-x C-z"))
 
   (exec-path-from-shell-initialize)
+
+  ;; semantic configuration
+  ;;
+  ;; Skipping the semantic layer because getting it set up correctly for
+  ;; my purposes requires modifying the layer's source. Since that's
+  ;; probably not the best option, instead we re-implement the wheel.
+  (require 'semantic)
+  (require 'semantic/sb)
+  (require 'srecode)
+  (semantic-mode 1)
+  (global-semanticdb-minor-mode 1)
+  (global-semantic-idle-scheduler-mode 1)
+  (global-semantic-idle-completions-mode 1)
+  (global-semantic-decoration-mode 1)
+  (global-semantic-highlight-func-mode 1)
+  (global-semantic-stickyfunc-mode -1)
+  (global-semantic-idle-summary-mode 1)
+  (global-semantic-mru-bookmark-mode 1)
+  (semanticdb-enable-gnu-global-databases 'c-mode)
+  (semanticdb-enable-gnu-global-databases 'c++-mode)
+  (set-default 'semantic-case-fold t)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
