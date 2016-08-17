@@ -87,6 +87,7 @@ sudo apt install tlp \
 ``` shell
 cd ~
 mkdir .themes
+cd .themes
 git clone git@github.com:anmoljagetia/Flatabulous.git
 ```
 
