@@ -34,11 +34,7 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t
             )
-     ;; Disabling semantic because it gets in the way of M-v when stickyfunc
-     ;; minor mode is enabled
-     ;; (semantic :variables
-     ;;           global-semantic-stickyfunc-mode -1
-     ;;           semantic-stickyfunc-mode -1)
+     ;; Semantic configuration is move to the end of dotspacemacs/user-config
 
      irony-mode
      rtags
