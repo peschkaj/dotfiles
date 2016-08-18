@@ -3,12 +3,19 @@
 ## Initial Set Up
 
 ``` shell
+sudo apt install zsh
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 sudo apt install git
 mkdir -p ~/src/peschkaj
 cd ~/src/peschkaj
 git clone git@github.com:peschkaj/dotfiles.git
 
+rm .zshrc .zshenv
+
 ln -s ~/src/peschkaj/dotfiles/.zshrc ~/.zshrc
+ln -s ~/src/peschkaj/dotfiles/.zshenv ~/.zshenv
 ```
 
 ### Prepare for spacemacs
@@ -31,7 +38,7 @@ sudo cp ~/src/peschkaj/dotfiles/emc.sh /usr/local/bin/emc.sh
 cd ~
 wget -qO - https://d2t3ff60b2tol4.cloudfront.net/services@insynchq.com.gpg.key \
 | sudo apt-key add -
-sudo echo "\n\n\ndeb http://apt.insynchq.com/ubuntu xenial non-free contrib" >> /etc/apt/sources.list
+echo "deb http://apt.insynchq.com/ubuntu xenial non-free contrib" | sudo tee /etc/apt/sources.list.d/insync.list
 ```
 
 ## PPAs
@@ -66,7 +73,6 @@ sudo apt install notifyosdconfig \
                  htop \
                  exfat-fuse exfat-utils \
                  insync \
-                 zsh \
                  paper-icon-theme paper-gtk-theme paper-cursor-theme \
                  moka-icon-theme \
                  acpid \
@@ -81,6 +87,8 @@ sudo apt install tlp \
                  cpufrequtils \
                  powertop
 ```
+
+## Fonts & Themes
 
 ### Clone the flatabulous theme
 
@@ -113,16 +121,11 @@ git clone https://github.com/powerline/fonts
 cd fonts
 ./install.sh
 ```
+## Tools
 
 ### VM Tools
 
-``` shell
-sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
-sudo apt update
-```
-
-Now install VM tooling:
+Install VM tooling:
 
 ``` shell
 sudo apt install remmina \
@@ -163,6 +166,8 @@ make
 sudo make install
 ```
 
+It may not be necessary to use the `LIBCLANG_LLVM_CONFIG_EXECUTABLE`, depending on how everything is installed by packages.
+
 Create a user daemon according to [Integration with `systemd`](https://github.com/Andersbakken/rtags#integration-with-systemd-gnu-linux)
 
 **Rust**
@@ -176,41 +181,7 @@ git clone git@github.com:rust-lang/rust.git
 rustup default nightly
 ```
 
-### Graphics Drivers
-
-``` shell
-sudo apt install prime-indicator \
-                 bbswitch \
-                 bbswitch-dkms \
-                 primus
-```
-
-**Manually** add the NVidia repo and select the current NVidia driver.
-
-## Install oh-my-zsh
-
-```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-```
-
-
-
-
-
-## Powerline Fonts
-
-Install powerline fonts from [the github repository](https://github.com/powerline/fonts)
-
-```
-mkdir -p ~/src/powerline
-cd ~/src/powerline
-git clone https://github.com/powerline/fonts
-cd fonts
-./install.sh
-```
-
-
-## Global `.gitignore`
+### Global `.gitignore` set up
 
 This doesn't work if it's configured in an include file, don't know why, but hey... I have a workaround.
 
@@ -231,17 +202,37 @@ cat << EOF > ~/.gitconfig
 EOF
 ```
 
+
+## Documents & Pictures
+
+After insync has brought down the root folder structure...
+
+``` shell
+cd ~
+rm -rf Documents
+ln -s ~/.insync/Documents Documents
+rm -rf Pictures
+ln -s ~/.insync/Pictures Pictures
+```
+
 ## Graphics
 
 ### NVidia Graphics Driver PPAs
 
-Add the graphics driver PPA:
-
-```
-sudo apt-add-repository ppa:graphics-drivers/ppa
-```
-
 Check NVidia to see what the most recent driver is and install that.
+
+Can also run `apt search --names-only nvidia` and scan the list.
+
+As of 2016-08-17, the current nvidia driver is `nvidia-370`.
+
+This should install bumblebee and friends, but if it doesn't:
+
+``` shell
+sudo apt install prime-indicator \
+                 bbswitch \
+                 bbswitch-dkms \
+                 primus
+```
 
 ### bumblebee configuration (optional)
 
@@ -249,7 +240,7 @@ Before venturing down this route, it may be possible to simply install bumblebee
 
 To get bumblebee (graphics switching) working correctly, follow the instructions at [Nvidia with Bumblebee installation for 16.04](http://askubuntu.com/a/749724/285038).
 
-Supporting information can be found at [Bumblebee on a Lenovo T440p [NVidia GT 730M] with XUbuntu/Ubuntu 16.04 LTS](http://lenovolinux.blogspot.com.au/2016/05/bumblebee-on-lenovo-t440p-nvidia-gt.html)
+Supporting information can be found at [Bumblebee on a Lenovo T440p NVidia GT 730M with XUbuntu/Ubuntu 16.04 LTS](http://lenovolinux.blogspot.com.au/2016/05/bumblebee-on-lenovo-t440p-nvidia-gt.html)
 
 Obviously, neither of the previous posts are necessary if the system in question only has one graphics card.
 
