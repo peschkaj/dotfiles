@@ -119,6 +119,7 @@ cd fonts
 ``` shell
 sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+sudo apt update
 ```
 
 Now install VM tooling:
@@ -127,7 +128,7 @@ Now install VM tooling:
 sudo apt install remmina \
                  qemu-kvm \
                  docker-engine \
-                 aufs \
+                 aufs-tools \
                  virt-manager
 ```
 
@@ -143,11 +144,11 @@ sudo apt install markdown libssl-dev gdb \
                  racket racket-common racket-doc \
                  guile-2.0 lua5.3 liblua5.3-dev \
                  mit-scheme global \
-                 emacs-lucid ncurses-term \
+                 emacs24-lucid ncurses-term \
                  gnutls-bin libgnutls-dev
 ```
 
-After installing emacs, edit `/usr/share/applications/emacs24-lucid.application` to point to the `/usr/local/bin/emc.sh` script.
+After installing emacs, edit `/usr/share/applications/emacs24-lucid.desktop` to point to the `/usr/local/bin/emc.sh` script.
 
 **rtags**
 
