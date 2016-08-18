@@ -264,13 +264,13 @@ values."
    dotspacemacs-whitespace-cleanup 'changed
    )
   ;; make the fonts big for those 4k displays!
-  ;; (if (system-is-armchair-traveler)
-  ;;     (setq-default dotspacemacs-default-font '("Source Code Pro"
-  ;;                                               :size 14.0
-  ;;                                               :weight normal
-  ;;                                               :width normal
-  ;;                                               :powerline-scale 1.1))
-  ;;   )
+  (if (system-is-armchair-traveler)
+      (setq-default dotspacemacs-default-font '("Source Code Pro"
+                                                :size 16.0
+                                                :weight normal
+                                                :width normal
+                                                :powerline-scale 1.1))
+    )
 )
 
 (defun dotspacemacs/user-init ()
