@@ -85,8 +85,6 @@ alias ohmyzsh="emacs ~/.oh-my-zsh"
 
 export RUST_NEW_ERROR_FORMAT=true
 
-export PATH="$PATH:/home/jeremiah/bin/p4/bin"
-
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c -a emacs"

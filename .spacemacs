@@ -280,11 +280,8 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-
-  (add-to-list 'exec-path-from-shell-variables "RUST_SRC_PATH")
-  (add-to-list 'exec-path-from-shell-variables "CARGO_HOME")
-
-  (setq powerline-default-separator 'arrow)
+                                        ;(setq powerline-default-separator 'arrow)
+  (setq powerline-default-separator 'slant)
   )
 
 (defun dotspacemacs/user-config ()
@@ -373,6 +370,8 @@ you should place your code here."
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
 
+  (add-to-list 'exec-path-from-shell-variables "RUST_SRC_PATH")
+  (add-to-list 'exec-path-from-shell-variables "CARGO_HOME")
   (exec-path-from-shell-initialize)
 
   ;; semantic configuration
