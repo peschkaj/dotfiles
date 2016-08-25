@@ -35,6 +35,7 @@ values."
             c-c++-enable-clang-support t
             )
      ;; Semantic configuration is move to the end of dotspacemacs/user-config
+     semantic
 
      irony-mode
      rtags
@@ -47,7 +48,7 @@ values."
      github
      html
      markdown
-     org
+     ;;org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -247,7 +248,7 @@ values."
    dotspacemacs-highlight-delimiters 'all
    ;; If non nil advises quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
@@ -266,7 +267,7 @@ values."
   ;; make the fonts big for those 4k displays!
   (if (system-is-armchair-traveler)
       (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                                :size 16.0
+                                                :size 12.0
                                                 :weight normal
                                                 :width normal
                                                 :powerline-scale 1.1))
@@ -370,6 +371,13 @@ you should place your code here."
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
 
+
+  ;; For some reason, scroll-down-command does the wrong thing and moves 5 lines
+  ;; in the wrong direction. Can't figure out where that's coming from, so instead
+  ;; we'll just set M-v to use scroll-down.
+  (global-unset-key (kbd "M-v"))
+  (global-set-key (kbd "M-v") 'scroll-down)
+
   (add-to-list 'exec-path-from-shell-variables "RUST_SRC_PATH")
   (add-to-list 'exec-path-from-shell-variables "CARGO_HOME")
   (exec-path-from-shell-initialize)
@@ -379,21 +387,21 @@ you should place your code here."
   ;; Skipping the semantic layer because getting it set up correctly for
   ;; my purposes requires modifying the layer's source. Since that's
   ;; probably not the best option, instead we re-implement the wheel.
-  (require 'semantic)
-  (require 'semantic/sb)
-  (require 'srecode)
-  (semantic-mode 1)
-  (global-semanticdb-minor-mode 1)
-  (global-semantic-idle-scheduler-mode 1)
-  (global-semantic-idle-completions-mode 1)
-  (global-semantic-decoration-mode 1)
-  (global-semantic-highlight-func-mode 1)
-  (global-semantic-stickyfunc-mode -1)
-  (global-semantic-idle-summary-mode 1)
-  (global-semantic-mru-bookmark-mode 1)
-  (semanticdb-enable-gnu-global-databases 'c-mode)
-  (semanticdb-enable-gnu-global-databases 'c++-mode)
-  (set-default 'semantic-case-fold t)
+  ;; (require 'semantic)
+  ;; (require 'semantic/sb)
+  ;; (require 'srecode)
+  ;; (semantic-mode 1)
+  ;; (global-semanticdb-minor-mode 1)
+  ;; (global-semantic-idle-scheduler-mode 1)
+  ;; (global-semantic-idle-completions-mode 1)
+  ;; (global-semantic-decoration-mode 1)
+  ;; (global-semantic-highlight-func-mode 1)
+  ;; (global-semantic-stickyfunc-mode -1)
+  ;; (global-semantic-idle-summary-mode 1)
+  ;; (global-semantic-mru-bookmark-mode 1)
+  ;; (semanticdb-enable-gnu-global-databases 'c-mode)
+  ;; (semanticdb-enable-gnu-global-databases 'c++-mode)
+  ;; (set-default 'semantic-case-fold t)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
