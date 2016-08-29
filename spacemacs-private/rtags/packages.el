@@ -93,6 +93,9 @@
 
       (rtags-major-mode-keybindings 'c-mode)
       (rtags-major-mode-keybindings 'c++-mode)
+
+      (push '(company-rtags)
+            company-backends-c-mode-common)
       )
     )
   )

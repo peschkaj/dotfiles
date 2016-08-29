@@ -43,7 +43,7 @@ values."
      better-defaults
      emacs-lisp
      scheme
-     ;; emoji
+     emoji
      git
      github
      html
@@ -58,8 +58,6 @@ values."
                      spell-checking-enable-by-default nil)
      syntax-checking
      version-control
-     rust
-     ;themes-megapack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -68,7 +66,6 @@ values."
    dotspacemacs-additional-packages
    '(
      editorconfig
-     ;; color-theme-flatland
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -133,6 +130,7 @@ values."
                          zenburn
                          flatland
                          gruber-darker
+                         material
                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -307,48 +305,43 @@ you should place your code here."
   ;; Spell check set up
   ;; (setq-default dotspacemacs-configuration-layers
   ;;               '((spell-checking :variables spell-checking-enable-by-default nil)))
-  (setq flyspell-mode 0)
-  (dolist (hook '(lisp-mode-hook
-                  emacs-lisp-mode-hook
-                  ruby-mode-hook
-                  yaml-mode
-                  python-mode-hook
-                  shell-mode-hook
-                  php-mode-hook
-                  css-mode-hook
-                  nxml-mode-hook
-                  crontab-mode-hook
-                  perl-mode-hook
-                  javascript-mode-hook
-                  rust-mode-hook
-                  c++-mode-hook
-                  c-mode-common-hook
-                  LaTeX-mode-hook))
-    (add-hook hook 'flyspell-prog-mode))
+  ;; (setq flyspell-mode 0)
+  ;; (dolist (hook '(lisp-mode-hook
+  ;;                 emacs-lisp-mode-hook
+  ;;                 ruby-mode-hook
+  ;;                 yaml-mode
+  ;;                 python-mode-hook
+  ;;                 shell-mode-hook
+  ;;                 php-mode-hook
+  ;;                 css-mode-hook
+  ;;                 nxml-mode-hook
+  ;;                 crontab-mode-hook
+  ;;                 perl-mode-hook
+  ;;                 javascript-mode-hook
+  ;;                 rust-mode-hook
+  ;;                 c++-mode-hook
+  ;;                 c-mode-common-hook
+  ;;                 LaTeX-mode-hook))
+  ;;   (add-hook hook 'flyspell-prog-mode))
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   (dolist (hook '(text-mode
                   markdown-mode
                   gfm-mode))
-    (add-hook hook 'flyspell-mode))
+    (add-hook hook (lambda () (flyspell-mode 1))))
 
   ;; C/C++ configuration
+  (add-hook 'c++-mode-hook
+            (lambda()
+              (flyspell-prog-mode)))
+  (add-hook 'c-mode-hook
+            (lambda()
+              (flyspell-prog-mode)))
   (setq c-default-style "linux"
         c-basic-offset 4)
   ;; rtags setup is moved to the private rtags package
   ;; irony-mode configuration is handled in the private irony-mode package
 
-
-
-  ;; somebody set us up the rust
-  (setq-default rust-enable-racer t)
-  (setq racer-cmd "/home/jeremiah/.cargo/bin/racer")
-  (setq racer-rust-src-path "/home/jeremiah/src/rust-lang/rust/src/")
-  (setq company-tooltip-align-annotations t)
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  (add-hook 'racer-mode-hook #'company-mode)
-  (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
-
-  (spacemacs/load-theme 'flatland)
+  (spacemacs/load-theme 'material)
 
   (defun my-gfm-mode-hook ()
     (visual-line-mode 1))
@@ -381,6 +374,11 @@ you should place your code here."
   (add-to-list 'exec-path-from-shell-variables "RUST_SRC_PATH")
   (add-to-list 'exec-path-from-shell-variables "CARGO_HOME")
   (exec-path-from-shell-initialize)
+
+  (when (not (display-graphic-p))
+    (progn
+      (require 'disable-mouse)
+      (global-disable-mouse-mode)))
 
   ;; semantic configuration
   ;;

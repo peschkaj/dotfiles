@@ -1,4 +1,5 @@
 export PATH="/home/jeremiah/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/jeremiah/bin"
+export PATH=$HOME/bin:$PATH
 export CARGO_HOME=/home/jeremiah/.cargo
 export RUST_SRC_PATH=/home/jeremiah/src/rust-lang/rust/src
 
