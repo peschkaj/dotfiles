@@ -318,7 +318,6 @@ you should place your code here."
   ;;                 crontab-mode-hook
   ;;                 perl-mode-hook
   ;;                 javascript-mode-hook
-  ;;                 rust-mode-hook
   ;;                 c++-mode-hook
   ;;                 c-mode-common-hook
   ;;                 LaTeX-mode-hook))
@@ -371,8 +370,6 @@ you should place your code here."
   (global-unset-key (kbd "M-v"))
   (global-set-key (kbd "M-v") 'scroll-down)
 
-  (add-to-list 'exec-path-from-shell-variables "RUST_SRC_PATH")
-  (add-to-list 'exec-path-from-shell-variables "CARGO_HOME")
   (exec-path-from-shell-initialize)
 
   (when (not (display-graphic-p))
