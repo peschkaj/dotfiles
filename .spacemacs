@@ -55,8 +55,7 @@ values."
             shell-default-position 'bottom
             shell-default-shell 'ansi-term
             shell-default-term-shell "/usr/bin/zsh")
-     (spell-checking :variables
-                     spell-checking-enable-by-default nil)
+     spell-checking
      syntax-checking
      version-control
      )
@@ -303,40 +302,6 @@ you should place your code here."
     (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
     (setq auto-mode-alist (cons '("\\.markdown$" . gfm-mode) auto-mode-alist)))
 
-
-  ;; Spell check set up
-  ;; (setq-default dotspacemacs-configuration-layers
-  ;;               '((spell-checking :variables spell-checking-enable-by-default nil)))
-  ;; (setq flyspell-mode 0)
-  ;; (dolist (hook '(lisp-mode-hook
-  ;;                 emacs-lisp-mode-hook
-  ;;                 ruby-mode-hook
-  ;;                 yaml-mode
-  ;;                 python-mode-hook
-  ;;                 shell-mode-hook
-  ;;                 php-mode-hook
-  ;;                 css-mode-hook
-  ;;                 nxml-mode-hook
-  ;;                 crontab-mode-hook
-  ;;                 perl-mode-hook
-  ;;                 javascript-mode-hook
-  ;;                 c++-mode-hook
-  ;;                 c-mode-common-hook
-  ;;                 LaTeX-mode-hook))
-  ;;   (add-hook hook 'flyspell-prog-mode))
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-  (dolist (hook '(text-mode
-                  markdown-mode
-                  gfm-mode))
-    (add-hook hook (lambda () (flyspell-mode 1))))
-
-  ;; C/C++ configuration
-  (add-hook 'c++-mode-hook
-            (lambda()
-              (flyspell-prog-mode)))
-  (add-hook 'c-mode-hook
-            (lambda()
-              (flyspell-prog-mode)))
   (setq c-default-style "linux"
         c-basic-offset 4)
   ;; rtags setup is moved to the private rtags package
@@ -347,6 +312,9 @@ you should place your code here."
   (defun my-gfm-mode-hook ()
     (visual-line-mode 1))
   (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
+
+  ;; ZSH on the PDX servers caused problems with tramp hanging.
+  ;; Force to bash instead to make life simple.
   (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
   (setq tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
 
