@@ -35,7 +35,8 @@ values."
             c-c++-enable-clang-support t
             )
      ;; Semantic configuration is move to the end of dotspacemacs/user-config
-     semantic
+     (semantic :variables
+               global-semantic-decoration-mode 1)
 
      irony-mode
      rtags
@@ -373,7 +374,7 @@ you should place your code here."
 
   (exec-path-from-shell-initialize)
 
-  (when (not (display-graphic-p))
+  (when (string-match ".*cs\.pdx\.edu" system-name)
     (progn
       (require 'disable-mouse)
       (global-disable-mouse-mode)))
