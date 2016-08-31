@@ -67,6 +67,7 @@ values."
    '(
      editorconfig
      disable-mouse
+     google-c-style
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -302,8 +303,10 @@ you should place your code here."
     (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
     (setq auto-mode-alist (cons '("\\.markdown$" . gfm-mode) auto-mode-alist)))
 
-  (setq c-default-style "linux"
-        c-basic-offset 4)
+  (setq ;c-default-style "stroustrup"
+        c-basic-offset 2)
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+
   ;; rtags setup is moved to the private rtags package
   ;; irony-mode configuration is handled in the private irony-mode package
 
