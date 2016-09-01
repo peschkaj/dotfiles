@@ -77,9 +77,10 @@ sudo apt install notifyosdconfig \
                  paper-icon-theme paper-gtk-theme paper-cursor-theme \
                  moka-icon-theme \
                  acpid \
-                 gnome-tweak-tool unity-tweak-tool \
-                 fonts-emojione-svginot
+                 gnome-tweak-tool unity-tweak-tool
 ```
+
+Install [replacement color emoji fonts](http://www.omgubuntu.co.uk/2016/08/enable-color-emoji-linux-google-chrome-noto)
 
 ### For a Laptop
 
