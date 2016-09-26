@@ -50,7 +50,7 @@ ZSH_THEME="kolo"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker emacs history systemd cmake)
+plugins=(git docker emacs history systemd cmake gnu-utils)
 
 # User configuration
 ## PATH moved to .zshenv
@@ -89,6 +89,11 @@ export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c -a emacs"
 alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
+
+# SSH aliases
+alias pdxlinux="ssh -i ~/.ssh/armchair-traveler jpeschka@linux.cs.pdx.edu"
+alias pdxquizor="ssh -i ~/.ssh/armchair-traveler jpeschka@quizor1.cs.pdx.edu"
+
 
 function emacs {
     if [[ $# -eq 0 ]]; then
