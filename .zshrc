@@ -91,9 +91,9 @@ export VISUAL="emacsclient -c -a emacs"
 alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 
 # SSH aliases
-alias pdxlinux="ssh -i ~/.ssh/local.pub jpeschka@linux.cs.pdx.edu"
-alias pdxlinuxlab="ssh -i ~/.ssh/local.pub jpeschka@linuxlab.cs.pdx.edu"
-alias pdxquizor="ssh -i ~/.ssh/local.pub jpeschka@quizor1.cs.pdx.edu"
+alias pdxlinux='ssh -i ~/.ssh/local.pub jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias pdxlinuxlab='ssh -i ~/.ssh/local.pub jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
+alias pdxquizor='ssh -i ~/.ssh/local.pub jpeschka@quizor1.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 
 
 function emacs {
