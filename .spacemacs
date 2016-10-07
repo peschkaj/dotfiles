@@ -59,6 +59,7 @@ values."
      syntax-checking
      version-control
      latex
+     ;slack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -337,6 +338,20 @@ you should place your code here."
   ;; Disables suspend keys so we aren't locking up emacs in a GUI
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
+
+
+
+  ;; Slack configuration
+  ;; (setq slack-enable-emoji t)
+  ;; (slack-register-team
+  ;;  :name "derpening"
+  ;;  :default t
+  ;;  :client-id "4513570669.86959792194"
+  ;;  :client-secret "dbaabd2429611ec2c23e14debf8a9d1f"
+  ;;  :token "xoxp-4513570669-4515929317-86892520035-47fce4ba55ac3ad1397e8398e26473a9"
+  ;;  :subscribed-channels '(general vidya-games))
+
+
 
 
   ;; For some reason, scroll-down-command does the wrong thing and moves 5 lines
