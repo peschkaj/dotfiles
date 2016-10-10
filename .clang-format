@@ -1,2 +1,4 @@
 BasedOnStyle: Google
 UseTab: Never
+AllowShortFunctionsOnASingleLine: SFS_None
+MaxEmptyLinesToKeep: 4
