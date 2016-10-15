@@ -18,6 +18,22 @@ ln -s ~/src/peschkaj/dotfiles/.zshrc ~/.zshrc
 ln -s ~/src/peschkaj/dotfiles/.zshenv ~/.zshenv
 ```
 
+Install etckeeper
+
+``` shell
+sudo apt install etckeeper
+```
+
+Set up `journald` to persist across restarts:
+
+``` shell
+# Edit /etc/systemd/journald.conf
+# Change the Storage line to:
+Storage=persistent
+```
+
+After this is complete, make sure to `sudo etckeeper commit "Setting journald storage to persistent"`
+
 ### Prepare for spacemacs
 
 **N.B.** First emacs launch is going to take _forever_. If any of the ELPA repositories are down, this launch will fail until they're available.
