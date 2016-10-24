@@ -33,6 +33,7 @@ values."
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t
+            clang-format-style "file"
             )
      ;; Semantic configuration is move to the end of dotspacemacs/user-config
      (semantic :variables
@@ -49,7 +50,10 @@ values."
      github
      html
      markdown
-     org
+     (org :variables
+          org-list-allow-alphabetical t
+          visual-line-mode t
+          org-indent-mode t)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
