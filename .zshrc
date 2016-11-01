@@ -95,7 +95,6 @@ alias pdxlinux='ssh -i ~/.ssh/local.pub jpeschka@linux.cs.pdx.edu -t $@ "tmux at
 alias pdxlinuxlab='ssh -i ~/.ssh/local.pub jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
 alias pdxquizor='ssh -i ~/.ssh/local.pub jpeschka@quizor1.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 
-
 function emacs {
     if [[ $# -eq 0 ]]; then
         /usr/bin/emacs # "emacs" is function, will cause recursion
