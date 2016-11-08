@@ -52,6 +52,7 @@ values."
      markdown
      (org :variables
           org-list-allow-alphabetical t
+          org-startup-truncated nil
           )
      (shell :variables
             shell-default-height 30
@@ -298,6 +299,8 @@ you should place your code here."
   (setq custom-file "~/.emacs-custom.el")
   (load custom-file :noerror)
 
+  (setq-default dotspacemacs-line-numbers t)
+
   (setq powerline-default-separator 'slant)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -317,7 +320,7 @@ you should place your code here."
   ;; rtags setup is moved to the private rtags package
   ;; irony-mode configuration is handled in the private irony-mode package
 
-  (spacemacs/load-theme 'flatland)
+  (spacemacs/load-theme 'material)
 
   (defun my-gfm-mode-hook ()
     (visual-line-mode 1))
