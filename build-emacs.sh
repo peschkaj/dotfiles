@@ -16,6 +16,8 @@ version="$1"
 cpu_count=`grep -c ^processor /proc/cpuinfo`
 build_threads=$(( $cpu_count * 2 ))
 
+cd ~/src
+
 echo "CPU count is probably $cpu_count, setting build_threads to $build_threads"
 
 if [ -z "$version" ]; then
@@ -33,7 +35,7 @@ cd emacs-"$version"
 
 # build and install
 if [ "$version" > "25" ] ; then
-    ./configure \
+    CFLAGS="-no-pie -O2" ./configure \
         --with-xft \
         --with-x-toolkit=lucid \
         --with-modules
