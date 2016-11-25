@@ -244,7 +244,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -299,7 +299,7 @@ you should place your code here."
   (setq custom-file "~/.emacs-custom.el")
   (load custom-file :noerror)
 
-  (setq-default dotspacemacs-line-numbers t)
+  (add-to-list 'c-cleanup-list 'comment-close-slash)
 
   (setq powerline-default-separator 'slant)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -345,19 +345,6 @@ you should place your code here."
   ;; Disables suspend keys so we aren't locking up emacs in a GUI
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
-
-
-
-  ;; Slack configuration
-  ;; (setq slack-enable-emoji t)
-  ;; (slack-register-team
-  ;;  :name "derpening"
-  ;;  :default t
-  ;;  :client-id "4513570669.86959792194"
-  ;;  :client-secret "dbaabd2429611ec2c23e14debf8a9d1f"
-  ;;  :token "xoxp-4513570669-4515929317-86892520035-47fce4ba55ac3ad1397e8398e26473a9"
-  ;;  :subscribed-channels '(general vidya-games))
-
 
 
 
