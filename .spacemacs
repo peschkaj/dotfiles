@@ -50,9 +50,9 @@ values."
      github
      html
      markdown
+
      (org :variables
           org-list-allow-alphabetical t
-          org-startup-truncated nil
           )
      (shell :variables
             shell-default-height 30
@@ -360,6 +360,15 @@ you should place your code here."
     (progn
       (require 'disable-mouse)
       (global-disable-mouse-mode)))
+
+  (with-eval-after-load 'adaptive-wrap
+    (setq-default adaptive-wrap-extra-indent 4))
+
+  (add-hook 'visual-line-mode-hook
+            (lambda ()
+              (adaptive-wrap-prefix-mode +1)
+              (diminish 'visual-line-mode)))
+  (global-visual-line-mode +1)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
