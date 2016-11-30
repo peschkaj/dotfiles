@@ -44,7 +44,6 @@ values."
 
      better-defaults
      emacs-lisp
-     scheme
      emoji
      git
      github
@@ -62,8 +61,7 @@ values."
      spell-checking
      syntax-checking
      version-control
-     latex
-     ;slack
+     racket
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -301,9 +299,10 @@ you should place your code here."
 
   (add-to-list 'c-cleanup-list 'comment-close-slash)
 
-  (setq powerline-default-separator 'slant)
+  (setq powerline-default-separator 'bar)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
+
   (setq magit-repository-directories '("~/src/"))
   (global-git-commit-mode t)
 
@@ -369,6 +368,12 @@ you should place your code here."
               (adaptive-wrap-prefix-mode +1)
               (diminish 'visual-line-mode)))
   (global-visual-line-mode +1)
+
+
+  ;; Forces line numbers to a fixed size so that org and gfm modes do not cause
+  ;; line numbers to disappear when a heading increases the size of the font face
+  (eval-after-load "linum"
+    '(set-face-attribute 'linum nil :height 120))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
