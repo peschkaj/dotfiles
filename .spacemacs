@@ -129,13 +129,6 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
                          spacemacs-light
-                         solarized-light
-                         solarized-dark
-                         leuven
-                         monokai
-                         zenburn
-                         flatland
-                         gruber-darker
                          material
                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
