@@ -37,7 +37,8 @@ values."
             )
      ;; Semantic configuration is move to the end of dotspacemacs/user-config
      (semantic :variables
-               global-semantic-decoration-mode 1)
+               global-semantic-decoration-mode 1
+               global-semantic-idle-summary-mode nil)
 
      irony-mode
      rtags

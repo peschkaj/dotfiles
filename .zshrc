@@ -95,22 +95,22 @@ alias pdxlinux='ssh -i ~/.ssh/local.pub jpeschka@linux.cs.pdx.edu -t $@ "tmux at
 alias pdxlinuxlab='ssh -i ~/.ssh/local.pub jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
 alias pdxquizor='ssh -i ~/.ssh/local.pub jpeschka@quizor2.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 
-function emacs {
-    if [[ $# -eq 0 ]]; then
-        /usr/bin/emacs # "emacs" is function, will cause recursion
-        return
-    fi
-    args=($*)
-    for ((i=0; i <= ${#args}; i++)); do
-        local a=${args[i]}
-        # NOTE: -c for creating new frame
-        if [[ ${a:0:1} == '-' && ${a} != '-c' ]]; then
-            /usr/bin/emacs ${args[*]}
-            return
-        fi
-    done
-    setsid emacsclient -n -a /usr/bin/emacs ${args[*]}
-}
+# function emacs {
+#     if [[ $# -eq 0 ]]; then
+#         /usr/local/bin/emacs # "emacs" is function, will cause recursion
+#         return
+#     fi
+#     args=($*)
+#     for ((i=0; i <= ${#args}; i++)); do
+#         local a=${args[i]}
+#         # NOTE: -c for creating new frame
+#         if [[ ${a:0:1} == '-' && ${a} != '-c' ]]; then
+#             /usr/local/bin/emacs ${args[*]}
+#             return
+#         fi
+#     done
+#     setsid emacsclient -n -a /usr/bin/emacs ${args[*]}
+# }
 
 
 
