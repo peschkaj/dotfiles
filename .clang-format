@@ -3,3 +3,4 @@ UseTab: Never
 AllowShortFunctionsOnASingleLine: None
 AllowShortBlocksOnASingleLine: false
 MaxEmptyLinesToKeep: 4
+PointerAlignment: Left
