@@ -98,6 +98,14 @@ sudo apt install notifyosdconfig \
 
 Install [replacement color emoji fonts](http://www.omgubuntu.co.uk/2016/08/enable-color-emoji-linux-google-chrome-noto)
 
+Copy`[fonts.conf]()`:
+
+``` shell
+cp ~/src/peschkaj/dotfiles/fonts.conf ~/.config/fontconfig/fonts.conf
+fc-cache -f -v
+```
+
+
 ### For a Laptop
 
 ``` shell
@@ -152,6 +160,8 @@ sudo apt install remmina \
                  aufs-tools \
                  virt-manager
 ```
+
+Once Docker is up and running, consult [docker.md]() to configure Docker completely and to test the installation.
 
 ### Development Tools
 
