@@ -290,7 +290,7 @@ you should place your code here."
   (setq custom-file "~/.emacs-custom.el")
   (load custom-file :noerror)
 
-  (add-to-list 'c-cleanup-list 'comment-close-slash)
+
 
   (setq powerline-default-separator 'bar)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -308,6 +308,7 @@ you should place your code here."
   (setq ;c-default-style "stroustrup"
         c-basic-offset 2)
   (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-to-list 'c-cleanup-list 'comment-close-slash)
 
   ;; rtags setup is moved to the private rtags package
   ;; irony-mode configuration is handled in the private irony-mode package
