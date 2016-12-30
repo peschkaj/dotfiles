@@ -37,8 +37,7 @@ values."
             )
      ;; Semantic configuration is move to the end of dotspacemacs/user-config
      (semantic :variables
-               global-semantic-decoration-mode 1
-               global-semantic-idle-summary-mode nil)
+               global-semantic-decoration-mode 1)
 
      irony-mode
      rtags
@@ -354,13 +353,13 @@ you should place your code here."
       (require 'disable-mouse)
       (global-disable-mouse-mode)))
 
-  (with-eval-after-load 'adaptive-wrap
-    (setq-default adaptive-wrap-extra-indent 4))
+  ;; (with-eval-after-load 'adaptive-wrap
+  ;;   (setq-default adaptive-wrap-extra-indent 4))
 
-  (add-hook 'visual-line-mode-hook
-            (lambda ()
-              (adaptive-wrap-prefix-mode +1)
-              (diminish 'visual-line-mode)))
+  ;; (add-hook 'visual-line-mode-hook
+  ;;           (lambda ()
+  ;;             (adaptive-wrap-prefix-mode +1)
+  ;;             (diminish 'visual-line-mode)))
   (global-visual-line-mode +1)
 
 
@@ -368,6 +367,8 @@ you should place your code here."
   ;; line numbers to disappear when a heading increases the size of the font face
   (eval-after-load "linum"
     '(set-face-attribute 'linum nil :height 120))
+
+  (global-semantic-idle-summary-mode)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will

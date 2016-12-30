@@ -38,7 +38,7 @@ After this is complete, make sure to `sudo etckeeper commit "Setting journald st
 
 **N.B.** First emacs launch is going to take _forever_. If any of the ELPA repositories are down, this launch will fail until they're available.
 
-```
+``` shell
 cd ~
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
@@ -48,6 +48,22 @@ ln -s ~/src/peschkaj/dotfiles/spacemacs-private/snippets ~/.emacs.d/private/snip
 
 sudo cp ~/src/peschkaj/dotfiles/emc.sh /usr/local/bin/emc.sh
 ```
+
+Sometimes the emacs history saving feature goes crazy and generates monster history files. Rather than stopping it, we can use `logrotate` to automatically rotate out log files. Add the following to `/etc/logrotate.d/emacs.savehist`
+
+``` shell
+/home/jeremiah/.emacs.d/.cache/savehist {
+    weekly
+    rotate 5
+    compress
+    missingok
+    create 0644 jeremiah jeremiah
+    su jeremiah jeremiah
+}
+```
+
+Test with `sudo logrotate -f -v /etc/logrotate.d/emacs.savehist`
+
 
 ## /etc/apt/sources.list
 
