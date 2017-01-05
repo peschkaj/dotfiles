@@ -18,6 +18,16 @@ ln -s ~/src/peschkaj/dotfiles/.zshrc ~/.zshrc
 ln -s ~/src/peschkaj/dotfiles/.zshenv ~/.zshenv
 ```
 
+Configure `git-open`:
+
+``` shell
+cd ~/.oh-my-zsh/custom/plugins
+git clone git@github.com:paulirish/git-open.git
+# Reload the shell
+. ~/.zshrc
+```
+
+
 Install etckeeper
 
 ``` shell
