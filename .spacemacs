@@ -37,7 +37,8 @@ values."
             )
      ;; Semantic configuration is move to the end of dotspacemacs/user-config
      (semantic :variables
-               global-semantic-decoration-mode 1)
+               global-semantic-decoration-mode 1
+               global-semantic-idle-summary-mode nil)
 
      irony-mode
      rtags
@@ -329,7 +330,7 @@ you should place your code here."
   ;; Yeah, because I can really remember ASDFGHJKL and know which one is 7. LOL
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
 
-  (setq-default flycheck-disabled-checkers '(c/c++-cppcheck))
+  ;(setq-default flycheck-disabled-checkers '(c/c++-cppcheck))
 
   ;; machine specific configuration
   (if (system-is-armchair-traveler)
@@ -369,7 +370,7 @@ you should place your code here."
   (eval-after-load "linum"
     '(set-face-attribute 'linum nil :height 120))
 
-  (global-semantic-idle-summary-mode)
+  (setq global-semantic-idle-summary-mode nil)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
