@@ -77,12 +77,26 @@ Test with `sudo logrotate -f -v /etc/logrotate.d/emacs.savehist`
 
 ## /etc/apt/sources.list
 
+### Insync
+
 ``` shell
 cd ~
 wget -qO - https://d2t3ff60b2tol4.cloudfront.net/services@insynchq.com.gpg.key \
 | sudo apt-key add -
 echo "deb http://apt.insynchq.com/ubuntu xenial non-free contrib" | sudo tee /etc/apt/sources.list.d/insync.list
 ```
+
+### IRSSI Release
+
+``` shell
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/ailin_nemui:/irssi-test/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/irssi.list"
+wget http://download.opensuse.org/repositories/home:ailin_nemui:irssi-test/xUbuntu_16.04/Release.key
+sudo apt-key add - < Release.key
+sudo apt update
+sudo apt install irssi
+```
+
+
 
 ## PPAs
 

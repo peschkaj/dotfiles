@@ -128,3 +128,10 @@ man() {
         LESS_TERMCAP_us=$'\e[1;32m' \
         man "$@"
 }
+
+upgrade_mssql() {
+    docker pull microsoft/mssql-server-linux
+    docker stop mssql
+    docker rm mssql
+    docker run --name=mssql -i -e ACCEPT_EULA=Y -e SA_PASSWORD=P@55w0rd -p 1433:1433 -d microsoft/mssql-server-linux
+}
