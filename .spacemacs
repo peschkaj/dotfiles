@@ -314,7 +314,8 @@ you should place your code here."
   ;; rtags setup is moved to the private rtags package
   ;; irony-mode configuration is handled in the private irony-mode package
 
-  (spacemacs/load-theme 'material)
+  (spacemacs/load-theme 'tangotango)
+
 
   (defun my-gfm-mode-hook ()
     (visual-line-mode 1))
