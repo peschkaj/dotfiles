@@ -249,6 +249,21 @@ git clone git@github.com:rust-lang/rust.git
 rustup default nightly
 ```
 
+**Haskell**
+
+``` shell
+sudo apt install haskell-platform haskell-platform-doc ghc-doc haskell-doc 
+cabal update
+cabal install apply-refact hlint stylish-haskell hasktags hoogle
+```
+
+Optionally install Haskell Stack
+
+``` shell
+wget -qO- https://get.haskellstack.org/ | sh
+```
+
+
 ### Global `.gitignore` set up
 
 This doesn't work if it's configured in an include file, don't know why, but hey... I have a workaround.
