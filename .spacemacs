@@ -48,6 +48,8 @@ values."
      emoji
      git
      github
+     (haskell :variables
+              haskell-completion-backend 'intero)
      html
      markdown
 
