@@ -49,7 +49,8 @@ values."
      git
      github
      (haskell :variables
-              haskell-completion-backend 'intero)
+              haskell-completion-backend 'intero
+              haskell-enable-hindent-style "johan-tibell")
      html
      markdown
 
@@ -293,7 +294,11 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq custom-file "~/.emacs-custom.el")
-  (load custom-file :noerror)
+  (load custom-file 'noerror)
+
+  ; Tells emacs to stop saving seleceted packages by redefining
+  ; package--save-selected-packages to nil
+  (defun package--save-selected-packages (&rest opt) nil)
 
 
 
