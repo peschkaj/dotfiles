@@ -304,6 +304,11 @@ Optionally install Haskell Stack
 wget -qO- https://get.haskellstack.org/ | sh
 ```
 
+**Pandoc**
+
+``` shell
+sudo apt install pandoc texlive-xetex
+```
 
 ### Global `.gitignore` set up
 
