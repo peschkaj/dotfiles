@@ -71,8 +71,6 @@ UUID=77328915-e420-47f4-8e00-26c7ac5a0134 /opt/docker          btrfs   defaults,
 sudo mount -a
 ```
 
-`
-
 ### Prepare for spacemacs
 
 **N.B.** First emacs launch is going to take _forever_. If any of the ELPA repositories are down, this launch will fail until they're available.
@@ -242,13 +240,27 @@ sudo apt install markdown libssl-dev gdb \
                  zsh-doc \
                  exuberant-ctags valgrind valgrind-dbg libboost-all-dev \
                  racket racket-common racket-doc \
-                 guile-2.0 lua5.3 liblua5.3-dev \
-                 mit-scheme global \
-                 emacs24-lucid ncurses-term \
+                 lua5.3 liblua5.3-dev \
+                 global \
+                 ncurses-term \
                  gnutls-bin libgnutls-dev
 ```
 
-After installing emacs, edit `/usr/share/applications/emacs24-lucid.desktop` to point to the `/usr/local/bin/emc.sh` script.
+~~After installing emacs, edit `/usr/share/applications/emacs24-lucid.desktop` to point to the `/usr/local/bin/emc.sh` script.~~
+
+### Emacs
+
+First install the emacs dependencies
+
+``` shell
+sudo apt-get -qq install -y stow build-essential libx11-dev xaw3dg-dev \
+#      libjpeg-dev libpng-dev libgif-dev libtiff5-dev libncurses5-dev \
+#      libxft-dev librsvg2-dev libmagickcore-dev libmagick++-dev \
+#      libxml2-dev libgpm-dev libotf-dev libm17n-dev \
+#      libgnutls-dev wget
+```
+
+A current version of emacs can be installed through [build-emacs.sh](https://github.com/peschkaj/dotfiles/blob/master/build-emacs.sh).
 
 **rtags**
 
