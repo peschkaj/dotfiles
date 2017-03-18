@@ -254,10 +254,10 @@ First install the emacs dependencies
 
 ``` shell
 sudo apt-get -qq install -y stow build-essential libx11-dev xaw3dg-dev \
-#      libjpeg-dev libpng-dev libgif-dev libtiff5-dev libncurses5-dev \
-#      libxft-dev librsvg2-dev libmagickcore-dev libmagick++-dev \
-#      libxml2-dev libgpm-dev libotf-dev libm17n-dev \
-#      libgnutls-dev wget
+      libjpeg-dev libpng-dev libgif-dev libtiff5-dev libncurses5-dev \
+      libxft-dev librsvg2-dev libmagickcore-dev libmagick++-dev \
+      libxml2-dev libgpm-dev libotf-dev libm17n-dev \
+      libgnutls-dev wget
 ```
 
 A current version of emacs can be installed through [build-emacs.sh](https://github.com/peschkaj/dotfiles/blob/master/build-emacs.sh).
