@@ -123,7 +123,7 @@ echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc
 sudo apt-get update
 ```
 
-## Packages to installed
+## Packages to install
 
 ``` shell
 sudo apt install notifyosdconfig \
