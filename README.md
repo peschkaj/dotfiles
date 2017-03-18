@@ -44,6 +44,35 @@ Storage=persistent
 
 After this is complete, make sure to `sudo etckeeper commit "Setting journald storage to persistent"`
 
+### Set up RAID (if multiple drives are present)
+
+The desktop currently has two drives in RAID 1 for the system:
+
+``` shell
+sudo btrfs device add -f /dev/sdc /
+sudo btrfs balance start -dconvert=raid1 -mconvert=raid1 /
+```
+
+The desktop also has a four volume RAID 10 with three mount points:
+
+``` shell
+sudo mkdir -p /opt/vm
+sudo mkdir -p /opt/iso
+sudo mkdir -p /opt/docker
+
+echo "              
+# 4 volume RAID 10
+UUID=77328915-e420-47f4-8e00-26c7ac5a0134 /opt/vm          btrfs   defaults,ssd,discard,subvolid=258  0 0
+UUID=77328915-e420-47f4-8e00-26c7ac5a0134 /opt/iso          btrfs   defaults,ssd,discard,subvolid=259  0 0
+UUID=77328915-e420-47f4-8e00-26c7ac5a0134 /opt/docker          btrfs   defaults,ssd,discard,subvolid=260  0 0
+" | sudo tee --append /etc/fstab
+
+
+sudo mount -a
+```
+
+`
+
 ### Prepare for spacemacs
 
 **N.B.** First emacs launch is going to take _forever_. If any of the ELPA repositories are down, this launch will fail until they're available.
