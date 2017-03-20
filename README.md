@@ -1,6 +1,14 @@
 # dotfiles!
 
+## Purpose of this Repository
+
+This repo serves two purposes. The first of which is so that I can rapidly set up a Linux workstation with the tools that I prefer to use. This document describes my installation process and it is a work in progress. If you find anything wrong, open an issue, but I might just close it.
+
+The second purpose for this repository is to be able to share the customizations that I've made to my configuration and use that to help others.
+
 ## Initial Set Up
+
+Installs ZSH, oh-my-zsh, and clones this repository as well as my secret repo of secret stuff.
 
 ``` shell
 sudo apt install zsh git curl
@@ -18,7 +26,7 @@ ln -s ~/src/peschkaj/dotfiles/.zshrc ~/.zshrc
 ln -s ~/src/peschkaj/dotfiles/.zshenv ~/.zshenv
 ```
 
-Configure `git-open`:
+Adds the [`git-open`](https://github.com/paulirish/git-open) ZSH plugin. This plugin makes it easy to open a git repo's website from the command line, but in the browser of your choice!
 
 ``` shell
 cd ~/.oh-my-zsh/custom/plugins
@@ -27,8 +35,7 @@ git clone git@github.com:paulirish/git-open.git
 . ~/.zshrc
 ```
 
-
-Install etckeeper
+Install [etckeeper](https://joeyh.name/code/etckeeper/)
 
 ``` shell
 sudo apt install etckeeper
@@ -46,7 +53,7 @@ After this is complete, make sure to `sudo etckeeper commit "Setting journald st
 
 ### Set up RAID (if multiple drives are present)
 
-The desktop currently has two drives in RAID 1 for the system:
+The desktop currently has two drives in RAID 1 (`sda` and `sdc`) for the system:
 
 ``` shell
 sudo btrfs device add -f /dev/sdc /
@@ -60,7 +67,7 @@ sudo mkdir -p /opt/vm
 sudo mkdir -p /opt/iso
 sudo mkdir -p /opt/docker
 
-echo "              
+echo " 
 # 4 volume RAID 10
 UUID=77328915-e420-47f4-8e00-26c7ac5a0134 /opt/vm          btrfs   defaults,ssd,discard,subvolid=258  0 0
 UUID=77328915-e420-47f4-8e00-26c7ac5a0134 /opt/iso          btrfs   defaults,ssd,discard,subvolid=259  0 0
@@ -72,6 +79,8 @@ sudo mount -a
 ```
 
 ### Prepare for spacemacs
+
+[spacemacs](https://spacemacs.org) is an emacs starter kit on steroids. Just visit their home page if you want to know more. 
 
 **N.B.** First emacs launch is going to take _forever_. If any of the ELPA repositories are down, this launch will fail until they're available.
 
@@ -86,7 +95,7 @@ ln -s ~/src/peschkaj/dotfiles/spacemacs-private/snippets ~/.emacs.d/private/snip
 sudo cp ~/src/peschkaj/dotfiles/emc.sh /usr/local/bin/emc.sh
 ```
 
-Sometimes the emacs history saving feature goes crazy and generates monster history files. Rather than stopping it, we can use `logrotate` to automatically rotate out log files. Add the following to `/etc/logrotate.d/emacs.savehist`
+Sometimes the emacs history saving feature goes crazy and generates monster history files. The side effect of this is that emacs will randomly pause for several seconds while it saves huge amounts of data to disk. The solution is to use `logrotate` to automatically rotate out log files. Add the following to `/etc/logrotate.d/emacs.savehist`
 
 ``` shell
 /home/jeremiah/.emacs.d/.cache/savehist {
@@ -100,7 +109,6 @@ Sometimes the emacs history saving feature goes crazy and generates monster hist
 ```
 
 Test with `sudo logrotate -f -v /etc/logrotate.d/emacs.savehist`
-
 
 ## /etc/apt/sources.list
 
@@ -250,7 +258,7 @@ sudo apt install markdown libssl-dev gdb \
 
 ### Emacs
 
-First install the emacs dependencies
+First install the emacs dependencies:
 
 ``` shell
 sudo apt-get -qq install -y stow build-essential libx11-dev xaw3dg-dev \
@@ -260,7 +268,31 @@ sudo apt-get -qq install -y stow build-essential libx11-dev xaw3dg-dev \
       libgnutls-dev wget
 ```
 
-A current version of emacs can be installed through [build-emacs.sh](https://github.com/peschkaj/dotfiles/blob/master/build-emacs.sh).
+A current version of emacs can be installed through [build-emacs.sh](https://github.com/peschkaj/dotfiles/blob/master/build-emacs.sh). You can invoke it with `build-emacs.sh 25.1` inside the `~/src` directory.
+
+I like emacs to start as soon as I'm logged in. We can set up a user systemd dependency to run emacs as a service:
+
+``` shell
+mkdir -p ~/.config/systemd/user/
+
+echo "[Unit]
+Description=Emacs: the extensible, self-documenting text editor
+
+[Service]
+Type=forking
+ExecStart=/usr/local/bin/emacs --daemon
+ExecStop=/usr/local/bin/emacsclient --eval "(kill-emacs)"
+Environment=SSH_AUTH_SOCK=%t/keyring/ssh
+Restart=always
+
+[Install]
+WantedBy=default.target
+" | tee ~/.config/systemd/user/emacs.service
+
+systemctl --user enable emacs
+```
+
+At this point you'll be tempted to start emacs. Don't. Just wait.
 
 **rtags**
 
@@ -270,16 +302,24 @@ git clone --recursive https://github.com/Andersbakken/rtags.git
 cd rtags
 mkdir build
 cd build
-LIBCLANG_LLVM_CONFIG_EXECUTABLE=/usr/local/bin/llvm-config cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DRTAGS_NO_BUILD_CLANG=1 ..
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DRTAGS_NO_BUILD_CLANG=1 ..
 make
 sudo make install
 ```
 
-It may not be necessary to use the `LIBCLANG_LLVM_CONFIG_EXECUTABLE`, depending on how everything is installed by packages.
+~~It may not be necessary to use the `LIBCLANG_LLVM_CONFIG_EXECUTABLE`, depending on how everything is installed by packages.~~
 
 Create a user daemon according to [Integration with `systemd`](https://github.com/Andersbakken/rtags#integration-with-systemd-gnu-linux)
 
-**Rust**
+OK, now you can start emacs, but do it from the command line using `/usr/local/bin/emacs`. Wait for it to install all of the spacemacs configuration. Once that's done, exit emacs. If you're using my emacs/spacemacs configuration, this will leave emacs running in the background. Get rid of that with `killall emacs`. 
+
+_Now_ you can start emacs as a service with `systemctl --user enable emacs`
+
+### Rust
+
+Optional, but if you want Rust on your system, this will do it.
+
+This downloads the Rust sources as well, this is only a requirement if you want source code completion through `racer`. If you neither know nor care, don't worry about it. I usually use nightly Rust because reasons, if you want a more stable Rust, don't run the last command.
 
 ```
 curl https://sh.rustup.rs -sSf | sh
@@ -290,7 +330,9 @@ git clone git@github.com:rust-lang/rust.git
 rustup default nightly
 ```
 
-**Haskell**
+### Haskell
+
+Who doesn't love Haskell?
 
 ``` shell
 sudo apt install haskell-platform haskell-platform-doc ghc-doc haskell-doc 
@@ -304,17 +346,19 @@ Optionally install Haskell Stack
 wget -qO- https://get.haskellstack.org/ | sh
 ```
 
-**Pandoc**
+### Pandoc
+
+[Pandoc](http://pandoc.org/) lets you convert just about any document format into just about any other document format. The only downside is that `texlive-xetex` pulls in about 1.2GB of "stuff", so be prepared to a lengthy install. Like... go make a sandwich. 
 
 ``` shell
 sudo apt install pandoc texlive-xetex
 ```
 
-### Global `.gitignore` set up
+### Global git set up
 
-This doesn't work if it's configured in an include file, don't know why, but hey... I have a workaround.
+This sets up a bunch of global git configuration on your machine. I'd normally set this up as includes in the `.gitconfig` file, but for some reason, it won't work and I've never figured out why. Instead, I just use a heredoc and the magic of `cat`.
 
-**NB** This assumes you've also cloned the `seekrets` repository earlier.
+**NB** This assumes you've also cloned the `seekrets` repository earlier. Or, if you're not future me, that you have a `seekrets` repository.
 
 ```
 ln -s ~/src/peschkaj/dotfiles/GIT_IGNORE ~/.gitignore_global
@@ -346,15 +390,19 @@ rm -rf Pictures
 ln -s ~/.insync/Pictures Pictures
 ```
 
+Substitute "Dropbox" above if you're not an `insync`/Google Drive user.
+
 ## Graphics
 
 ### NVidia Graphics Driver PPAs
 
 Check NVidia to see what the most recent driver is and install that.
 
-Can also run `apt search --names-only nvidia` and scan the list.
+You can also run `apt search --names-only nvidia` and scan the list. As of 2017-03-20, the current nvidia driver is `nvidia-378`.
 
-As of 2016-08-17, the current nvidia driver is `nvidia-370`.
+### bumblebee configuration (optional)
+
+**N.B** This is only necessary if you have a laptop with Optimus (a discrete graphics card _and_ integrated graphics card). If you don't, skip it.
 
 This should install bumblebee and friends, but if it doesn't:
 
@@ -364,8 +412,6 @@ sudo apt install prime-indicator \
                  bbswitch-dkms \
                  primus
 ```
-
-### bumblebee configuration (optional)
 
 Before venturing down this route, it may be possible to simply install bumblebee and have everything work just fine. Doublecheck the status of Issue #759: [Bumblebee not working in Ubuntu 16.04](https://github.com/Bumblebee-Project/Bumblebee/issues/759#issuecomment-222922338)
 
