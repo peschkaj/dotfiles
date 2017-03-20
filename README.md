@@ -121,18 +121,6 @@ wget -qO - https://d2t3ff60b2tol4.cloudfront.net/services@insynchq.com.gpg.key \
 echo "deb http://apt.insynchq.com/ubuntu xenial non-free contrib" | sudo tee /etc/apt/sources.list.d/insync.list
 ```
 
-### IRSSI Release
-
-``` shell
-sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/ailin_nemui:/irssi-test/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/irssi.list"
-wget http://download.opensuse.org/repositories/home:ailin_nemui:irssi-test/xUbuntu_16.04/Release.key
-sudo apt-key add - < Release.key
-sudo apt update
-sudo apt install irssi
-```
-
-
-
 ## PPAs
 
 ``` shell
@@ -252,6 +240,8 @@ sudo apt install markdown libssl-dev gdb \
                  global \
                  ncurses-term \
                  gnutls-bin libgnutls-dev
+
+ln -s ~/src/peschkaj/dotfiles/.clang-format ~/.clang-format
 ```
 
 ~~After installing emacs, edit `/usr/share/applications/emacs24-lucid.desktop` to point to the `/usr/local/bin/emc.sh` script.~~
@@ -338,6 +328,7 @@ Who doesn't love Haskell?
 sudo apt install haskell-platform haskell-platform-doc ghc-doc haskell-doc 
 cabal update
 cabal install apply-refact hlint stylish-haskell hasktags hoogle
+ln -s ~/src/peschkaj/dotfiles/ghci ~/.ghci
 ```
 
 Optionally install Haskell Stack
