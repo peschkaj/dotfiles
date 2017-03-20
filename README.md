@@ -2,13 +2,15 @@
 
 ## Purpose of this Repository
 
-This repo serves two purposes. The first of which is so that I can rapidly set up a Linux workstation with the tools that I prefer to use. This document describes my installation process and it is a work in progress. If you find anything wrong, open an issue, but I might just close it.
+This repo serves two purposes. 
 
-The second purpose for this repository is to be able to share the customizations that I've made to my configuration and use that to help others.
+**One** To allow me to rapidly set up a Linux workstation with the tools that I prefer to use. This document describes my installation process and it is a work in progress. If you find anything wrong, open an issue.
+
+**Two** To share the customizations that I've made to my configuration and use that to help others.
 
 ## Initial Set Up
 
-Installs ZSH, oh-my-zsh, and clones this repository as well as my secret repo of secret stuff.
+Installs [ZSH](https://en.wikipedia.org/wiki/Z_shell), [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh), and clones this repository as well as my secret repo of secret stuff.
 
 ``` shell
 sudo apt install zsh git curl
@@ -35,13 +37,13 @@ git clone git@github.com:paulirish/git-open.git
 . ~/.zshrc
 ```
 
-Install [etckeeper](https://joeyh.name/code/etckeeper/)
+Install [etckeeper](https://joeyh.name/code/etckeeper/) to make it easier to see the history of changes to configuration files on a given system.
 
 ``` shell
 sudo apt install etckeeper
 ```
 
-Set up `journald` to persist across restarts:
+Set up `journald` to persist across restarts. By default, `journald` rotates out the journal with each reboot. Changing this setting makes it easier to troubleshoot a problem that you had to reboot to recover from.
 
 ``` shell
 # Edit /etc/systemd/journald.conf
@@ -53,6 +55,8 @@ After this is complete, make sure to `sudo etckeeper commit "Setting journald st
 
 ### Set up RAID (if multiple drives are present)
 
+My system is set up using [Btrfs](https://en.wikipedia.org/wiki/Btrfs) instead of ext4. Btrfs is intended to provide state of the art features like storage pooling, copy on write, and easy administration.
+
 The desktop currently has two drives in RAID 1 (`sda` and `sdc`) for the system:
 
 ``` shell
@@ -60,7 +64,7 @@ sudo btrfs device add -f /dev/sdc /
 sudo btrfs balance start -dconvert=raid1 -mconvert=raid1 /
 ```
 
-The desktop also has a four volume RAID 10 with three mount points:
+The desktop also has a four volume RAID 10 with three mount points. These commands won't work for you. In fact, they're not even educational. This is just how I set it up on these drives which have been formatted since the dawn of time.
 
 ``` shell
 sudo mkdir -p /opt/vm
@@ -78,41 +82,12 @@ UUID=77328915-e420-47f4-8e00-26c7ac5a0134 /opt/docker          btrfs   defaults,
 sudo mount -a
 ```
 
-### Prepare for spacemacs
-
-[spacemacs](https://spacemacs.org) is an emacs starter kit on steroids. Just visit their home page if you want to know more. 
-
-**N.B.** First emacs launch is going to take _forever_. If any of the ELPA repositories are down, this launch will fail until they're available.
-
-``` shell
-cd ~
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
-ln -s ~/src/peschkaj/dotfiles/spacemacs-private/irony-mode ~/.emacs.d/private/irony-mode
-ln -s ~/src/peschkaj/dotfiles/spacemacs-private/rtags ~/.emacs.d/private/rtags
-ln -s ~/src/peschkaj/dotfiles/spacemacs-private/snippets ~/.emacs.d/private/snippets
-
-sudo cp ~/src/peschkaj/dotfiles/emc.sh /usr/local/bin/emc.sh
-```
-
-Sometimes the emacs history saving feature goes crazy and generates monster history files. The side effect of this is that emacs will randomly pause for several seconds while it saves huge amounts of data to disk. The solution is to use `logrotate` to automatically rotate out log files. Add the following to `/etc/logrotate.d/emacs.savehist`
-
-``` shell
-/home/jeremiah/.emacs.d/.cache/savehist {
-    weekly
-    rotate 5
-    compress
-    missingok
-    create 0644 jeremiah jeremiah
-    su jeremiah jeremiah
-}
-```
-
-Test with `sudo logrotate -f -v /etc/logrotate.d/emacs.savehist`
 
 ## /etc/apt/sources.list
 
 ### Insync
+
+[Insync](https://www.insynchq.com/) is a cross platform Google Drive client that supports multiple user accounts as well as automagic document conversion. 
 
 ``` shell
 cd ~
@@ -120,6 +95,17 @@ wget -qO - https://d2t3ff60b2tol4.cloudfront.net/services@insynchq.com.gpg.key \
 | sudo apt-key add -
 echo "deb http://apt.insynchq.com/ubuntu xenial non-free contrib" | sudo tee /etc/apt/sources.list.d/insync.list
 ```
+
+### Docker
+
+It's best to just pull Docker from their own repositories. 
+
+``` shell
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
+```
+
+Normally you'd have to run an `apt update` here, but the next step is to add a bunch more apt repositories.
 
 ## PPAs
 
@@ -135,13 +121,6 @@ sudo add-apt-repository -y ppa:snwh/pulp
 sudo apt-add-repository -y ppa:graphics-drivers/ppa
 
 sudo apt update && sudo apt upgrade
-```
-
-And then the docker configuration:
-``` shell
-sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
-sudo apt-get update
 ```
 
 ## Packages to install
@@ -179,6 +158,8 @@ sudo apt install tlp \
 
 ### Clone the flatabulous theme
 
+[Flatabulous](https://github.com/anmoljagetia/Flatabulous) is a flat theme for Unity
+
 ``` shell
 cd ~
 mkdir .themes
@@ -187,6 +168,8 @@ git clone git@github.com:anmoljagetia/Flatabulous.git
 ```
 
 ### Install the Source Code Pro font
+
+[Source Code Pro](https://github.com/adobe-fonts/source-code-pro) is a lovely monospaced font that is given away for free by Adobe.
 
 ``` shell
 #!/bin/sh
@@ -201,6 +184,8 @@ echo "finished installing"
 
 ### Powerline Fonts
 
+[Powerline fonts](https://github.com/powerline/fonts) are used to create attractive text effects in the emacs powerline and also in your shell. Have you ever seen people who have really sweet looking shells with colorful backgrounds and colored arrows and stuff on the prompt? Powerline fonts are how that happens.
+
 ``` shell
 mkdir -p ~/src/powerline/
 cd ~/src/powerline
@@ -208,11 +193,22 @@ git clone https://github.com/powerline/fonts
 cd fonts
 ./install.sh
 ```
+
 ## Tools
 
 ### VM Tools
 
-Install VM tooling:
+I use a combination of Docker and QEMU to handle virtual environments. These tools make it easy to work with VMs of various sorts.
+
+In no particular order, the tools are:
+
+* [Remmina](https://www.remmina.org/wp/) - A *nix remote desktop client
+* [QEMU](http://www.qemu-project.org/) - Machine emulator and virtualization.
+* [Docker](https://www.docker.com/) - Run apps, not VMs. Head over to [What is Docker?](https://www.docker.com/what-docker) to learn more about what Docker is and how it can help.
+* [AUFS](https://en.wikipedia.org/wiki/Aufs) and `aufs-tools` - Docker uses this as a way of abstracting away the file system and working around creating multiple copies of the same core OS.
+* [Virtual Machine Manager](https://virt-manager.org/) - puts a GUI on managing virtual machines using Linux KVM. Why don't I use the command line? Simple: I don't use the commands often enough to justify learning them.
+
+To install VM tooling:
 
 ``` shell
 sudo apt install remmina \
@@ -243,6 +239,18 @@ ln -s ~/src/peschkaj/dotfiles/.clang-format ~/.clang-format
 ```
 
 ~~After installing emacs, edit `/usr/share/applications/emacs24-lucid.desktop` to point to the `/usr/local/bin/emc.sh` script.~~
+
+
+### Java
+
+But only if you want it...
+
+``` shell
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt update
+sudo apt install oracle-java8-installer
+```
+
 
 ### Emacs
 
@@ -282,7 +290,40 @@ systemctl --user enable emacs
 
 At this point you'll be tempted to start emacs. Don't. Just wait.
 
-**rtags**
+#### Spacemacs
+
+[spacemacs](https://spacemacs.org) is an emacs starter kit on steroids. Just visit their home page if you want to know more. 
+
+**N.B.** First emacs launch is going to take _forever_. If any of the ELPA repositories are down, this launch will fail until they're available.
+
+``` shell
+cd ~
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
+ln -s ~/src/peschkaj/dotfiles/spacemacs-private/irony-mode ~/.emacs.d/private/irony-mode
+ln -s ~/src/peschkaj/dotfiles/spacemacs-private/rtags ~/.emacs.d/private/rtags
+ln -s ~/src/peschkaj/dotfiles/spacemacs-private/snippets ~/.emacs.d/private/snippets
+
+sudo cp ~/src/peschkaj/dotfiles/emc.sh /usr/local/bin/emc.sh
+```
+
+Sometimes the emacs history saving feature goes crazy and generates monster history files. The side effect of this is that emacs will randomly pause for several seconds while it saves huge amounts of data to disk. The solution is to use `logrotate` to automatically rotate out log files. Add the following to `/etc/logrotate.d/emacs.savehist`
+
+``` shell
+/home/jeremiah/.emacs.d/.cache/savehist {
+    weekly
+    rotate 5
+    compress
+    missingok
+    create 0644 jeremiah jeremiah
+    su jeremiah jeremiah
+}
+```
+
+Test with `sudo logrotate -f -v /etc/logrotate.d/emacs.savehist`
+
+
+#### rtags
 
 ```
 cd ~/src
@@ -298,6 +339,8 @@ sudo make install
 ~~It may not be necessary to use the `LIBCLANG_LLVM_CONFIG_EXECUTABLE`, depending on how everything is installed by packages.~~
 
 Create a user daemon according to [Integration with `systemd`](https://github.com/Andersbakken/rtags#integration-with-systemd-gnu-linux)
+
+#### Back to emacs
 
 OK, now you can start emacs, but do it from the command line using `/usr/local/bin/emacs`. Wait for it to install all of the spacemacs configuration. Once that's done, exit emacs. If you're using my emacs/spacemacs configuration, this will leave emacs running in the background. Get rid of that with `killall emacs`. 
 
@@ -326,6 +369,7 @@ Who doesn't love Haskell?
 sudo apt install haskell-platform haskell-platform-doc ghc-doc haskell-doc 
 cabal update
 cabal install apply-refact hlint stylish-haskell hasktags hoogle
+
 ln -s ~/src/peschkaj/dotfiles/ghci ~/.ghci
 ```
 
@@ -345,7 +389,7 @@ sudo apt install pandoc texlive-xetex
 
 ### Global git set up
 
-This sets up a bunch of global git configuration on your machine. I'd normally set this up as includes in the `.gitconfig` file, but for some reason, it won't work and I've never figured out why. Instead, I just use a heredoc and the magic of `cat`.
+This sets up a bunch of global git configuration on your machine. I'd love to set this up as includes in the `.gitconfig` file, but for some reason, it won't work and I've never figured out why. Instead, I just use a heredoc and the magic of `cat`.
 
 **NB** This assumes you've also cloned the `seekrets` repository earlier. Or, if you're not future me, that you have a `seekrets` repository.
 
