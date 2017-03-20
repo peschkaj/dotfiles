@@ -3,14 +3,14 @@
 ## Initial Set Up
 
 ``` shell
-sudo apt install zsh
+sudo apt install zsh git curl
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-sudo apt install git
 mkdir -p ~/src/peschkaj
 cd ~/src/peschkaj
 git clone git@github.com:peschkaj/dotfiles.git
+git clone git@github.com:peschkaj/seekrets.git
 
 rm .zshrc .zshenv
 
@@ -314,6 +314,8 @@ sudo apt install pandoc texlive-xetex
 
 This doesn't work if it's configured in an include file, don't know why, but hey... I have a workaround.
 
+**NB** This assumes you've also cloned the `seekrets` repository earlier.
+
 ```
 ln -s ~/src/peschkaj/dotfiles/GIT_IGNORE ~/.gitignore_global
 
@@ -321,9 +323,9 @@ cat << EOF > ~/.gitconfig
 [include]
     path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig
 [include]
-    path = /home/jeremiah/src/peschkaj/dotfiles/git/github
+    path = /home/jeremiah/src/peschkaj/seekrets/git/gitconfig-github
 [include]
-    path = /home/jeremiah/src/peschkaj/dotfiles/git/linux
+    path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig-linux
 
 [core]
     excludesfile = /home/jeremiah/.gitignore_global
