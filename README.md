@@ -159,7 +159,7 @@ sudo apt install notifyosdconfig \
 
 Install [replacement color emoji fonts](http://www.omgubuntu.co.uk/2016/08/enable-color-emoji-linux-google-chrome-noto)
 
-Copy`[fonts.conf]()`:
+Copy`[fonts.conf](fonts.conf)`:
 
 ``` shell
 cp ~/src/peschkaj/dotfiles/fonts.conf ~/.config/fontconfig/fonts.conf
