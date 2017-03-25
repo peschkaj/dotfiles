@@ -240,6 +240,14 @@ ln -s ~/src/peschkaj/dotfiles/.clang-format ~/.clang-format
 
 ~~After installing emacs, edit `/usr/share/applications/emacs24-lucid.desktop` to point to the `/usr/local/bin/emc.sh` script.~~
 
+The gitconfig settings above rely on using Helix Merge Tool (formerly P4Merge). Download the right version for your platform from [the Helix Merge Tool download page](https://www.perforce.com/downloads/helix#clients). I use the "Helix P4V: Visual Client".
+
+``` shell
+mkdir -p ~/.local/p4merge
+tar xzf ~/Downloads/p4v.tgz -C ~/.local/p4merge
+```
+
+Make sure that `.local/p4merge/bin` is in your `PATH`. If you're using ZSH and my `.zshenv` file, this won't be a problem.
 
 ### Java
 
