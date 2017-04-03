@@ -76,7 +76,11 @@ source $ZSH/oh-my-zsh.sh
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
+<<<<<<< HEAD
 # users are encouraged to define aliases within the ZSH_CUSTmOM folder.
+=======
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+>>>>>>> dd4016179a846aa49135828f885703526643e0a8
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
@@ -93,7 +97,7 @@ alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 # SSH aliases
 alias pdxlinux='ssh -i ~/.ssh/local.pub jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 alias pdxlinuxlab='ssh -i ~/.ssh/local.pub jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
-alias pdxquizor='ssh -i ~/.ssh/local.pub jpeschka@quizor2.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias babbage='ssh -i ~/.ssh/local.pub jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 
 # function emacs {
 #     if [[ $# -eq 0 ]]; then
