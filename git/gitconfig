@@ -1,0 +1,42 @@
+[user]
+  email = jeremiah.peschka@gmail.com
+  name = Jeremiah Peschka
+[core]
+
+[alias]
+  aliases = config --get-regexp alias
+  amend = commit --amend
+  bl = blame -w -M -C
+  br = branch
+  bra = branch -rav
+  browse = !git open
+  branches = branch -rav
+  changed = status -sb
+  ci = commit
+  co = checkout
+  dump = cat-file -p
+  f = !git ls-files | grep -i
+  filelog = log -u
+  hist = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue) [%an]%Creset' --abbrev-commit --date=relative
+  last = log -p --max-count=1 --word-diff
+  lastref = rev-parse --short HEAD
+  lasttag = describe --tags --abbrev=0
+  pick = add -p
+  pr = pull --rebase
+  remotes = remote -v show
+  st = status
+  stage = add
+  # standup = log --since yesterday --oneline --author {ME}
+  standup = !"git log --reverse --branches --since=$(if [[ "Mon" == "$(date +%a)" ]]; then echo "last friday"; else echo "yesterday"; fi) --author=$(git config --get user.email) --format=format:'%C(cyan) %ad %C(yellow)%h %Creset %s %Cgreen%d' --date=local"
+  stats = diff --stat
+  sync = ! git fetch upstream -v && git fetch origin -v && git checkout master && git merge upstream/master
+  type = cat-file -t
+  undo = reset head~
+  unstage = reset HEAD
+  wdiff = diff --word-diff
+  who = shortlog -s -e --
+  up = "!git remote update -p; git merge --ff-only @{u}"
+[color]
+  ui = true
+[push]
+  default = simple
