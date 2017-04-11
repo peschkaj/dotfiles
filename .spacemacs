@@ -37,14 +37,14 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      (auto-completion
-      (haskell :variables haskell-completion-backend 'intero))
+      (haskell :variables haskell-completion-backend 'intero)
+      (latex))
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t
@@ -67,6 +67,7 @@ values."
               haskell-completion-backend 'intero
               haskell-enable-hindent-style "johan-tibell")
      html
+     latex
      markdown
 
      (org :variables
@@ -82,6 +83,7 @@ values."
      version-control
      ;racket
      themes-megapack
+     yaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these

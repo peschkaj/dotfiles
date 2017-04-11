@@ -53,8 +53,6 @@ ZSH_THEME="kolo"
 plugins=(git docker emacs history systemd cmake gnu-utils git-open)
 
 # User configuration
-## PATH moved to .zshenv
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -95,6 +93,7 @@ alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 alias pdxlinux='ssh -i ~/.ssh/local.pub jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 alias pdxlinuxlab='ssh -i ~/.ssh/local.pub jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
 alias babbage='ssh -i ~/.ssh/local.pub jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias quizor='ssh -i ~/.ssh/local.pub jpeschka@quizor2.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 
 # function emacs {
 #     if [[ $# -eq 0 ]]; then
