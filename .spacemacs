@@ -2,12 +2,6 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
-(defun system-is-armchair-traveler ()
-  (interactive)
-  "Return true if this is running on armchair-traveler"
-  (string-equal system-name "armchair-traveler")
-  )
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -50,13 +44,13 @@ values."
             c-c++-enable-clang-support t
             clang-format-style "file"
             )
-     ;; Semantic configuration is move to the end of dotspacemacs/user-config
+
      (semantic :variables
                global-semantic-decoration-mode 1
                global-semantic-idle-summary-mode nil)
 
      irony-mode
-     rtags
+     mineo-rtags
 
      better-defaults
      emacs-lisp
@@ -290,14 +284,7 @@ values."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup 'changed
    )
-  ;; make the fonts big for those 4k displays!
-  (if (system-is-armchair-traveler)
-      (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                                :size 12.0
-                                                :weight normal
-                                                :width normal
-                                                :powerline-scale 1.1))
-    )
+
 )
 
 (defun dotspacemacs/user-init ()
@@ -323,8 +310,7 @@ you should place your code here."
   ; package--save-selected-packages to nil
   (defun package--save-selected-packages (&rest opt) nil)
 
-
-
+  (spacemacs/load-theme 'tangotango)
   (setq powerline-default-separator 'bar)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -338,16 +324,9 @@ you should place your code here."
     (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
     (setq auto-mode-alist (cons '("\\.markdown$" . gfm-mode) auto-mode-alist)))
 
-  (setq ;c-default-style "stroustrup"
-        c-basic-offset 2)
+  (setq c-basic-offset 2)
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-to-list 'c-cleanup-list 'comment-close-slash)
-
-  ;; rtags setup is moved to the private rtags package
-  ;; irony-mode configuration is handled in the private irony-mode package
-
-  (spacemacs/load-theme 'tangotango)
-
 
   (defun my-gfm-mode-hook ()
     (visual-line-mode 1))
@@ -363,8 +342,6 @@ you should place your code here."
   ;; Yeah, because I can really remember ASDFGHJKL and know which one is 7. LOL
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
 
-  ;(setq-default flycheck-disabled-checkers '(c/c++-cppcheck))
-
   ;; machine specific configuration
   (if (system-is-armchair-traveler)
       (setq browse-url-browser-function 'browse-url-generic
@@ -373,14 +350,6 @@ you should place your code here."
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
 
-
-
-  ;; For some reason, scroll-down-command does the wrong thing and moves 5 lines
-  ;; in the wrong direction. Can't figure out where that's coming from, so instead
-  ;; we'll just set M-v to use scroll-down.
-  (global-unset-key (kbd "M-v"))
-  (global-set-key (kbd "M-v") 'scroll-down)
-
   (exec-path-from-shell-initialize)
 
   (when (string-match ".*cs\.pdx\.edu" system-name)
@@ -388,15 +357,7 @@ you should place your code here."
       (require 'disable-mouse)
       (global-disable-mouse-mode)))
 
-  ;; (with-eval-after-load 'adaptive-wrap
-  ;;   (setq-default adaptive-wrap-extra-indent 4))
-
-  ;; (add-hook 'visual-line-mode-hook
-  ;;           (lambda ()
-  ;;             (adaptive-wrap-prefix-mode +1)
-  ;;             (diminish 'visual-line-mode)))
   (global-visual-line-mode +1)
-
 
   ;; Forces line numbers to a fixed size so that org and gfm modes do not cause
   ;; line numbers to disappear when a heading increases the size of the font face
@@ -404,6 +365,10 @@ you should place your code here."
     '(set-face-attribute 'linum nil :height 120))
 
   (setq global-semantic-idle-summary-mode nil)
+
+  ;; Move the entire buffer up or down one line at a time.
+  (global-set-key (kbd "M-p") (kbd "C-u 1 C-v"))
+  (global-set-key (kbd "M-n") (kbd "C-u 1 M-v"))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
