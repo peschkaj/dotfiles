@@ -310,6 +310,7 @@ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 ln -s ~/src/peschkaj/dotfiles/.spacemacs .spacemacs
 ln -s ~/src/peschkaj/dotfiles/spacemacs-private/irony-mode ~/.emacs.d/private/irony-mode
 ln -s ~/src/peschkaj/dotfiles/spacemacs-private/rtags ~/.emacs.d/private/rtags
+ln -s ~/src/peschkaj/dotfiles/spacemacs-private/rtags ~/.emacs.d/private/mineo-rtags
 ln -s ~/src/peschkaj/dotfiles/spacemacs-private/snippets ~/.emacs.d/private/snippets
 
 sudo cp ~/src/peschkaj/dotfiles/emc.sh /usr/local/bin/emc.sh
