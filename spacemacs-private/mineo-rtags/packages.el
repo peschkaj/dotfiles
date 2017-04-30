@@ -45,7 +45,7 @@
           rtags-completions-enabled t
           rtags-use-helm t)
     ; See https://github.com/Andersbakken/rtags/issues/832
-    (require 'rtags-helm)
+    (require 'helm-rtags)
     (push '(company-rtags)
           company-backends-c-mode-common)
     (rtags-enable-standard-keybindings)

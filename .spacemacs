@@ -310,7 +310,8 @@ you should place your code here."
   ; package--save-selected-packages to nil
   (defun package--save-selected-packages (&rest opt) nil)
 
-  (spacemacs/load-theme 'tangotango)
+  ;(spacemacs/load-theme 'tangotango)
+  (spacemacs/load-theme 'challenger-deep)
   (setq powerline-default-separator 'bar)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -342,10 +343,6 @@ you should place your code here."
   ;; Yeah, because I can really remember ASDFGHJKL and know which one is 7. LOL
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
 
-  ;; machine specific configuration
-  (if (system-is-armchair-traveler)
-      (setq browse-url-browser-function 'browse-url-generic
-            browse-url-generic-program "google-chrome"))
   ;; Disables suspend keys so we aren't locking up emacs in a GUI
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
