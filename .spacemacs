@@ -63,6 +63,19 @@ values."
      html
      latex
      markdown
+     (mu4e :variables
+           mu4e-maildir "~/.mail/"
+           mu4e-get-mail-command "mbsync -a"
+           mu4e-update-interval 300
+           mu4e-compose-format-flowed t
+           mu4e-headers-date-format "%Y-%m-%d %H:%M"
+           mu4e-change-filenames-when-moving t
+           mu4e-enable-notifications t
+           mu4e-enable-mode-line t
+           mu4e-sent-messages-behavior 'delete
+           mu4e-account-alist t
+           mu4e-use-fancy-chars t
+           )
 
      (org :variables
           org-list-allow-alphabetical t
@@ -88,6 +101,7 @@ values."
      editorconfig
      disable-mouse
      google-c-style
+     smtpmail
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -295,6 +309,9 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
   )
 
 (defun dotspacemacs/user-config ()
@@ -311,7 +328,6 @@ you should place your code here."
   ; package--save-selected-packages to nil
   (defun package--save-selected-packages (&rest opt) nil)
 
-  ;(spacemacs/load-theme 'tangotango)
   (spacemacs/load-theme 'challenger-deep)
   (setq powerline-default-separator 'bar)
   (define-key global-map (kbd "C-+") 'text-scale-increase)
@@ -367,7 +383,78 @@ you should place your code here."
   ;; Move the entire buffer up or down one line at a time.
   (global-set-key (kbd "M-p") (kbd "C-u 1 C-v"))
   (global-set-key (kbd "M-n") (kbd "C-u 1 M-v"))
+
+  ;; mu4e configuration
+  ;(setq mu4e-maildir-shortcuts '("/gmail/INBOX" . ?g) )
+  (setq
+   user-mail-address "jeremiah.peschka@gmail.com"
+   user-full-name  "Jeremiah Peschka"
+   mu4e-compose-signature
+   (concat
+    "Jeremiah Peschka\n"))
+
+  ;; kill the message buffer when we're done with it.
+  (setq message-kill-buffer-on-exit t)
+
+  (setq mu4e-account-alist
+        '(("gmail"
+           (mu4e-sent-messages-behavior delete)
+           (mu4e-refile-folder "/gmail/all-mail")
+           (mu4e-trash-folder  "/gmail/trash")
+           (mu4e-drafts-folder "/gmail/drafts")
+           (mu4e-sent-folder   "/gmail/sent")
+           (mu4e-trash-folder  "/gmail/trash")
+           (mu4e-compose-complete-only-personal t)
+           (mu4e-view-show-images t)
+           (mu4e-view-image-max-width 800)
+           (mu4e-view-prefer-html t)
+           (user-mail-address "jeremiah.peschka@gmail.com")
+           (user-full-name "Jeremiah Peschka")
+           (mu4e-headers-date-format "%Y-%m-%d %H:%M")
+           (message-citation-line-format "On %Y-%m-%d %H:%M:%S, %f wrote:")
+           )))
+
+  (mu4e/mail-account-reset)
+
+  (setq mu4e-maildir-shortcuts
+        '(("/gmail/inbox"    . ?i)
+          ("/gmail/sent"     . ?s)
+          ("/gmail/trash"    . ?t)
+          ("/gmail/drafts"   . ?d)
+          ("/gmail/all-mail" . ?a)
+          ))
+
+  (setq message-send-mail-function 'smtpmail-send-it
+        starttls-use-gnutls t
+        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+        smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
+
+  (setq mu4e-bookmarks
+        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+          ("date:today..now" "Today's messages"     ?t)
+          ("date:7d..now"    "Last 7 days"          ?w)
+          ("mime:image/*"    "Messages with images" ?p)
+          ("size:5M..500M"   "Big Messages"         ?b)
+          )
+   )
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (zonokai-theme zenburn-theme zen-and-art-theme yaml-mode xterm-color ws-butler winum which-key web-mode volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stickyfunc-enhance srefactor spaceline powerline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rtags reverse-theme restart-emacs rainbow-delimiters railscasts-theme purple-haze-theme pug-mode professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox spinner orgit organic-green-theme org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mwim mustang-theme multi-term mu4e-maildirs-extension mu4e-alert alert log4e gntp move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-gitflow magit-gh-pulls madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme less-css-mode jbeans-theme jazz-theme ir-black-theme intero inkpot-theme info+ indent-guide hydra hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme haskell-snippets haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate google-c-style golden-ratio gnuplot gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gist gh marshal logito pcache ht gh-md gandalf-theme fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck-irony flycheck-haskell flycheck pkg-info epl flx-ido flx flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight espresso-theme eshell-z eshell-prompt-extras esh-help emoji-cheat-sheet-plus emmet-mode elisp-slime-nav editorconfig dumb-jump f s dracula-theme django-theme disaster disable-mouse diminish diff-hl define-word darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-web web-completion-data company-statistics company-irony irony company-ghci company-ghc ghc haskell-mode company-emoji company-cabal company-c-headers company-auctex company column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmm-mode cmake-mode cmake-ide levenshtein clues-theme clean-aindent-mode clang-format cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme bind-map bind-key badwolf-theme auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed dash auctex apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
