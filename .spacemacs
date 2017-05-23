@@ -97,7 +97,7 @@ values."
      syntax-checking
      version-control
      ;racket
-     themes-megapack
+     ;themes-megapack
      yaml
      )
    ;; List of additional packages that will be installed without being
@@ -110,6 +110,7 @@ values."
      disable-mouse
      google-c-style
      smtpmail
+     challenger-deep
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -328,7 +329,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
-  )
+
+  (setq custom-file "~/.emacs-custom.el")
+  (load custom-file 'noerror)
+)
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -337,8 +341,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq custom-file "~/.emacs-custom.el")
-  (load custom-file 'noerror)
+  ;; (setq custom-file "~/.emacs-custom.el")
+  ;; (load custom-file 'noerror)
 
   ; Tells emacs to stop saving seleceted packages by redefining
   ; package--save-selected-packages to nil
