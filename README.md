@@ -433,6 +433,12 @@ ln -s ~/.insync/Pictures Pictures
 
 Substitute "Dropbox" above if you're not an `insync`/Google Drive user.
 
+## Useful Scripts
+
+``` shell
+ln -s ~/src/peschkaj/dotfiles/should-i-reboot.sh .local/bin/should-i-reboot
+```
+
 ## Graphics
 
 ### NVidia Graphics Driver PPAs
