@@ -71,19 +71,19 @@ values."
      html
      latex
      markdown
-     (mu4e :variables
-           mu4e-maildir "~/.mail/"
-           mu4e-get-mail-command "mbsync -a"
-           mu4e-update-interval 300
-           mu4e-compose-format-flowed t
-           mu4e-headers-date-format "%Y-%m-%d %H:%M"
-           mu4e-change-filenames-when-moving t
-           mu4e-enable-notifications t
-           mu4e-enable-mode-line t
-           mu4e-sent-messages-behavior 'delete
-           mu4e-account-alist t
-           mu4e-use-fancy-chars t
-           )
+     ;; (mu4e :variables
+     ;;       mu4e-maildir "~/.mail/"
+     ;;       mu4e-get-mail-command "mbsync -a"
+     ;;       mu4e-update-interval 300
+     ;;       mu4e-compose-format-flowed t
+     ;;       mu4e-headers-date-format "%Y-%m-%d %H:%M"
+     ;;       mu4e-change-filenames-when-moving t
+     ;;       mu4e-enable-notifications t
+     ;;       mu4e-enable-mode-line t
+     ;;       mu4e-sent-messages-behavior 'delete
+     ;;       mu4e-account-alist t
+     ;;       mu4e-use-fancy-chars t
+     ;;       )
 
      (org :variables
           org-list-allow-alphabetical t
@@ -97,7 +97,7 @@ values."
      syntax-checking
      version-control
      ;racket
-     themes-megapack
+     ;themes-megapack
      yaml
      )
    ;; List of additional packages that will be installed without being
@@ -110,6 +110,7 @@ values."
      disable-mouse
      google-c-style
      smtpmail
+     challenger-deep
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -328,7 +329,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
-  )
+
+  (setq custom-file "~/.emacs-custom.el")
+  (load custom-file 'noerror)
+)
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -337,8 +341,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq custom-file "~/.emacs-custom.el")
-  (load custom-file 'noerror)
+  ;; (setq custom-file "~/.emacs-custom.el")
+  ;; (load custom-file 'noerror)
 
   ; Tells emacs to stop saving seleceted packages by redefining
   ; package--save-selected-packages to nil
@@ -400,61 +404,61 @@ you should place your code here."
   (global-set-key (kbd "M-p") (kbd "C-u 1 C-v"))
   (global-set-key (kbd "M-n") (kbd "C-u 1 M-v"))
 
-  ;; mu4e configuration
-  ;(setq mu4e-maildir-shortcuts '("/gmail/INBOX" . ?g) )
-  (setq
-   user-mail-address "jeremiah.peschka@gmail.com"
-   user-full-name  "Jeremiah Peschka"
-   mu4e-compose-signature
-   (concat
-    "Jeremiah Peschka\n"))
+  ;; ;; mu4e configuration
+  ;; ;(setq mu4e-maildir-shortcuts '("/gmail/INBOX" . ?g) )
+  ;; (setq
+  ;;  user-mail-address "jeremiah.peschka@gmail.com"
+  ;;  user-full-name  "Jeremiah Peschka"
+  ;;  mu4e-compose-signature
+  ;;  (concat
+  ;;   "Jeremiah Peschka\n"))
 
-  ;; kill the message buffer when we're done with it.
-  (setq message-kill-buffer-on-exit t)
+  ;; ;; kill the message buffer when we're done with it.
+  ;; (setq message-kill-buffer-on-exit t)
 
-  (setq mu4e-account-alist
-        '(("gmail"
-           (mu4e-sent-messages-behavior delete)
-           (mu4e-refile-folder "/gmail/all-mail")
-           (mu4e-trash-folder  "/gmail/trash")
-           (mu4e-drafts-folder "/gmail/drafts")
-           (mu4e-sent-folder   "/gmail/sent")
-           (mu4e-trash-folder  "/gmail/trash")
-           (mu4e-compose-complete-only-personal t)
-           (mu4e-view-show-images t)
-           (mu4e-view-image-max-width 800)
-           (mu4e-view-prefer-html t)
-           (user-mail-address "jeremiah.peschka@gmail.com")
-           (user-full-name "Jeremiah Peschka")
-           (mu4e-headers-date-format "%Y-%m-%d %H:%M")
-           (message-citation-line-format "On %Y-%m-%d %H:%M:%S, %f wrote:")
-           )))
+  ;; (setq mu4e-account-alist
+  ;;       '(("gmail"
+  ;;          (mu4e-sent-messages-behavior delete)
+  ;;          (mu4e-refile-folder "/gmail/all-mail")
+  ;;          (mu4e-trash-folder  "/gmail/trash")
+  ;;          (mu4e-drafts-folder "/gmail/drafts")
+  ;;          (mu4e-sent-folder   "/gmail/sent")
+  ;;          (mu4e-trash-folder  "/gmail/trash")
+  ;;          (mu4e-compose-complete-only-personal t)
+  ;;          (mu4e-view-show-images t)
+  ;;          (mu4e-view-image-max-width 800)
+  ;;          (mu4e-view-prefer-html t)
+  ;;          (user-mail-address "jeremiah.peschka@gmail.com")
+  ;;          (user-full-name "Jeremiah Peschka")
+  ;;          (mu4e-headers-date-format "%Y-%m-%d %H:%M")
+  ;;          (message-citation-line-format "On %Y-%m-%d %H:%M:%S, %f wrote:")
+  ;;          )))
 
-  (mu4e/mail-account-reset)
+  ;; (mu4e/mail-account-reset)
 
-  (setq mu4e-maildir-shortcuts
-        '(("/gmail/inbox"    . ?i)
-          ("/gmail/sent"     . ?s)
-          ("/gmail/trash"    . ?t)
-          ("/gmail/drafts"   . ?d)
-          ("/gmail/all-mail" . ?a)
-          ))
+  ;; (setq mu4e-maildir-shortcuts
+  ;;       '(("/gmail/inbox"    . ?i)
+  ;;         ("/gmail/sent"     . ?s)
+  ;;         ("/gmail/trash"    . ?t)
+  ;;         ("/gmail/drafts"   . ?d)
+  ;;         ("/gmail/all-mail" . ?a)
+  ;;         ))
 
-  (setq message-send-mail-function 'smtpmail-send-it
-        starttls-use-gnutls t
-        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587)
+  ;; (setq message-send-mail-function 'smtpmail-send-it
+  ;;       starttls-use-gnutls t
+  ;;       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+  ;;       smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
+  ;;       smtpmail-default-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-server "smtp.gmail.com"
+  ;;       smtpmail-smtp-service 587)
 
-  (setq mu4e-bookmarks
-        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
-          ("date:today..now" "Today's messages"     ?t)
-          ("date:7d..now"    "Last 7 days"          ?w)
-          ("mime:image/*"    "Messages with images" ?p)
-          ("size:5M..500M"   "Big Messages"         ?b)
-          )
-   )
+  ;; (setq mu4e-bookmarks
+  ;;       `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+  ;;         ("date:today..now" "Today's messages"     ?t)
+  ;;         ("date:7d..now"    "Last 7 days"          ?w)
+  ;;         ("mime:image/*"    "Messages with images" ?p)
+  ;;         ("size:5M..500M"   "Big Messages"         ?b)
+  ;;         )
+  ;;  )
 )
 
