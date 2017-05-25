@@ -401,8 +401,8 @@ you should place your code here."
   (setq global-semantic-idle-summary-mode nil)
 
   ;; Move the entire buffer up or down one line at a time.
-  (global-set-key (kbd "M-p") (kbd "C-u 1 C-v"))
-  (global-set-key (kbd "M-n") (kbd "C-u 1 M-v"))
+  (global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
+  (global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
 
   ;; ;; mu4e configuration
   ;; ;(setq mu4e-maildir-shortcuts '("/gmail/INBOX" . ?g) )
