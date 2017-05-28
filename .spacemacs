@@ -97,7 +97,7 @@ values."
      syntax-checking
      version-control
      ;racket
-     ;themes-megapack
+     rust
      yaml
      )
    ;; List of additional packages that will be installed without being
@@ -113,7 +113,10 @@ values."
      challenger-deep
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages
+   '(
+     evil-escape ;; Prevents a quick key press of fd from making emacs go crazy
+     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -395,8 +398,8 @@ you should place your code here."
 
   ;; Forces line numbers to a fixed size so that org and gfm modes do not cause
   ;; line numbers to disappear when a heading increases the size of the font face
-  (eval-after-load "linum"
-    '(set-face-attribute 'linum nil :height 120))
+  ;(eval-after-load "linum"
+  ;  '(set-face-attribute 'linum nil :height 120))
 
   (setq global-semantic-idle-summary-mode nil)
 
