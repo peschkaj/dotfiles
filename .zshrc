@@ -52,6 +52,8 @@ ZSH_THEME="kolo"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git docker emacs history systemd cmake gnu-utils git-open)
 
+fpath+=~/.zfunc
+
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
 
