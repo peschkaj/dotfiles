@@ -156,3 +156,14 @@ colors() {
     done
     echo
 }
+
+# To get baloo search working:
+# 1. edit ~/.config/baloofilerc
+# 2. Change "first run" to false and then change the folders line to read folders[$e]=$HOME/,$HOME/.insync
+# 3. In Dolphin, right click on Documents and change the location from ~/Documents to ~/.insync/Documents. baloo has to match the path exactly and won't follow symlinks.
+# 4. Execute reset_baloo
+reset_baloo() {
+    balooctl stop
+    rm -rf ~/.local/share/baloo
+    balooctl start
+}
