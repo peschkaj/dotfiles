@@ -92,10 +92,10 @@ export VISUAL="emacsclient -c -a emacs"
 alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 
 # SSH aliases
-alias pdxlinux='ssh -i ~/.ssh/local.pub jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
-alias pdxlinuxlab='ssh -i ~/.ssh/local.pub jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
-alias babbage='ssh -i ~/.ssh/local.pub jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
-alias quizor='ssh -i ~/.ssh/local.pub jpeschka@quizor2.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias pdxlinux='ssh -i ~/.ssh/id_rsa jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias pdxlinuxlab='ssh -i ~/.ssh/id_rsa jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
+alias babbage='ssh -i ~/.ssh/id_rsa jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias quizor='ssh -i ~/.ssh/id_rsa jpeschka@quizor2.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 
 # function emacs {
 #     if [[ $# -eq 0 ]]; then
@@ -167,3 +167,6 @@ reset_baloo() {
     rm -rf ~/.local/share/baloo
     balooctl start
 }
+
+eval $(thefuck --alias)
+
