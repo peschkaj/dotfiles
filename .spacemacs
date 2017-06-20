@@ -110,7 +110,7 @@ values."
      disable-mouse
      google-c-style
      smtpmail
-     challenger-deep
+     challenger-deep-theme
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
