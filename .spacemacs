@@ -335,6 +335,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (setq custom-file "~/.emacs-custom.el")
   (load custom-file 'noerror)
+
+  (exec-path-from-shell-initialize)
 )
 
 (defun dotspacemacs/user-config ()
@@ -344,17 +346,23 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; (setq custom-file "~/.emacs-custom.el")
-  ;; (load custom-file 'noerror)
-
-  ; Tells emacs to stop saving seleceted packages by redefining
-  ; package--save-selected-packages to nil
+  ;; Tells emacs to stop saving seleceted packages by redefining
+  ;; package--save-selected-packages to nil
   (defun package--save-selected-packages (&rest opt) nil)
 
+  ;; Set up the theme and visual separator for powerline
   (spacemacs/load-theme 'challenger-deep)
   (setq powerline-default-separator 'bar)
+
+  ;; zoooooooooom
   (define-key global-map (kbd "C-+") 'text-scale-increase)
   (define-key global-map (kbd "C--") 'text-scale-decrease)
+  ;; Move the entire buffer up or down one line at a time.
+  (global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
+  (global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
+  ;; Disables suspend keys so we aren't locking up emacs in a GUI
+  (global-unset-key (kbd "C-z"))
+  (global-unset-key (kbd "C-x C-z"))
 
   (setq magit-repository-directories '("~/src/"))
   (global-git-commit-mode t)
@@ -364,48 +372,37 @@ you should place your code here."
     (setq auto-mode-alist (cons '("\\.mdown$" . gfm-mode) auto-mode-alist))
     (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
     (setq auto-mode-alist (cons '("\\.markdown$" . gfm-mode) auto-mode-alist)))
-
-  (setq c-basic-offset 2)
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-to-list 'c-cleanup-list 'comment-close-slash)
-
   (defun my-gfm-mode-hook ()
     (visual-line-mode 1))
   (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
 
+  ;; sets up c and C++ programming environment
+  (setq c-basic-offset 2)
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-to-list 'c-cleanup-list 'comment-close-slash)
+  (setq global-semantic-idle-summary-mode nil)
+
+
   ;; ZSH on the PDX servers caused problems with tramp hanging.
   ;; Force to bash instead to make life simple.
+  ;;
+  ;; Mon Jun 19 17:43:56 PDT 2017
+  ;; I'm not sure but this _might_ be causing problems for my local TRAMP mode
   (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
   (setq tramp-shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
 
   ;; set up ace window to make it a little more sane
-  (setq aw-dispatch-always t)
   ;; Yeah, because I can really remember ASDFGHJKL and know which one is 7. LOL
+  (setq aw-dispatch-always t)
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
 
-  ;; Disables suspend keys so we aren't locking up emacs in a GUI
-  (global-unset-key (kbd "C-z"))
-  (global-unset-key (kbd "C-x C-z"))
+  (global-visual-line-mode +1)
 
-  (exec-path-from-shell-initialize)
-
+  ;; pdx.edu system configuration
   (when (string-match ".*cs\.pdx\.edu" system-name)
     (progn
       (require 'disable-mouse)
       (global-disable-mouse-mode)))
-
-  (global-visual-line-mode +1)
-
-  ;; Forces line numbers to a fixed size so that org and gfm modes do not cause
-  ;; line numbers to disappear when a heading increases the size of the font face
-  ;(eval-after-load "linum"
-  ;  '(set-face-attribute 'linum nil :height 120))
-
-  (setq global-semantic-idle-summary-mode nil)
-
-  ;; Move the entire buffer up or down one line at a time.
-  (global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
-  (global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
 
   ;; ;; mu4e configuration
   ;; ;(setq mu4e-maildir-shortcuts '("/gmail/INBOX" . ?g) )
