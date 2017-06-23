@@ -47,6 +47,7 @@ values."
      (auto-completion
       (haskell :variables haskell-completion-backend 'intero)
       (latex))
+     bibtex
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t
@@ -85,6 +86,7 @@ values."
      ;;       mu4e-use-fancy-chars t
      ;;       )
 
+     pdf-tools
      (org :variables
           org-list-allow-alphabetical t
           )
@@ -111,6 +113,7 @@ values."
      google-c-style
      smtpmail
      challenger-deep-theme
+     interleave
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
@@ -285,7 +288,10 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers '(:relative nil
+                               :disabled-for-modes text-mode
+                                                   pdf-view-mode
+                              )
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -353,6 +359,22 @@ you should place your code here."
   ;; Set up the theme and visual separator for powerline
   (spacemacs/load-theme 'challenger-deep)
   (setq powerline-default-separator 'bar)
+
+  ;; org config
+  (setq org-directory "~/Documents/org/")
+  (with-eval-after-load 'org
+    (setq org-src-tab-acts-natively t)
+    (setq org-ref-notes-directory "~/Documents/reading/"
+          org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
+          org-ref-default-bibliography '("~/Documents/reading/notes/index.bib")
+          org-ref-pdf-directory "~/Documents/reading/lib/")
+    (setq helm-bibtex-bibliography "~/Documents/reading/notes/index.bib"
+          helm-bibtex-library-path "~/Documents/reading/notes/"
+          helm-bibtex-notes-path "~/Documents/reading/notes/index.org"
+          bibtex-completion-bibliography "~/Documents/reading/notes/index.bib"
+          bibtex-completion-notes-path "~/Documents/reading/notes/index.org")
+    )
+
 
   ;; zoooooooooom
   (define-key global-map (kbd "C-+") 'text-scale-increase)

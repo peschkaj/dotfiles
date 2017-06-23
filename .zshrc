@@ -167,6 +167,3 @@ reset_baloo() {
     rm -rf ~/.local/share/baloo
     balooctl start
 }
-
-eval $(thefuck --alias)
-
