@@ -342,7 +342,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq custom-file "~/.emacs-custom.el")
   (load custom-file 'noerror)
 
-  (exec-path-from-shell-initialize)
+  (if (not (eq system-type 'windows-nt))
+      (exec-path-from-shell-initialize))
 )
 
 (defun dotspacemacs/user-config ()

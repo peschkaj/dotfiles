@@ -1,5 +1,5 @@
 [core]
-  editor = 'C:\\Program Files\\Sublime Text 3\\subl.exe' -n -w
+  editor = emacsclient -a runemacs '%*'
   autocrlf = true
   safecrlf = true
 [merge]
