@@ -2,7 +2,11 @@
   editor = emacsclient -a runemacs '%*'
   autocrlf = true
   safecrlf = true
+  fscache = true
+  preloadindex = true
 [merge]
   tool = p4merge
 [mergetool]
   keepBackup = false
+[gc]
+  auto = 256

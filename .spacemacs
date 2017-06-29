@@ -357,6 +357,8 @@ you should place your code here."
   ;; package--save-selected-packages to nil
   (defun package--save-selected-packages (&rest opt) nil)
 
+  (setq default-buffer-file-coding-system 'utf-8-unix)
+
   ;; Set up the theme and visual separator for powerline
   (spacemacs/load-theme 'challenger-deep)
   (setq powerline-default-separator 'bar)
