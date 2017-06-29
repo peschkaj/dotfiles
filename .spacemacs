@@ -8,7 +8,27 @@
   (string-equal system-name "cantankerous")
   )
 
+(defconst jp-home-dir
+  (getenv "HOME")
+  "The full path of the user's home directory")
 
+(defconst jp-emacs-d-dir
+  (expand-file-name ".emacs.d" jp-home-dir)
+  "Top level emacs directory for local emacs configuration and code")
+
+(defconst jp-spacemacs-d-dir
+  (expand-file-name ".spacemacs.d" jp-home-dir)
+  "Top level spacemacs directory for local spacemacs configuration and code")
+
+;; Attempts to detect the current operating system and then load the right bunch of OS specific settings
+(let ((jp-os-specific-config
+       ;; N.B. This only detects Windows. Everything else is assumed to be some kind of *nix variant
+       (if (eq system-type 'windows-nt)
+           (expand-file-name "windows-nt.el" jp-spacemacs-d-dir)
+         (expand-filename "nix.el" jp-spacemacs-d-dir)
+         )))
+  (if (file-readable-p jp-os-specific-config)
+      (load-file jp-os-specific-config)))
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -44,31 +64,31 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     (auto-completion
-      (haskell :variables haskell-completion-backend 'intero)
-      (latex))
+     ;; (auto-completion
+     ;;  (haskell :variables haskell-completion-backend 'intero)
+     ;;  (latex))
      bibtex
-     (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t
-            clang-format-style "file"
-            )
+     ;; (c-c++ :variables
+     ;;        c-c++-default-mode-for-headers 'c++-mode
+     ;;        c-c++-enable-clang-support t
+     ;;        clang-format-style "file"
+     ;;        )
 
      (semantic :variables
                global-semantic-decoration-mode 1
                global-semantic-idle-summary-mode nil)
 
-     irony-mode
-     mineo-rtags
+     ;; irony-mode
+     ;; mineo-rtags
 
      better-defaults
      emacs-lisp
      emoji
      git
      github
-     (haskell :variables
-              haskell-completion-backend 'intero
-              haskell-enable-hindent-style "johan-tibell")
+     ;; (haskell :variables
+     ;;          haskell-completion-backend 'intero
+     ;;          haskell-enable-hindent-style "johan-tibell")
      html
      latex
      markdown
@@ -90,17 +110,17 @@ values."
      (org :variables
           org-list-allow-alphabetical t
           )
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom
-            shell-default-shell 'ansi-term
-            shell-default-term-shell "/usr/bin/zsh")
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom
+     ;;        shell-default-shell 'ansi-term
+     ;;        shell-default-term-shell "/usr/bin/zsh")
      spell-checking
      syntax-checking
      version-control
      ;racket
-     rust
-     yaml
+     ;; rust
+     ;; yaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -109,9 +129,9 @@ values."
    dotspacemacs-additional-packages
    '(
      editorconfig
-     disable-mouse
-     google-c-style
-     smtpmail
+     ;; disable-mouse
+     ;; google-c-style
+     ;; smtpmail
      challenger-deep-theme
      interleave
      )
@@ -123,7 +143,11 @@ values."
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
-   dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-delete-orphan-packages t)
+
+  (if (fboundp 'jp/dotspacemacs/layers)
+      (jp/dotspacemacs/layers))
+  )
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -335,7 +359,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+
   (when (fboundp 'imagemagick-register-types)
     (imagemagick-register-types))
 
@@ -343,7 +367,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (load custom-file 'noerror)
 
   (if (not (eq system-type 'windows-nt))
-      (exec-path-from-shell-initialize))
+      ((exec-path-from-shell-initialize)
+       (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")))
 )
 
 (defun dotspacemacs/user-config ()
@@ -364,19 +389,19 @@ you should place your code here."
   (setq powerline-default-separator 'bar)
 
   ;; org config
-  (setq org-directory "~/Documents/org/")
-  (with-eval-after-load 'org
-    (setq org-src-tab-acts-natively t)
-    (setq org-ref-notes-directory "~/Documents/reading/"
-          org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
-          org-ref-default-bibliography '("~/Documents/reading/notes/index.bib")
-          org-ref-pdf-directory "~/Documents/reading/lib/")
-    (setq helm-bibtex-bibliography "~/Documents/reading/notes/index.bib"
-          helm-bibtex-library-path "~/Documents/reading/notes/"
-          helm-bibtex-notes-path "~/Documents/reading/notes/index.org"
-          bibtex-completion-bibliography "~/Documents/reading/notes/index.bib"
-          bibtex-completion-notes-path "~/Documents/reading/notes/index.org")
-    )
+  ;; (setq org-directory "~/Documents/org/")
+  ;; (with-eval-after-load 'org
+  ;;   (setq org-src-tab-acts-natively t)
+  ;;   (setq org-ref-notes-directory "~/Documents/reading/"
+  ;;         org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
+  ;;         org-ref-default-bibliography '("~/Documents/reading/notes/index.bib")
+  ;;         org-ref-pdf-directory "~/Documents/reading/lib/")
+  ;;   (setq helm-bibtex-bibliography "~/Documents/reading/notes/index.bib"
+  ;;         helm-bibtex-library-path "~/Documents/reading/notes/"
+  ;;         helm-bibtex-notes-path "~/Documents/reading/notes/index.org"
+  ;;         bibtex-completion-bibliography "~/Documents/reading/notes/index.bib"
+  ;;         bibtex-completion-notes-path "~/Documents/reading/notes/index.org")
+  ;;   )
 
 
   ;; zoooooooooom
