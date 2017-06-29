@@ -25,10 +25,11 @@
        ;; N.B. This only detects Windows. Everything else is assumed to be some kind of *nix variant
        (if (eq system-type 'windows-nt)
            (expand-file-name "windows-nt.el" jp-spacemacs-d-dir)
-         (expand-filename "nix.el" jp-spacemacs-d-dir)
+         (expand-file-name "nix.el" jp-spacemacs-d-dir)
          )))
   (if (file-readable-p jp-os-specific-config)
       (load-file jp-os-specific-config)))
+
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -146,7 +147,6 @@ values."
    dotspacemacs-delete-orphan-packages t)
 
   (if (fboundp 'jp/dotspacemacs/layers)
-      (message "Found platform specific layer config")
       (jp/dotspacemacs/layers))
   )
 
@@ -350,7 +350,6 @@ values."
                                                 :width normal
                                                 :powerline-scale 1.1))
     )
-
 )
 
 (defun dotspacemacs/user-init ()
@@ -368,8 +367,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (load custom-file 'noerror)
 
   (if (not (eq system-type 'windows-nt))
-      ((exec-path-from-shell-initialize)
-       (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")))
+       (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
 
   (if (fboundp 'jp/dotspacemacs/init)
       (jp/dotspacemacs/init))
@@ -433,7 +431,7 @@ you should place your code here."
   ;; sets up c and C++ programming environment
   (setq c-basic-offset 2)
   (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-to-list 'c-cleanup-list 'comment-close-slash)
+  ;(add-to-list 'c-cleanup-list 'comment-close-slash)
   (setq global-semantic-idle-summary-mode nil)
 
 
