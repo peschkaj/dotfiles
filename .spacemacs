@@ -146,6 +146,7 @@ values."
    dotspacemacs-delete-orphan-packages t)
 
   (if (fboundp 'jp/dotspacemacs/layers)
+      (message "Found platform specific layer config")
       (jp/dotspacemacs/layers))
   )
 
@@ -369,6 +370,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (if (not (eq system-type 'windows-nt))
       ((exec-path-from-shell-initialize)
        (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")))
+
+  (if (fboundp 'jp/dotspacemacs/init)
+      (jp/dotspacemacs/init))
 )
 
 (defun dotspacemacs/user-config ()
@@ -510,5 +514,8 @@ you should place your code here."
   ;;         ("size:5M..500M"   "Big Messages"         ?b)
   ;;         )
   ;;  )
+
+  (if (fboundp 'jp/dotspacemacs/config)
+      (jp/dotspacemacs/config))
 )
 
