@@ -27,7 +27,7 @@ This function is called at the very end of spacemacs initialization after layers
           org-ref-default-bibliography '("D:/insync/Documents/reading/notes/index.bib")
           org-ref-pdf-directory "D:/insync/Documents/reading/lib/")
     (setq helm-bibtex-bibliography "D:/insync/Documents/reading/notes/index.bib"
-          helm-bibtex-library-path "D:/insync/Documents/reading/notes/"
+          helm-bibtex-library-path "D:/insync/Documents/reading/lib/"
           helm-bibtex-notes-path "D:/insync/Documents/reading/notes/index.org"
           bibtex-completion-bibliography "D:/insync/Documents/reading/notes/index.bib"
           bibtex-completion-notes-path "D:/insync/Documents/reading/notes/index.org")

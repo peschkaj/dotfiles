@@ -52,7 +52,7 @@ This function is called at the very end of spacemacs initialization after layers
           org-ref-default-bibliography '("~/Documents/reading/notes/index.bib")
           org-ref-pdf-directory "~/Documents/reading/lib/")
     (setq helm-bibtex-bibliography "~/Documents/reading/notes/index.bib"
-          helm-bibtex-library-path "~/Documents/reading/notes/"
+          helm-bibtex-library-path "~/Documents/reading/lib/"
           helm-bibtex-notes-path "~/Documents/reading/notes/index.org"
           bibtex-completion-bibliography "~/Documents/reading/notes/index.bib"
           bibtex-completion-notes-path "~/Documents/reading/notes/index.org")
