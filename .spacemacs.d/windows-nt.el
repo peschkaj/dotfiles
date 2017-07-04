@@ -1,5 +1,5 @@
 ;; configuration only for Windows NT derived systems
-(defun jp/dotspacemacs/layers ()
+(defun jp/dotspacemacs/os-layers ()
   "Local configuration layers declaration"
   (let ((local-configuration-layers
          '(
@@ -16,7 +16,7 @@
       (add-to-list 'dotspacemacs-additional-packages package))))
 
 
-(defun jp/dotspacemacs/config ()
+(defun jp/dotspacemacs/os-config ()
   "local configuration function.
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
