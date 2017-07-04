@@ -21,17 +21,18 @@
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
 
-  (setq org-directory "D:/insync/Documents/org/")
-  (with-eval-after-load 'org
-    (setq org-src-tab-acts-natively t)
-    (setq org-ref-notes-directory "D:/insync/Documents/reading/"
-          org-ref-bibliography-notes "D:/insync/Documents/reading/notes/index.org"
-          org-ref-default-bibliography '("D:/insync/Documents/reading/notes/index.bib")
-          org-ref-pdf-directory "D:/insync/Documents/reading/lib/")
-    (setq helm-bibtex-bibliography "D:/insync/Documents/reading/notes/index.bib"
-          helm-bibtex-library-path "D:/insync/Documents/reading/lib/"
-          helm-bibtex-notes-path "D:/insync/Documents/reading/notes/index.org"
-          bibtex-completion-bibliography "D:/insync/Documents/reading/notes/index.bib"
-          bibtex-completion-notes-path "D:/insync/Documents/reading/notes/index.org")
-    )
+  (setq magit-repository-directories '("C:/Users/jeremiah/src/"))
+
+  ;; (with-eval-after-load 'org
+  ;;   (setq org-src-tab-acts-natively t)
+  ;;   (setq org-ref-notes-directory "D:/insync/Documents/reading/"
+  ;;         org-ref-bibliography-notes "D:/insync/Documents/reading/notes/index.org"
+  ;;         org-ref-default-bibliography '("D:/insync/Documents/reading/notes/index.bib")
+  ;;         org-ref-pdf-directory "D:/insync/Documents/reading/lib/")
+  ;;   (setq helm-bibtex-bibliography "D:/insync/Documents/reading/notes/index.bib"
+  ;;         helm-bibtex-library-path "D:/insync/Documents/reading/lib/"
+  ;;         helm-bibtex-notes-path "D:/insync/Documents/reading/notes/index.org"
+  ;;         bibtex-completion-bibliography "D:/insync/Documents/reading/notes/index.bib"
+  ;;         bibtex-completion-notes-path "D:/insync/Documents/reading/notes/index.org")
+  ;;   )
   )

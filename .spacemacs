@@ -27,9 +27,6 @@
   (string-trim (with-output-to-string
     (call-process "hostname" nil standard-output nil))))
 
-;; (defconst jp-hostname2
-;;   (with-output-to-string (call-process "hostname" nil standard-output nil)))
-
 ;; Attempts to detect the current operating system and then load the right bunch of OS specific settings
 (let ((jp-os-specific-config
        ;; N.B. This only detects Windows. Everything else is assumed to be some kind of *nix variant
@@ -82,33 +79,19 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; (auto-completion
-     ;;  (haskell :variables haskell-completion-backend 'intero)
-     ;;  (latex))
      bibtex
-     ;; (c-c++ :variables
-     ;;        c-c++-default-mode-for-headers 'c++-mode
-     ;;        c-c++-enable-clang-support t
-     ;;        clang-format-style "file"
-     ;;        )
 
      (semantic :variables
                global-semantic-decoration-mode 1
                global-semantic-idle-summary-mode nil)
-
-     ;; irony-mode
-     ;; mineo-rtags
 
      better-defaults
      emacs-lisp
      emoji
      git
      github
-     ;; (haskell :variables
-     ;;          haskell-completion-backend 'intero
-     ;;          haskell-enable-hindent-style "johan-tibell")
      html
-     ;latex
+
      markdown
      ;; (mu4e :variables
      ;;       mu4e-maildir "~/.mail/"
@@ -128,17 +111,10 @@ values."
      (org :variables
           org-list-allow-alphabetical t
           )
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom
-     ;;        shell-default-shell 'ansi-term
-     ;;        shell-default-term-shell "/usr/bin/zsh")
+
      spell-checking
      syntax-checking
      version-control
-     ;racket
-     ;; rust
-     ;; yaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -389,16 +365,13 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq custom-file "~/.emacs-custom.el")
   (load custom-file 'noerror)
 
-  (if (not (eq system-type 'windows-nt))
-       (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
+
 
   (if (fboundp 'jp/dotspacemacs/os-init)
       (jp/dotspacemacs/os-init))
 
   (if (fboundp 'jp/dotspacemacs/system-init)
       (jp/dotspacemacs/system-init))
-
-
 )
 
 (defun dotspacemacs/user-config ()
@@ -444,7 +417,7 @@ you should place your code here."
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z"))
 
-  (setq magit-repository-directories '("~/src/"))
+
   (global-git-commit-mode t)
 
   (when (configuration-layer/layer-usedp 'markdown)
@@ -456,12 +429,7 @@ you should place your code here."
     (visual-line-mode 1))
   (add-hook 'gfm-mode-hook 'my-gfm-mode-hook)
 
-  ;; sets up c and C++ programming environment
-  (setq c-basic-offset 2)
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  ;(add-to-list 'c-cleanup-list 'comment-close-slash)
   (setq global-semantic-idle-summary-mode nil)
-
 
   ;; ZSH on the PDX servers caused problems with tramp hanging.
   ;; Force to bash instead to make life simple.
@@ -477,12 +445,6 @@ you should place your code here."
   (setq aw-keys '(?1 ?2 ?3 ?4 ?5 ?6 ?7 ?8 ?9))
 
   (global-visual-line-mode +1)
-
-  ;; pdx.edu system configuration
-  (when (string-match ".*cs\.pdx\.edu" system-name)
-    (progn
-      (require 'disable-mouse)
-      (global-disable-mouse-mode)))
 
   ;; ;; mu4e configuration
   ;; ;(setq mu4e-maildir-shortcuts '("/gmail/INBOX" . ?g) )
