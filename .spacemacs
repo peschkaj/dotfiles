@@ -21,7 +21,14 @@
   "Top level spacemacs directory for local spacemacs configuration and code")
 
 (defconst jp-hostname
-  (car (split-string (system-name) "\\." t)))
+  ;; This should use the following line, but it doesn't work for some reason
+  ;; So, instead, we resort to shelling out
+  ;(car (split-string (system-name) "\\." t))
+  (string-trim (with-output-to-string
+    (call-process "hostname" nil standard-output nil))))
+
+;; (defconst jp-hostname2
+;;   (with-output-to-string (call-process "hostname" nil standard-output nil)))
 
 ;; Attempts to detect the current operating system and then load the right bunch of OS specific settings
 (let ((jp-os-specific-config
@@ -356,6 +363,9 @@ values."
    dotspacemacs-whitespace-cleanup 'changed
    )
 
+
+
+
   (if (system-is-cantankerous)
       (setq-default dotspacemacs-default-font '("Source Code Pro"
                                                 :size 11.0
@@ -387,6 +397,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (if (fboundp 'jp/dotspacemacs/system-init)
       (jp/dotspacemacs/system-init))
+
+
 )
 
 (defun dotspacemacs/user-config ()
@@ -528,6 +540,7 @@ you should place your code here."
   ;;         ("size:5M..500M"   "Big Messages"         ?b)
   ;;         )
   ;;  )
+
 
   (if (fboundp 'jp/dotspacemacs/os-config)
       (jp/dotspacemacs/os-config))
