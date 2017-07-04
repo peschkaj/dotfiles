@@ -1,7 +1,7 @@
 [core]
   editor = emacsclient -a runemacs '%*'
   autocrlf = true
-  safecrlf = true
+  safecrlf = warn
   fscache = true
   preloadindex = true
 [merge]

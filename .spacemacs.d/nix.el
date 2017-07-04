@@ -14,6 +14,7 @@
                   )
 
            irony-mode
+           latex
            mineo-rtags
 
            (haskell :variables

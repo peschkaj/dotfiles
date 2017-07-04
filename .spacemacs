@@ -20,6 +20,16 @@
   (expand-file-name ".spacemacs.d" jp-home-dir)
   "Top level spacemacs directory for local spacemacs configuration and code")
 
+(defconst jp-hostname
+  ;; This should use the following line, but it doesn't work for some reason
+  ;; So, instead, we resort to shelling out
+  ;(car (split-string (system-name) "\\." t))
+  (string-trim (with-output-to-string
+    (call-process "hostname" nil standard-output nil))))
+
+;; (defconst jp-hostname2
+;;   (with-output-to-string (call-process "hostname" nil standard-output nil)))
+
 ;; Attempts to detect the current operating system and then load the right bunch of OS specific settings
 (let ((jp-os-specific-config
        ;; N.B. This only detects Windows. Everything else is assumed to be some kind of *nix variant
@@ -29,6 +39,13 @@
          )))
   (if (file-readable-p jp-os-specific-config)
       (load-file jp-os-specific-config)))
+
+;; Attempt to detect the hostname and load machine specific configuration
+(let ((jp-system-specific-config
+       (expand-file-name
+        (concat jp-hostname ".el") jp-spacemacs-d-dir)))
+  (if (file-readable-p jp-system-specific-config)
+      (load-file jp-system-specific-config)))
 
 
 (defun dotspacemacs/layers ()
@@ -91,7 +108,7 @@ values."
      ;;          haskell-completion-backend 'intero
      ;;          haskell-enable-hindent-style "johan-tibell")
      html
-     latex
+     ;latex
      markdown
      ;; (mu4e :variables
      ;;       mu4e-maildir "~/.mail/"
@@ -146,8 +163,11 @@ values."
    ;; the list `dotspacemacs-configuration-layers'. (default t)
    dotspacemacs-delete-orphan-packages t)
 
-  (if (fboundp 'jp/dotspacemacs/layers)
-      (jp/dotspacemacs/layers))
+  (if (fboundp 'jp/dotspacemacs/os-layers)
+      (jp/dotspacemacs/os-layers))
+
+  (if (fboundp 'jp/dotspacemacs/system-layers)
+      (jp/dotspacemacs/system-layers))
   )
 
 (defun dotspacemacs/init ()
@@ -343,6 +363,9 @@ values."
    dotspacemacs-whitespace-cleanup 'changed
    )
 
+
+
+
   (if (system-is-cantankerous)
       (setq-default dotspacemacs-default-font '("Source Code Pro"
                                                 :size 11.0
@@ -369,8 +392,13 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (if (not (eq system-type 'windows-nt))
        (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e"))
 
-  (if (fboundp 'jp/dotspacemacs/init)
-      (jp/dotspacemacs/init))
+  (if (fboundp 'jp/dotspacemacs/os-init)
+      (jp/dotspacemacs/os-init))
+
+  (if (fboundp 'jp/dotspacemacs/system-init)
+      (jp/dotspacemacs/system-init))
+
+
 )
 
 (defun dotspacemacs/user-config ()
@@ -513,7 +541,11 @@ you should place your code here."
   ;;         )
   ;;  )
 
-  (if (fboundp 'jp/dotspacemacs/config)
-      (jp/dotspacemacs/config))
+
+  (if (fboundp 'jp/dotspacemacs/os-config)
+      (jp/dotspacemacs/os-config))
+
+  (if (fboundp 'jp/dotspacemacs/system-config)
+      (jp/dotspacemacs/system-config))
 )
 
