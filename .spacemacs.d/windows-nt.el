@@ -3,6 +3,7 @@
   "Local configuration layers declaration"
   (let ((local-configuration-layers
          '(
+           (latex :variables latex-build-command "LaTeX")
            )))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
@@ -19,6 +20,7 @@
   "local configuration function.
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
+
   (setq org-directory "D:/insync/Documents/org/")
   (with-eval-after-load 'org
     (setq org-src-tab-acts-natively t)

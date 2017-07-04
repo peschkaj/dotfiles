@@ -91,7 +91,7 @@ values."
      ;;          haskell-completion-backend 'intero
      ;;          haskell-enable-hindent-style "johan-tibell")
      html
-     latex
+     ;latex
      markdown
      ;; (mu4e :variables
      ;;       mu4e-maildir "~/.mail/"
