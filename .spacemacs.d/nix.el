@@ -40,11 +40,31 @@
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
+(defun jp/dotspacemacs/system-init()
+  "local initialization function
+This function is called at the end of dotspacemacs/init.
+Put any OS-specific variable modification required in here."
+  (if (file-accessible-directory-p "/usr/local/share/emacs/site-lisp/mu4e")
+      (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")))
+
 
 (defun jp/dotspacemacs/config ()
   "local configuration function.
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
+  ;; sets up c and C++ programming environment
+  (setq c-basic-offset 2)
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+
+  (setq magit-repository-directories '("~/src/"))
+
+  ;; pdx.edu system configuration
+  ;; TODO This needs to be changed to detect console mode emacs
+  (when (string-match ".*cs\.pdx\.edu" system-name)
+    (progn
+      (require 'disable-mouse)
+      (global-disable-mouse-mode)))
+
   (setq org-directory "~/Documents/org/")
   (with-eval-after-load 'org
     (setq org-src-tab-acts-natively t)
