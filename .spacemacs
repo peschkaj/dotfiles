@@ -136,7 +136,7 @@ values."
      spell-checking
      syntax-checking
      version-control
-     ;racket
+     racket
      ;; rust
      ;; yaml
      )
