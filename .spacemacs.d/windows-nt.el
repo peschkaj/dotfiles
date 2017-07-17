@@ -3,14 +3,15 @@
   "Local configuration layers declaration"
   (let ((local-configuration-layers
          '(
+           (auto-completion
+            (latex))
            (latex :variables latex-build-command "LaTeX")
            )))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
   (let ((local-additional-packages
          '(
-           (auto-completion
-            (latex))
+
            )))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
