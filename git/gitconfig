@@ -12,6 +12,7 @@
   browse = !git open
   branches = branch -rav
   changed = status -sb
+  clean = remote update --prune
   ci = commit
   co = checkout
   dump = cat-file -p
