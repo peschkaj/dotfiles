@@ -11,8 +11,8 @@
   bra = branch -rav
   browse = !git open
   branches = branch -rav
+  branch-clean = remote update --prune
   changed = status -sb
-  clean = remote update --prune
   ci = commit
   co = checkout
   dump = cat-file -p
