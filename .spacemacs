@@ -30,9 +30,11 @@
 ;; Attempts to detect the current operating system and then load the right bunch of OS specific settings
 (let ((jp-os-specific-config
        ;; N.B. This only detects Windows. Everything else is assumed to be some kind of *nix variant
-       (if (eq system-type 'windows-nt)
-           (expand-file-name "windows-nt.el" jp-spacemacs-d-dir)
-         (expand-file-name "nix.el" jp-spacemacs-d-dir)
+       (cond ((eq system-type 'windows-nt)
+              (expand-file-name "windows-nt.el" jp-spacemacs-d-dir))
+             ((eq system-type 'darwin)
+              (expand-file-name "osx.el" jp-spacemacs-d-dir))
+             (t (expand-file-name "nix.el" jp-spacemacs-d-dir))
          )))
   (if (file-readable-p jp-os-specific-config)
       (load-file jp-os-specific-config)))
@@ -103,6 +105,7 @@ values."
      syntax-checking
      version-control
      racket
+     rust
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
