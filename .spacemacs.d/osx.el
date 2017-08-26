@@ -23,6 +23,7 @@
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
 
+  (setq-default mac-right-option-modifier nil)
   (setq magit-repository-directories '("~/src/"))
 
   ;; (setq org-directory "~/Documents/org/")
