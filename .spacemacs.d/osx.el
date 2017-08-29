@@ -23,6 +23,9 @@
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
 
+  ;; OS X ls doesn't support --dired flag
+  (setq dired-use-ls-dired nil)gs
+
   (setq-default mac-right-option-modifier nil)
   (setq magit-repository-directories '("~/src/"))
 

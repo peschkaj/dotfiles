@@ -5,8 +5,7 @@
 (defun system-is-cantankerous()
   (interactive)
   "Return true if this is running on the desktop system named cantankerous"
-  (string-equal system-name "cantankerous")
-  )
+  (string-equal system-name "cantankerous"))
 
 (defconst jp-home-dir
   (getenv "HOME")
@@ -23,7 +22,6 @@
 (defconst jp-hostname
   ;; This should use the following line, but it doesn't work for some reason
   ;; So, instead, we resort to shelling out
-  ;(car (split-string (system-name) "\\." t))
   (string-trim (with-output-to-string
     (call-process "hostname" nil standard-output nil))))
 
@@ -311,7 +309,7 @@ values."
    dotspacemacs-highlight-delimiters 'all
    ;; If non nil advises quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server t
+   dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
@@ -329,6 +327,12 @@ values."
    )
 
 
+  (if (eq system-type 'darwin)
+      (setq-default dotspacemacs-default-font '("Source Code Pro"
+                                                :size 14.0
+                                                :weight normal
+                                                :width normal
+                                                :powerline-scale 1.1)))
 
 
   (if (system-is-cantankerous)
@@ -336,8 +340,9 @@ values."
                                                 :size 11.0
                                                 :weight normal
                                                 :width normal
-                                                :powerline-scale 1.1))
-    )
+                                                :powerline-scale 1.1)))
+
+
 )
 
 (defun dotspacemacs/user-init ()
@@ -353,8 +358,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (setq custom-file "~/.emacs-custom.el")
   (load custom-file 'noerror)
-
-
 
   (if (fboundp 'jp/dotspacemacs/os-init)
       (jp/dotspacemacs/os-init))
