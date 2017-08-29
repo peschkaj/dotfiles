@@ -24,7 +24,7 @@ This function is called at the very end of spacemacs initialization after layers
 "
 
   ;; OS X ls doesn't support --dired flag
-  (setq dired-use-ls-dired nil)gs
+  (setq dired-use-ls-dired nil)
 
   (setq-default mac-right-option-modifier nil)
   (setq magit-repository-directories '("~/src/"))
