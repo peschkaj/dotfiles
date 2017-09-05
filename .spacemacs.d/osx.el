@@ -22,6 +22,12 @@
   "local configuration function.
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
+  ;; we don't find the correct tex distribution for some reason
+  ;; (add-to-list 'exec-path "/usr/local/texlive/2017/bin/x86_64-darwin")
+  ;; (add-to-list 'exec-path "/Library/TeX/texbin/")
+
+  (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
+  (add-to-list 'exec-path "/Library/TeX/texbin/")
 
   ;; OS X ls doesn't support --dired flag
   (setq dired-use-ls-dired nil)
