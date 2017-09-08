@@ -12,7 +12,8 @@
       (add-to-list 'dotspacemacs-configuration-layers layer)))
   (let ((local-additional-packages
          '(
-
+           dash-at-point
+           mac-pseudo-daemon
            )))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
@@ -26,6 +27,8 @@ This function is called at the very end of spacemacs initialization after layers
   ;; (add-to-list 'exec-path "/usr/local/texlive/2017/bin/x86_64-darwin")
   ;; (add-to-list 'exec-path "/Library/TeX/texbin/")
 
+  (mac-pseudo-daemon-mode t)
+
   (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
   (add-to-list 'exec-path "/Library/TeX/texbin/")
 
@@ -34,6 +37,9 @@ This function is called at the very end of spacemacs initialization after layers
 
   (setq-default mac-right-option-modifier nil)
   (setq magit-repository-directories '("~/src/"))
+
+  (global-set-key "\C-cd" 'dash-at-point)
+  (global-set-key "\C-ce" 'dash-at-point-with-docset)
 
   ;; (setq org-directory "~/Documents/org/")
   ;; (with-eval-after-load 'org

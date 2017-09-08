@@ -3,3 +3,4 @@ export PATH=$HOME/.local/bin:$HOME/.local/p4merge/bin:$HOME/.cabal/bin:$PATH:$HO
 export CARGO_HOME=$HOME/.cargo
 export PATH=$PATH:$CARGO_HOME/bin
 
+export RUSTFLAGS="-C target-cpu=native"
