@@ -433,5 +433,9 @@ you should place your code here."
 
   (if (fboundp 'jp/dotspacemacs/system-config)
       (jp/dotspacemacs/system-config))
+
+  (eval-after-load "enriched"
+    '(defun enriched-decode-display-prop (start end &optional param)
+       (list start end)))
 )
 
