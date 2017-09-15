@@ -94,7 +94,7 @@ values."
 
      markdown
 
-     pdf-tools
+
      (org :variables
           org-list-allow-alphabetical t
           )
@@ -135,7 +135,7 @@ values."
 
 (defun dotspacemacs/init ()
   "Initialization function.
-This function is called at the very startup of Spacemacs initialization 
+This function is called at the very startup of Spacemacs initialization
 before layers configuration.
 You should not put any user code in there besides modifying the variable
 values."
@@ -434,8 +434,7 @@ you should place your code here."
   (if (fboundp 'jp/dotspacemacs/system-config)
       (jp/dotspacemacs/system-config))
 
-  (eval-after-load "enriched"
-    '(defun enriched-decode-display-prop (start end &optional param)
-       (list start end)))
-)
+  ;; trigger whitespace-cleanup on save
+  (add-hook 'before-save-hook 'whitespace-cleanup)
 
+)

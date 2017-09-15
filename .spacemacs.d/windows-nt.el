@@ -6,6 +6,8 @@
            (auto-completion
             (latex))
            (latex :variables latex-build-command "LaTeX")
+
+           pdf-tools
            )))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
