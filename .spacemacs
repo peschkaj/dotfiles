@@ -74,6 +74,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     sql
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -97,6 +98,7 @@ values."
 
      (org :variables
           org-list-allow-alphabetical t
+          org-agenda-show-future-repeats nil
           )
 
      spell-checking
@@ -437,4 +439,5 @@ you should place your code here."
   ;; trigger whitespace-cleanup on save
   (add-hook 'before-save-hook 'whitespace-cleanup)
 
+  (setq flycheck-global-modes (delete 'rust-mode flycheck-global-modes))
 )
