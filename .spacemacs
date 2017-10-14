@@ -95,7 +95,6 @@ values."
 
      markdown
 
-
      (org :variables
           org-list-allow-alphabetical t
           org-agenda-show-future-repeats nil
@@ -440,4 +439,20 @@ you should place your code here."
   (add-hook 'before-save-hook 'whitespace-cleanup)
 
   (setq flycheck-global-modes (delete 'rust-mode flycheck-global-modes))
+
+  (defun update-org-src-locs ()
+    (when (string= major-mode "org-mode")
+      (save-excursion
+        (org-element-map (org-element-parse-buffer) 'headline
+          (lambda (hl)
+            (goto-char (org-element-property :begin hl))
+            (forward-line -1)
+            (when (string= (buffer-substring-no-properties (point) (line-end-position))
+                           "#+END_SRC")
+              (forward-line)
+              (insert "\n")))))))
+
+  (add-hook 'after-save-hook 'update-org-src-locs)
+
+
 )

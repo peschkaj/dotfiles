@@ -111,11 +111,19 @@ man() {
         man "$@"
 }
 
+
 upgrade_mssql() {
-    docker pull microsoft/mssql-server-linux
-    docker stop mssql
-    docker rm mssql
-    docker run -v /opt/docker/volumes/mssql:/var/opt/mssql --name=mssql -i -e ACCEPT_EULA=Y -e SA_PASSWORD=P@55w0rd -p 1433:1433 -d microsoft/mssql-server-linux
+    if [[ uname -eq "Darwin" ]]; then
+        docker pull microsoft/mssql-server-linux:2017-latest
+        docker stop mssql
+        docker rm mssql
+        docker run --name=mssql -i -e ACCEPT_EULA=Y -e SA_PASSWORD=Password23 -p 1433:1433 --volumes-from mssql-data -v /Users/jeremiah/Documents:/Documents -d microsoft/mssql-server-linux:2017-latest
+    else
+        docker pull microsoft/mssql-server-linux:2017-latest
+        docker stop mssql
+        docker rm mssql
+        docker run -v /opt/docker/volumes/mssql:/var/opt/mssql --name=mssql -i -e ACCEPT_EULA=Y -e SA_PASSWORD=Password23 -p 1433:1433 -d microsoft/mssql-server-linux:2017-latest
+    fi
 }
 
 colors() {

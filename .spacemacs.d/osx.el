@@ -5,6 +5,7 @@
          '(
            (auto-completion
             (latex))
+           common-lisp
            latex
            ;; Moves pdf-tools to be managed by the operating system
            ;; See https://emacs.stackexchange.com/questions/13314/install-pdf-tools-on-emacs-macosx#22591 for additional details on this configuration
@@ -35,6 +36,8 @@ This function is called at the very end of spacemacs initialization after layers
 
   (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
   (add-to-list 'exec-path "/Library/TeX/texbin/")
+  ;; Don't forget to symlink pdftex
+  ;; ln -s /Library/TeX/texbin/pdftex /usr/local/bin/pdflatex
 
   ;; OS X ls doesn't support --dired flag
   (setq dired-use-ls-dired nil)
