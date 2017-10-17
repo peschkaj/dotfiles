@@ -452,7 +452,4 @@ you should place your code here."
               (forward-line)
               (insert "\n")))))))
 
-  (add-hook 'after-save-hook 'update-org-src-locs)
-
-
-)
+  (add-hook 'after-save-hook 'update-org-src-locs))

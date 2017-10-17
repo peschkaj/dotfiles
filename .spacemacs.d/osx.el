@@ -186,7 +186,7 @@ This function is called at the very end of spacemacs initialization after layers
             #'add-fira-code-symbol-keywords)
 
 
-  ;; (setq org-directory "~/Documents/org/")
+  (setq org-directory "~/Documents/org/")
   ;; (with-eval-after-load 'org
   ;;   (setq org-src-tab-acts-natively t)
   ;;   (setq org-ref-notes-directory "~/Documents/reading/"
