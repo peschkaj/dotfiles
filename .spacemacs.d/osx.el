@@ -186,7 +186,36 @@ This function is called at the very end of spacemacs initialization after layers
             #'add-fira-code-symbol-keywords)
 
 
-  (setq org-directory "~/Documents/org/")
+  (setq org-directory "~/Documents/org/"
+        org-reverse-note-order t
+        org-default-notes-file "~/Documents/org/notes.org"
+        org-agenda-files '("~/Documents/org/todo.org")
+        org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-deadline-if-done t
+        org-agenda-ndays 7
+        org-agenda-show-all-dates t
+        org-deadline-warning-days 14
+        org-journal-dir "~/Documents/org/journal/"
+        )
+
+  (defun get-journal-file-today ()
+    "Return filename for today's journal entry."
+    (let ((daily-name (format-time-string "%Y%m%d")))
+      (expand-file-name (concat org-journal-dir daily-name ".org"))))
+
+  (defun journal-file-today ()
+    "Create and load a journal file based on today's date."
+    (interactive)
+    (find-file (get-journal-file-today)))
+
+  (global-set-key (kbd "C-c f j") 'journal-file-today)
+
+  (setq org-capture-templates
+        '(
+          ("j" "Journal Entry"
+           entry (file+datetree (get-journal-file-today))
+           "* Event: %?\n\n  %i\n\n  From: %a"
+           :empty-lines 1)))
   ;; (with-eval-after-load 'org
   ;;   (setq org-src-tab-acts-natively t)
   ;;   (setq org-ref-notes-directory "~/Documents/reading/"
