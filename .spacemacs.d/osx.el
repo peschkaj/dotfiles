@@ -187,6 +187,7 @@ This function is called at the very end of spacemacs initialization after layers
 
 
   (setq org-directory "~/Documents/org/"
+        org-src-tab-acts-natively t
         org-reverse-note-order t
         org-default-notes-file "~/Documents/org/notes.org"
         org-agenda-files '("~/Documents/org/todo.org")
@@ -195,8 +196,7 @@ This function is called at the very end of spacemacs initialization after layers
         org-agenda-ndays 7
         org-agenda-show-all-dates t
         org-deadline-warning-days 14
-        org-journal-dir "~/Documents/org/journal/"
-        )
+        org-journal-dir "~/Documents/org/journal/")
 
   (defun get-journal-file-today ()
     "Return filename for today's journal entry."
@@ -216,6 +216,51 @@ This function is called at the very end of spacemacs initialization after layers
            entry (file+datetree (get-journal-file-today))
            "* Event: %?\n\n  %i\n\n  From: %a"
            :empty-lines 1)))
+
+  ;; Journal related navigation
+  (defun split-string-with-number (string)
+    "Returns a list of three components of the string, the first is
+the text prior to any numbers, the second is the embedded number,
+and the third is the rest of the text in the string."
+    (let* ((start (string-match "[0-9]+" string))
+           (end (string-match "[^0-9]+" string start)))
+      (if start
+          (list (substring string 0 start)
+                (substring string start end)
+                (if end  (substring string end)  "")))))
+
+  (defun find-file-number-change (f)
+    (let* ((filename (buffer-file-name))
+           (parts    (split-string-with-number
+                      (file-name-base filename)))
+           (new-name (number-to-string
+                      (funcall f (string-to-number (nth 1 parts))))))
+      (concat (file-name-directory filename)
+              (nth 0 parts)
+              new-name
+              (file-name-extension filename t))))
+
+  (defun find-file-increment ()
+    "Takes the current buffer, and loads the file that is 'one
+more' than the file contained in the current buffer. This
+requires that the current file contain a number that can be
+incremented."
+    (interactive)
+    (find-file (find-file-number-change '1+)))
+
+  (defun find-file-decrement ()
+    "Takes the current buffer, and loads the file that is 'one
+less' than the file contained in the current buffer. This
+requires that the current file contain a number that can be
+decremented."
+    (interactive)
+    (find-file (find-file-number-change '1-)))
+
+  (global-set-key (kbd "C-c f +") 'find-file-increment)
+  (global-set-key (kbd "C-c f n") 'find-file-increment)
+  (global-set-key (kbd "C-c f -") 'find-file-decrement)
+  (global-set-key (kbd "C-c f p") 'find-file-decrement)
+
   ;; (with-eval-after-load 'org
   ;;   (setq org-src-tab-acts-natively t)
   ;;   (setq org-ref-notes-directory "~/Documents/reading/"
