@@ -7,6 +7,10 @@
             (latex))
            common-lisp
            latex
+           (python :variables
+                   python-enable-yapf-format-on-save t
+                   flycheck-python-pycompile-executable "python3"
+            )
            ;; Moves pdf-tools to be managed by the operating system
            ;; See https://emacs.stackexchange.com/questions/13314/install-pdf-tools-on-emacs-macosx#22591 for additional details on this configuration
            (pdf-tools :variables

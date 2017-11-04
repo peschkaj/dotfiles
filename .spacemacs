@@ -452,4 +452,21 @@ you should place your code here."
               (forward-line)
               (insert "\n")))))))
 
-  (add-hook 'after-save-hook 'update-org-src-locs))
+  (add-hook 'after-save-hook 'update-org-src-locs)
+
+  (defun close-all-parentheses ()
+    (interactive "*")
+    (let ((closing nil))
+      (save-excursion
+        (while (condition-case nil
+                   (progn
+                     (backward-up-list)
+                     (let ((syntax (syntax-after (point))))
+                       (case (car syntax)
+                         ((4) (setq closing (cons (cdr syntax) closing)))
+                         ((7 8) (setq closing (cons (char-after (point)) closing)))))
+                     t)
+                 ((scan-error) nil))))
+      (apply #'insert (nreverse closing))))
+
+  (define-key global-map (kbd "C-c [") 'close-all-parentheses))
