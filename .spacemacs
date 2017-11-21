@@ -74,6 +74,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     csv
      sql
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -114,6 +115,7 @@ values."
    '(
      editorconfig
      challenger-deep-theme
+     tangotango-theme
      interleave
      rainbow-mode
      )
@@ -387,7 +389,7 @@ you should place your code here."
   (setq default-buffer-file-coding-system 'utf-8-unix)
 
   ;; Set up the theme and visual separator for powerline
-  (spacemacs/load-theme 'challenger-deep)
+  (spacemacs/load-theme 'tangotango)
   (setq powerline-default-separator 'bar)
 
   ;; zoooooooooom

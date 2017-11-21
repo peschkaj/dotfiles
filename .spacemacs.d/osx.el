@@ -9,21 +9,17 @@
            latex
            (python :variables
                    python-enable-yapf-format-on-save t
-                   flycheck-python-pycompile-executable "python3"
-            )
+                   flycheck-python-pycompile-executable "python3")
+           haskell
            ;; Moves pdf-tools to be managed by the operating system
            ;; See https://emacs.stackexchange.com/questions/13314/install-pdf-tools-on-emacs-macosx#22591 for additional details on this configuration
            (pdf-tools :variables
                       pdf-tools-handle-upgrades nil
-                      pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
-           )))
+                      pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
-  (let ((local-additional-packages
-         '(
-           dash-at-point
-           mac-pseudo-daemon
-           )))
+  (let ((local-additional-packages '(dash-at-point
+                                     mac-pseudo-daemon)))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
@@ -264,6 +260,7 @@ decremented."
   (global-set-key (kbd "C-c f n") 'find-file-increment)
   (global-set-key (kbd "C-c f -") 'find-file-decrement)
   (global-set-key (kbd "C-c f p") 'find-file-decrement)
+  (global-unset-key (kbd "s-m"))
 
   ;; (with-eval-after-load 'org
   ;;   (setq org-src-tab-acts-natively t)
