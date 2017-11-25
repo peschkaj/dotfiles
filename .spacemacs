@@ -118,6 +118,7 @@ values."
      tangotango-theme
      interleave
      rainbow-mode
+     emojify
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
@@ -125,16 +126,15 @@ values."
      evil-escape ;; Prevents a quick key press of fd from making emacs go crazy
      )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-   ;; are declared in a layer which is not a member of
-   ;; the list `dotspacemacs-configuration-layers'. (default t)
+   ;; are declared in a layer which is not a member of the list
+   ;; `dotspacemacs-configuration-layers'. (default t)
    dotspacemacs-delete-orphan-packages t)
 
   (if (fboundp 'jp/dotspacemacs/os-layers)
       (jp/dotspacemacs/os-layers))
 
   (if (fboundp 'jp/dotspacemacs/system-layers)
-      (jp/dotspacemacs/system-layers))
-  )
+      (jp/dotspacemacs/system-layers)))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -455,6 +455,17 @@ you should place your code here."
               (insert "\n")))))))
 
   (add-hook 'after-save-hook 'update-org-src-locs)
+
+  (defun jp/org-template ()
+    (insert "#+AUTHOR: Jeremiah Peschka
+#+EMAIL: jeremiah.peschka@gmail.com
+#+STARTUP: indent showall")
+    (org-mode-restart))
+
+  (define-auto-insert "\\.org$" #'jp/org-template)
+
+  (auto-insert-mode t)
+  (setq auto-insert t)
 
   (defun close-all-parentheses ()
     (interactive "*")
