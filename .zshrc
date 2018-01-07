@@ -95,6 +95,7 @@ alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 alias pdxlinux='ssh -i ~/.ssh/id_rsa jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 alias pdxlinuxlab='ssh -i ~/.ssh/id_rsa jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
 alias babbage='ssh -i ~/.ssh/id_rsa jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias pdx333grader='ssh -i ~/.ssh/_id_rsa cs333_1@linuxlab.cs.pdx.edu'
 
 alias vout="valgrind --track-origins=yes --leak-check=full ./a.out"
 

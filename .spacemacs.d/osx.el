@@ -3,8 +3,9 @@
   "Local configuration layers declaration"
   (let ((local-configuration-layers
          '(
-           (auto-completion
-            (latex))
+           (auto-completion (latex)
+                            :variables
+                            auto-completion-enable-sort-by-usage t)
            common-lisp
            latex
            (python :variables
@@ -31,6 +32,8 @@ This function is called at the very end of spacemacs initialization after layers
   ;; we don't find the correct tex distribution for some reason
   (add-to-list 'exec-path "/usr/local/texlive/2017/bin/x86_64-darwin")
   (add-to-list 'exec-path "/Library/TeX/texbin/")
+
+  (setq-default TeX-engine 'xetex)
 
   (mac-pseudo-daemon-mode t)
 
