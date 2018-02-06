@@ -84,6 +84,8 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="emacs ~/.zshrc"
 alias ohmyzsh="emacs ~/.oh-my-zsh"
 
+alias ls="ls --color"
+
 export RUST_NEW_ERROR_FORMAT=true
 
 export ALTERNATE_EDITOR=""
@@ -96,7 +98,7 @@ alias pdxada='ssh -i ~/.ssh/id_rsa jpeschka@ada.cs.pdx.edu -t $@ "tmux attach ||
 alias pdxlinux='ssh -i ~/.ssh/id_rsa jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 alias pdxlinuxlab='ssh -i ~/.ssh/id_rsa jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
 alias babbage='ssh -i ~/.ssh/id_rsa jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
-alias pdx333grader='ssh -i ~/.ssh/_id_rsa cs333_1@linuxlab.cs.pdx.edu'
+alias pdx333grader='ssh -i ~/.ssh/id_rsa cs333_1@linuxlab.cs.pdx.edu'
 
 alias vout="valgrind --track-origins=yes --leak-check=full ./a.out"
 
@@ -146,3 +148,11 @@ colors() {
     done
     echo
 }
+
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
+export CFLAGS="-march=native"
+export CPPFLAGS="-I/usr/local/opt/llvm/include"
+
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"

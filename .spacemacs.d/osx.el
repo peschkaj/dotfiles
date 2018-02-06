@@ -6,12 +6,17 @@
            (auto-completion (latex)
                             :variables
                             auto-completion-enable-sort-by-usage t)
-           common-lisp
+           (c-c++ :variables
+                  c-c++-default-mode-for-headers 'c++-mode
+                  c-c++-enable-clang-support t
+                  clang-format-style "file"
+                  )
            latex
            (python :variables
                    python-enable-yapf-format-on-save t
                    flycheck-python-pycompile-executable "python3")
            haskell
+           scala
            ;; Moves pdf-tools to be managed by the operating system
            ;; See https://emacs.stackexchange.com/questions/13314/install-pdf-tools-on-emacs-macosx#22591 for additional details on this configuration
            (pdf-tools :variables
@@ -188,6 +193,10 @@ This function is called at the very end of spacemacs initialization after layers
   ;; (add-hook 'prog-mode-hook
   ;;           #'add-fira-code-symbol-keywords)
 
+  ;; sets up c and C++ programming environment
+  (setq c-basic-offset 2)
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+
 
   (setq org-directory "~/Documents/org/"
         org-src-tab-acts-natively t
@@ -265,6 +274,9 @@ decremented."
   (global-set-key (kbd "C-c f p") 'find-file-decrement)
   (global-unset-key (kbd "s-m"))
   (global-unset-key (kbd "s-q"))
+
+  (custom-set-variables
+   '(helm-ag-base-command "rg --no-heading"))
 
   ;; (with-eval-after-load 'org
   ;;   (setq org-src-tab-acts-natively t)
