@@ -26,7 +26,8 @@
       (add-to-list 'dotspacemacs-configuration-layers layer)))
   (let ((local-additional-packages '(dash-at-point
                                      mac-pseudo-daemon
-                                     google-c-style)))
+                                     google-c-style
+                                     writeroom)))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
