@@ -45,10 +45,7 @@ This function is called at the very end of spacemacs initialization after layers
   (mac-pseudo-daemon-mode t)
 
   ;; (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-  ;; (add-to-list 'exec-path "/Library/Teif (ptable.pLists.zombie == p)    // if at head of zombie list
-        ptable.pLists.zombie = p->next;
-      else
-        prev->next = p->next;X/texbin/")
+  ;; (add-to-list 'exec-path "/Library/TeX/texbin/")
   ;; Don't forget to symlink pdftex
   ;; ln -s /Library/TeX/texbin/pdftex /usr/local/bin/pdflatex
 
@@ -93,7 +90,7 @@ This function is called at the very end of spacemacs initialization after layers
   (setq org-capture-templates
         '(
           ("j" "Journal Entry"
-           entry (file+datetree (get-journal-file-today))
+           entry (file+datetree get-journal-file-today)
            "* Event: %?\n\n  %i\n\n  From: %a"
            :empty-lines 1)))
 
