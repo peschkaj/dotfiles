@@ -513,9 +513,6 @@ you should place your code here."
 
   (define-auto-insert "\\.org$" #'jp/org-template)
 
-  (auto-insert-mode t)
-  (setq auto-insert t)
-
   (defun close-all-parentheses ()
     (interactive "*")
     (let ((closing nil))
