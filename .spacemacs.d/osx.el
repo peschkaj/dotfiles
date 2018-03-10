@@ -36,6 +36,10 @@
   "local configuration function.
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
+
+  ;; Sets shell-mode to use zsh, no matter where it lives
+  (setq shell-file-name "zsh")
+
   ;; we don't find the correct tex distribution for some reason
   (add-to-list 'exec-path "/usr/local/texlive/2017/bin/x86_64-darwin")
   (add-to-list 'exec-path "/Library/TeX/texbin/")
@@ -67,7 +71,7 @@ This function is called at the very end of spacemacs initialization after layers
         org-src-tab-acts-natively t
         org-reverse-note-order t
         org-default-notes-file "~/Documents/org/notes.org"
-        org-agenda-files '("~/Documents/org/todo.org")
+        org-agenda-files '("~/Documents/org/agenda.org")
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-deadline-if-done t
         org-agenda-ndays 7

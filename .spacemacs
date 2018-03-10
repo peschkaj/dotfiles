@@ -535,7 +535,9 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (if (eq system-type 'darwin)
-      (exec-path-from-shell-initialize))
+      (setq exec-path-from-shell-arguments
+            (delete "-i" exec-path-from-shell-arguments))
+    (exec-path-from-shell-initialize))
 
   ;; Disable highlighting the current line
   (global-hl-line-mode -1)
