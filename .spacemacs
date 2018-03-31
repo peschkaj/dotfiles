@@ -549,11 +549,7 @@ you should place your code here."
   (setq default-buffer-file-coding-system 'utf-8-unix)
 
   ;; Set up the theme and visual separator for powerline
-  ;(spacemacs/load-theme 'tangotango)
-  ;(spacemacs/load-theme 'challenger-deep)
   (spacemacs/load-theme 'material)
-  ;;(setq powerline-default-separator 'bar)
-
 
   ;; zoooooooooom
   (define-key global-map (kbd "C-+") 'text-scale-increase)
