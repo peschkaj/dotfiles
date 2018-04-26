@@ -76,10 +76,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
-     yaml
-     csv
-     sql
+   '(yaml
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -127,7 +124,7 @@ This function should only modify configuration layer settings."
      tangotango-theme
      interleave
      rainbow-mode
-     emojify
+     ;emojify
      auctex-latexmk
      )
 
@@ -538,6 +535,9 @@ you should place your code here."
       (setq exec-path-from-shell-arguments
             (delete "-i" exec-path-from-shell-arguments))
     (exec-path-from-shell-initialize))
+
+  (setq default-frame-alist '((ns-transparent-titlebar . t)
+                              (ns-appearance . 'nil)))
 
   ;; Disable highlighting the current line
   (global-hl-line-mode -1)

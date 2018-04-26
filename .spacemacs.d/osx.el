@@ -3,9 +3,10 @@
   "Local configuration layers declaration"
   (let ((local-configuration-layers
          '(
-           (auto-completion (latex)
-                            :variables
-                            auto-completion-enable-sort-by-usage t)
+           (auto-completion (latex :variables
+                                   auto-completion-enable-sort-by-usage t)
+                            (haskell :variables
+                                     haskell-completion-backend 'intero))
            (c-c++ :variables
                   c-c++-default-mode-for-headers 'c++-mode
                   c-c++-enable-clang-support t
@@ -16,7 +17,6 @@
                    python-enable-yapf-format-on-save t
                    flycheck-python-pycompile-executable "python3")
            haskell
-           scala
            ;; Moves pdf-tools to be managed by the operating system
            ;; See https://emacs.stackexchange.com/questions/13314/install-pdf-tools-on-emacs-macosx#22591 for additional details on this configuration
            (pdf-tools :variables
