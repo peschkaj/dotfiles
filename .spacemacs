@@ -536,8 +536,7 @@ you should place your code here."
             (delete "-i" exec-path-from-shell-arguments))
     (exec-path-from-shell-initialize))
 
-  (setq default-frame-alist '((ns-transparent-titlebar . t)
-                              (ns-appearance . 'nil)))
+
 
   ;; Disable highlighting the current line
   (global-hl-line-mode -1)

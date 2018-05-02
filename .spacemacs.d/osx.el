@@ -36,6 +36,8 @@
   "local configuration function.
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
+  (setq default-frame-alist '((ns-transparent-titlebar . t)
+                              (ns-appearance . dark)))
 
   ;; Sets shell-mode to use zsh, no matter where it lives
   (setq shell-file-name "zsh")
