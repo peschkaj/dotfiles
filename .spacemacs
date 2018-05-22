@@ -76,7 +76,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(yaml
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -97,10 +97,11 @@ This function should only modify configuration layer settings."
      html
 
      markdown
-
+     neotree
      (org :variables
           org-list-allow-alphabetical t
           org-agenda-show-future-repeats nil
+          org-enable-org-journal-support t
           )
 
      spell-checking
@@ -108,6 +109,7 @@ This function should only modify configuration layer settings."
      version-control
      racket
      rust
+     yaml
      )
 
    ;; List of additional packages that will be installed without being
@@ -260,7 +262,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Fira Code"
                                :size 13
                                :weight normal
                                :width normal)
@@ -454,6 +456,9 @@ It should only modify the values of Spacemacs settings."
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
    dotspacemacs-highlight-delimiters 'all
+
+   ;; If non-nil, start an Emacs server if one is not already running.
+   dotspacemacs-enable-server t
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
