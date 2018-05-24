@@ -95,6 +95,12 @@ This function is called at the very end of spacemacs initialization after layers
         org-journal-time-prefix "* "
         org-journal-time-format "")
 
+  ;; org-ref configuration
+  (setq reftex-default-bibliography '("~/Documents/reading/references.bib"))
+  (setq org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
+        org-ref-default-bibliography '("~/Documents/reading/references.bib")
+        org-ref-pdf-directory "~/Documents/reading/lib")
+
 ;;   (defun get-journal-file-today ()
 ;;     "Return filename for today's journal entry."
 ;;     (let ((daily-name (format-time-string "%Y%m%d")))
