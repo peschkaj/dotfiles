@@ -26,7 +26,9 @@
   (let ((local-additional-packages '(dash-at-point
                                      mac-pseudo-daemon
                                      google-c-style
-                                     writeroom-mode)))
+                                     writeroom-mode
+                                     ;; This next one is for yesod templates
+                                     shakespeare-mode)))
     (dolist (package local-additional-packages)
       (add-to-list 'dotspacemacs-additional-packages package))))
 
