@@ -163,11 +163,11 @@ cmd + alt - x   : `id=$(chunkc get _last_active_desktop); khd -p "cmd + alt - $i
 # shift + cmd - d : chunkc tiling::window --use-temporary-ratio -0.1 --adjust-window-edge east
 
 # set insertion point for focused container
-# ctrl + alt - f : chunkc tiling::window --use-insertion-point cancel
-# ctrl + alt - h : chunkc tiling::window --use-insertion-point west
-# ctrl + alt - j : chunkc tiling::window --use-insertion-point south
-# ctrl + alt - k : chunkc tiling::window --use-insertion-point north
-# ctrl + alt - l : chunkc tiling::window --use-insertion-point east
+ctrl + alt - f : chunkc tiling::window --use-insertion-point cancel
+ctrl + alt - h : chunkc tiling::window --use-insertion-point west
+ctrl + alt - j : chunkc tiling::window --use-insertion-point south
+ctrl + alt - k : chunkc tiling::window --use-insertion-point north
+ctrl + alt - l : chunkc tiling::window --use-insertion-point east
 
 # rotate tree
 alt - r : chunkc tiling::desktop --rotate 90
