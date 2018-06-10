@@ -578,7 +578,7 @@ before packages are loaded."
   (setq default-buffer-file-coding-system 'utf-8-unix)
 
   ;; Set up the theme and visual separator for powerline
-  (spacemacs/load-theme 'material)
+  (spacemacs/load-theme 'challenger-deep)
 
   ;; zoooooooooom
   (define-key global-map (kbd "C-+") 'text-scale-increase)

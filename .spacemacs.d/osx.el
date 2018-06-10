@@ -288,7 +288,7 @@ This function is called at the very end of spacemacs initialization after layers
               (">="        #XEA21)
               (">>"        #XEA22)
               (">>-"       #XEA23)
-              (">=="       #XEA24)
+              (">>="       #XEA24)
               (">>>"       #XEA25)
               (">=>"       #XEA26)
               (">>^"       #XEA27)

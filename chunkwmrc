@@ -22,7 +22,7 @@ chunkc core::unload border.so
 #
 
 chunkc set global_desktop_mode           bsp
-#chunkc set 2_desktop_mode                monocle
+chunkc set 2_desktop_mode                monocle
 chunkc set 5_desktop_mode                float
 
 chunkc set global_desktop_offset_top     20
@@ -48,6 +48,8 @@ chunkc set window_float_center           1
 chunkc set window_region_locked          1
 
 chunkc set mouse_modifier                fn
+chunkc set ffm_bypass_modifier           fn
+chunkc set ffm_standby_on_float          1
 
 chunkc set preselect_border_color        0xffd75f5f
 chunkc set preselect_border_width        5
