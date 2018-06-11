@@ -18,9 +18,9 @@
            haskell
            ;; Moves pdf-tools to be managed by the operating system
            ;; See https://emacs.stackexchange.com/questions/13314/install-pdf-tools-on-emacs-macosx#22591 for additional details on this configuration
-           (pdf-tools :variables
-                      pdf-tools-handle-upgrades nil
-                      pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))))
+           (pdf :variables
+                pdf-tools-handle-upgrades nil
+                qpdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))))
     (dolist (layer local-configuration-layers)
       (add-to-list 'dotspacemacs-configuration-layers layer)))
   (let ((local-additional-packages '(dash-at-point
