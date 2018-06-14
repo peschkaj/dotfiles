@@ -98,10 +98,20 @@ This function is called at the very end of spacemacs initialization after layers
         org-journal-time-format "")
 
   ;; org-ref configuration
-  (setq reftex-default-bibliography '("~/Documents/reading/references.bib"))
-  (setq org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
-        org-ref-default-bibliography '("~/Documents/reading/references.bib")
-        org-ref-pdf-directory "~/Documents/reading/lib")
+  (setq reftex-default-bibliography '("~/Documents/reading/index.bib"))
+  (setq org-ref-notes-directory "~/Documents/reading/"
+        org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
+        org-ref-default-bibliography '("~/Documents/reading/index.bib")
+        org-ref-pdf-directory "~/Documents/reading/lib/"
+        )
+  ;; setting up helm bibtex to match org-ref
+  (setq helm-bibtex-bibliography "~/Documents/reading/references.bib"  ;; where your references are stored
+        helm-bibtex-library-path "~/Documents/reading/lib/"            ;; where your pdfs etc are stored
+        helm-bibtex-notes-path "~/Documents/reading/index.org"         ;; where your notes are stored
+        bibtex-completion-bibliography "~/Documents/reading/index.bib" ;; writing completion
+        bibtex-completion-notes-path "~/Documents/reading/index.org"
+        )
+
 
   (global-unset-key (kbd "s-m"))
   (global-unset-key (kbd "s-q"))
@@ -109,20 +119,6 @@ This function is called at the very end of spacemacs initialization after layers
   (custom-set-variables
    '(helm-ag-base-command "rg --no-heading"))
 
-
-
-  ;; (with-eval-after-load 'org
-  ;;   (setq org-src-tab-acts-natively t)
-  ;;   (setq org-ref-notes-directory "~/Documents/reading/"
-  ;;         org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
-  ;;         org-ref-default-bibliography '("~/Documents/reading/notes/index.bib")
-  ;;         org-ref-pdf-directory "~/Documents/reading/lib/")
-  ;;   (setq helm-bibtex-bibliography "~/Documents/reading/notes/index.bib"
-  ;;         helm-bibtex-library-path "~/Documents/reading/lib/"
-  ;;         helm-bibtex-notes-path "~/Documents/reading/notes/index.org"
-  ;;         bibtex-completion-bibliography "~/Documents/reading/notes/index.bib"
-  ;;         bibtex-completion-notes-path "~/Documents/reading/notes/index.org")
-  ;;   )
 
   ;; For emacs25
   (setq prettify-symbols-unprettify-at-point 'right-edge)
