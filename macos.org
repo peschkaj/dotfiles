@@ -73,7 +73,7 @@ git clone git@github.com:paulirish/git-open.git
 #+BEGIN_SRC shell
 brew install wget tree gnutls telnet cmake ncurses ponysay cowsay pkg-config \
              glib autoconf automake libtool graphviz imagemagick qemu protobuf \
-             ripgrep
+             ripgrep coreutils
 brew install ispell --with-lang-en
 brew install llvm --with-lldb --with-toolchain
 
@@ -81,7 +81,7 @@ curl https://sh.rustup.rs -sSf | sh
 rustup component add rls-preview rust-analysis rust-src
 
 mkdir -p ~/.local/bin
-cat <<EOF >
+cat <<EOF > ~/.local/bin/rust-update
 #!/bin/sh
 
 if [ "$1" = '-h' ] ; then
@@ -128,7 +128,7 @@ Set up emacs using the [[https://github.com/railwaycat/homebrew-emacsmacport][ra
 
 #+BEGIN_SRC shell
 brew tap railwaycat/emacsmacport
-brew install emacs-mac
+brew install emacs-mac --with-natural-title-bar
 #+END_SRC
 
 * Fonts!
@@ -142,11 +142,12 @@ cd source-code-pro/OTF
 cp *.otf ~/Library/Fonts
 #+END_SRC
 
-** Fira Code
+** TODO Fira Code
 
+*Fill this in*
 
+** TODO Pragmata Pro
 
-** Pragmata Pro
 *Fill this in*
 
 * Haskell
@@ -168,4 +169,24 @@ Download and install Haskell Stack:
 
 #+BEGIN_SRC shell
 curl -sSL https://get.haskellstack.org/ | sh
+#+END_SRC
+
+** Paper Boy
+
+[[https://github.com/2mol/pboy][Paper Boy]] is a tool that attempts to provide better filenames for academic papers.
+
+#+BEGIN_SRC shell
+git clone git@github.com/2mol/pboy.git
+cd pboy
+stack install
+#+END_SRC
+
+Once that's set up, we need to configure pboy:
+
+#+BEGIN_SRC shell
+cat <<EOF > .pboy.toml
+inbox = "Downloads"
+library = "Documents/reading/lib"
+move = true
+EOF
 #+END_SRC
