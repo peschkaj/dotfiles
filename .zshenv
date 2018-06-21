@@ -4,3 +4,6 @@ export CARGO_HOME=$HOME/.cargo
 export PATH=$PATH:$CARGO_HOME/bin
 
 export RUSTFLAGS="-C target-cpu=native"
+
+# Temporary hack for https://github.com/syl20bnr/spacemacs/issues/10906
+source ~/.zshrc
