@@ -426,4 +426,7 @@ This function is called at the very end of spacemacs initialization after layers
   (add-hook 'prog-mode-hook
             #'add-pragmatapro-prettify-symbols-alist)
 
-  (global-prettify-symbols-mode +1))
+  (global-prettify-symbols-mode +1)
+
+  ;; nobody likes scrollbars
+  (set-scroll-bar-mode nil))
