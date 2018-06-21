@@ -1,0 +1,171 @@
+#+AUTHOR: Jeremiah Peschka
+#+EMAIL: jeremiah.peschka@gmail.com
+#+STARTUP: indent showall
+#+OPTIONS: tags:nil
+#+TITLE: macOS Setup
+
+* Homebrew
+
+Install [[https://brew.sh][Homebrew]]
+
+#+BEGIN_SRC shell
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+#+END_SRC
+
+* ZSH and oh-my-zsh
+
+#+BEGIN_SRC shell
+brew install zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+#+END_SRC
+
+* git
+
+#+BEGIN_SRC shell
+brew install git
+#+END_SRC
+
+* Clone this repo and set up config files
+
+#+BEGIN_SRC shell
+mkdir -p ~/src/peschkaj
+cd ~/src/peschkaj/
+git clone git@github.com:peschkaj/dotfiles.git
+git clone git@github.com:peschkaj/seekrets.git
+
+rm .zshrc .zshenv
+
+ln -s ~/src/peschkaj/dotfiles/.zshrc ~/.zshrc
+ln -s ~/src/peschkaj/dotfiles/.zshenv ~/.zshenv
+ln -s ~/src/peschkaj/dotfiles/.clang-format ~/.clang-format
+ln -s ~/src/peschkaj/dotfiles/chunkwmrc ~/.chunkwmrc
+ln -s ~/src/peschkaj/dotfiles/khdrc ~/.khdrc
+
+ln -s ~/src/peschkaj/dotfiles/GIT_IGNORE ~/.gitignore_global
+
+cat << EOF > ~/.gitconfig
+[include]
+    path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig
+[include]
+    path = /home/jeremiah/src/peschkaj/seekrets/git/gitconfig-github
+[include]
+    path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig-linux
+
+[core]
+    excludesfile = /home/jeremiah/.gitignore_global
+
+EOF
+#+END_SRC
+
+* git-open
+
+Adds the [[https://github.com/paulirish/git-open][git-open]] ZSH plugin. This plugin makes it easy to open a git repo's website from the command line, but in the browser of your choice!
+
+#+BEGIN_SRC
+cd ~/.oh-my-zsh/custom/plugins
+git clone git@github.com:paulirish/git-open.git
+# Reload the shell
+. ~/.zshrc
+#+END_SRC
+
+* System Tooling
+
+#+BEGIN_SRC shell
+brew install wget tree gnutls telnet cmake ncurses ponysay cowsay pkg-config \
+             glib autoconf automake libtool graphviz imagemagick qemu protobuf \
+             ripgrep
+brew install ispell --with-lang-en
+brew install llvm --with-lldb --with-toolchain
+
+curl https://sh.rustup.rs -sSf | sh
+rustup component add rls-preview rust-analysis rust-src
+
+mkdir -p ~/.local/bin
+cat <<EOF >
+#!/bin/sh
+
+if [ "$1" = '-h' ] ; then
+  echo 'Updates rustc & clippy'
+  echo 'It first checks if clippy would compile at currentl nightly and if so, it updates.'
+  echo 'Options:'
+  echo '-h: This help message'
+  echo '-f: Skips the check and just updates'
+  exit
+fi
+
+set -ex
+
+renice -n 10 -p $$
+
+export CARGO_INCREMENTAL=0
+export RUSTFLAGS='-C target-cpu=native'
+
+try_out() {
+  export RUSTUP_HOME=$HOME/.rustup-attempt
+  test -d $RUSTUP_HOME || (rustup toolchain add nightly && rustup default nightly)
+  rustup update
+  cargo +nightly install --force clippy
+  unset RUSTUP_HOME
+  export RUSTUP_HOME
+}
+
+[ "$1" = '-f' ] || try_out
+
+rustup update
+cargo +nightly install --force clippy
+EOF
+#+END_SRC
+
+* Better Window Management
+
+#+BEGIN_SRC shell
+brew install chunkwm khd
+#+END_SRC
+
+* Emacs
+
+Set up emacs using the [[https://github.com/railwaycat/homebrew-emacsmacport][railwaycat homebrew port]]:
+
+#+BEGIN_SRC shell
+brew tap railwaycat/emacsmacport
+brew install emacs-mac
+#+END_SRC
+
+* Fonts!
+
+** Source Code Pro
+
+#+BEGIN_SRC shell
+cd ~/src
+git clone --depth 1 --branch release https://github.com/adobe-fonts/source-code-pro.git
+cd source-code-pro/OTF
+cp *.otf ~/Library/Fonts
+#+END_SRC
+
+** Fira Code
+
+
+
+** Pragmata Pro
+*Fill this in*
+
+* Haskell
+
+** Haskell Platform
+
+Download and install the [[https://www.haskell.org/platform/][Haskell Platform]]
+
+#+BEGIN_SRC shell
+cabal update
+cabal install apply-refact hlint stylish-haskell hasktags hoogle
+
+ln -s ~/src/peschkaj/dotfiles/ghci ~/.ghci
+#+END_SRC
+
+** Stack
+
+Download and install Haskell Stack:
+
+#+BEGIN_SRC shell
+curl -sSL https://get.haskellstack.org/ | sh
+#+END_SRC
