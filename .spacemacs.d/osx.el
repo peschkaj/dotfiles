@@ -37,6 +37,9 @@
   "local configuration function.
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
+  ;; (setq exec-path-from-shell-arguments
+  ;;       (delete "-i" exec-path-from-shell-arguments))
+
   ;; UI improvements specific to macOS
   (setq default-frame-alist '((ns-transparent-titlebar . t)
                               (ns-appearance . dark)))
@@ -389,6 +392,7 @@ This function is called at the very end of spacemacs initialization after layers
   ;;           ;; ("*" . ?★)
             ("forall" . ?∀)
             ("forAll" . ?∀)
+            ("all"    . ?∀)
             ("exists" . ?∃)
             ("undefined" . ?⊥)
   ;;           ("empty" . ?ⵁ)

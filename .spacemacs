@@ -121,6 +121,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages
    '(
+     exec-path-from-shell
      editorconfig
      challenger-deep-theme
      tangotango-theme
@@ -561,9 +562,10 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (if (eq system-type 'darwin)
-      (setq exec-path-from-shell-arguments
-            (delete "-i" exec-path-from-shell-arguments))
+  (when (memq window-system '(mac ns x))
+    (setenv "SHELL" "/usr/local/bin/zsh")
+    (exec-path-from-shell-copy-env "SHELL")
+    (exec-path-from-shell-copy-env "PATH")¯
     (exec-path-from-shell-initialize))
 
 
