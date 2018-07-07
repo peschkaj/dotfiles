@@ -69,7 +69,11 @@ This function is called at the very end of spacemacs initialization after layers
   ;; OS X ls doesn't support --dired flag
   (setq dired-use-ls-dired nil)
 
-  (setq-default mac-right-option-modifier nil)
+  ;(setq-default mac-right-option-modifier nil)
+  (setq mac-option-key-is-meta nil)
+  (setq mac-command-key-is-meta t)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier nil)
   (setq magit-repository-directories '("~/src/"))
 
   (global-set-key "\C-cd" 'dash-at-point)
@@ -78,6 +82,10 @@ This function is called at the very end of spacemacs initialization after layers
   ;; sets up c and C++ programming environment
   (setq c-basic-offset 2)
   (add-hook 'c-mode-common-hook 'google-set-c-style)
+
+
+  ;; nobody likes scrollbars
+  (set-scroll-bar-mode nil)
 
 
   (setq org-directory "~/Documents/org/"
@@ -98,7 +106,13 @@ This function is called at the very end of spacemacs initialization after layers
         ; headlines and then tell org-journal to not insert the time
         ; as a headline
         org-journal-time-prefix "* "
-        org-journal-time-format "")
+        org-journal-time-format ""
+        ; sets org-refile to be able to work with any org-agenda-files
+        org-refile-targets (quote ((nil :maxlevel . 9)
+                                   (org-agenda-files :maxlevel . 9))))
+
+  ;; TODO Remove company-dabbrev from company-backends
+  (delete 'company-dabbrev company-backends)
 
   ;; org-ref configuration
   (setq reftex-default-bibliography '("~/Documents/reading/index.bib"))
@@ -115,6 +129,16 @@ This function is called at the very end of spacemacs initialization after layers
         bibtex-completion-notes-path "~/Documents/reading/index.org"
         )
 
+  (setq org-capture-templates
+        '(;; Prompt for a title and then add to notes.org unless you refile it
+          ("t" "todo" entry (file org-default-notes-file)
+           "* TODO %?\n%u\n%a\n" :clock-in t :clock-resume t)
+          ("m" "Meeting" entry (file org-default-notes-file)
+           "* MEETING with %? :MEETING:\n%t" :clock-in t :clock-resume t)
+          ("i" "Idea" entry (file org-default-notes-file)
+           "* %? :IDEA: \n%t" :clock-in t :clock-resume t)
+          ("n" "Next Task" entry (file+headline org-default-notes-file "Tasks")
+           "** NEXT %? \nDEADLINE: %t")))
 
   (global-unset-key (kbd "s-m"))
   (global-unset-key (kbd "s-q"))
@@ -426,7 +450,4 @@ This function is called at the very end of spacemacs initialization after layers
   (add-hook 'prog-mode-hook
             #'add-pragmatapro-prettify-symbols-alist)
 
-  (global-prettify-symbols-mode +1)
-
-  ;; nobody likes scrollbars
-  (set-scroll-bar-mode nil))
+  (global-prettify-symbols-mode +1))
