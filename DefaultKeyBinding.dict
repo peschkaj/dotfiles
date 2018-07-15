@@ -1,0 +1,273 @@
+{
+    /* The Compose Key: § - use Karabiner to bind to Right-Option
+       Reference:
+         http://github.com/gnarf/osx-compose-key
+         http://lolengine.net/blog/2012/06/17/compose-key-on-os-x
+         http://heisencoder.net/2008/04/fixing-up-mac-key-bindings-for-windows.html
+         https://gist.github.com/gnarf/0d29c05b189a51894399
+         http://osxnotes.net/keybindings.html
+    */
+    "§" = {
+        "$\UF700" = ("insertText:", "↑"); /* (Shift) Up arrow */
+        "$\UF701" = ("insertText:", "↓"); /* (Shift) Down arrow */
+        "$\UF702" = ("insertText:", "←"); /* (Shift) Left arrow */
+        "$\UF703" = ("insertText:", "→"); /* (Shift) Right arrow */
+        "$~\UF700" = ("insertText:", "⇈"); /* (Shift-opt) Double-up arrow */
+        "$~\UF701" = ("insertText:", "⇊"); /* (Shift-opt) Double-down arrow */
+        "$~\UF702" = ("insertText:", "⇇"); /* (Shift-opt) Double-left arrow */
+        "$~\UF703" = ("insertText:", "⇉"); /* (Shift-opt) Double-right arrow */
+        "\$" = ("insertText:", "💰");
+        "*" = ("insertText:", "★");
+        " " = {
+            " " = ("insertText:", "\U00A0"); /* Non-breaking space */
+        };
+        "+" = {
+            "1" = ("insertText:", "👍");
+        };
+        "-" = {
+            "1" = ("insertText:", "👎");
+            ">" = ("insertText:", "→");
+        };
+        "!" = {
+            "?" = ("insertText:", "‽");
+        };
+        "?" = {
+            "!" = ("insertText:", "⸘");
+        };
+        "1" = {
+            "1" = {
+                "0" = ("insertText:", "⅒");
+            };
+            "2" = ("insertText:", "½");
+            "3" = ("insertText:", "⅓");
+            "4" = ("insertText:", "¼");
+            "5" = ("insertText:", "⅕");
+            "6" = ("insertText:", "⅙");
+            "7" = ("insertText:", "⅐");
+            "8" = ("insertText:", "⅛");
+            "9" = ("insertText:", "⅑");
+            "s" = ("insertText:", "¹");
+        };
+        "2" = {
+            "3" = ("insertText:", "⅔");
+            "5" = ("insertText:", "⅖");
+            "s" = ("insertText:", "²");
+        };
+        "3" = {
+            "4" = ("insertText:", "¾");
+            "5" = ("insertText:", "⅗");
+            "8" = ("insertText:", "⅜");
+            "s" = ("insertText:", "³");
+        };
+        "4" = {
+            "5" = ("insertText:", "⅘");
+        };
+        "5" = {
+            "6" = ("insertText:", "⅚");
+            "8" = ("insertText:", "⅝");
+        };
+        "7" = {
+            "8" = ("insertText:", "⅞");
+        };
+        ":" = {
+            "(" = ("insertText:", "☹"); /* Frowny face */
+            ")" = ("insertText:", "☺"); /* Smiley face */
+        };
+        "<" = {
+            "\"" = ("insertText:", "“");
+            "'" = ("insertText:", "‘");
+            "3" = ("insertText:", "♥"); /* Heart */
+            "<" = ("insertText:", "«");
+            "=" = ("insertText:", "≤");
+            "-" = ("insertText:", "←");
+        };
+        ">" = {
+            "\"" = ("insertText:", "”");
+            "'" = ("insertText:", "’");
+            ">" = ("insertText:", "»");
+            "=" = ("insertText:", "≥");
+        };
+        "_" = {
+            "0" = ("insertText:", "₀"); /* Subscript 0 */
+            "1" = ("insertText:", "₁"); /* Subscript 1 */
+            "2" = ("insertText:", "₂"); /* Subscript 2 */
+            "3" = ("insertText:", "₃"); /* Subscript 3 */
+            "4" = ("insertText:", "₄"); /* Subscript 4 */
+            "5" = ("insertText:", "₅"); /* Subscript 5 */
+            "6" = ("insertText:", "₆"); /* Subscript 6 */
+            "7" = ("insertText:", "₇"); /* Subscript 7 */
+            "8" = ("insertText:", "₈"); /* Subscript 8 */
+            "9" = ("insertText:", "₉"); /* Subscript 9 */
+        };
+        "b" = {
+            "u" = {
+                "m" = {
+                    "p" = ("insertText:", "👊");
+                };
+                "r" = {
+                    "r" = {
+                        "i" = {
+                            "t" = {
+                                "o" = ("insertText:", "🌯");
+                            };
+                        };
+                    };
+                };
+            };
+        };
+        "c" = {
+            "h" = {
+                "e" = {
+                    "c" = {
+                        "k" = ("insertText:", "✓");
+                    };
+                };
+            };
+            "l" = {
+                "o" = {
+                    "u" = {
+                        "d" = ("insertText:", "☁️");
+                    };
+                };
+            };
+        };
+        "d" = {
+            "a" = {
+                "n" = {
+                    "c" = {
+                        "e" = ("insertText:", "💃");
+                    };
+                };
+            };
+        };
+        "e" = {
+            "y" = {
+                "e" = {
+                    "s" = ("insertText:", "👀");
+                };
+            };
+        };
+        "f" = {
+            "l" = {
+                "i" = {
+                    "p" = ("insertText:", "(╯‵Д′)╯彡┻━┻");
+                };
+            };
+        };
+        "k" = {
+          "e" = {
+            "y" = {
+              " " = ("insertText:", "␣"); /* Space */
+              "s" = ("insertText:", "⇧"); /* Shift */
+              "o" = ("insertText:", "⌥"); /* Option */
+              "c" = ("insertText:", "⌘"); /* Cmd */
+              "r" = ("insertText:", "⏎"); /* Return */
+              "e" = ("insertText:", "⎋"); /* Escape */
+              "b" = ("insertText:", "⌫"); /* Backspace */
+              "d" = ("insertText:", "⌦"); /* Delete */
+              "t" = ("insertText:", "⇥"); /* Tab */
+            };
+          };
+          "i" = {
+            "s" = {
+              "s" = ("insertText:", "😘");
+            };
+          };
+        };
+        "l" = {
+            "i" = {
+                "p" = {
+                    "s" = ("insertText:", "💋");
+                };
+            };
+        };
+        "m" = {
+            "u" = {
+                "s" = {
+                    "i" = {
+                        "c" = ("insertText:", "♫┗(＾0＾)┓♫");
+                    };
+                };
+            };
+        };
+        "p" = {
+            "a" = {
+                "r" = {
+                    "t" = {
+                        "y" = ("insertText:", "🎉");
+                    };
+                };
+            };
+            "e" = {
+                "a" = {
+                    "c" = {
+                        "e" = ("insertText:", "☮");
+                    };
+                };
+            };
+            "o" = {
+                "o" = ("insertText:", "💩");
+            };
+            "l" = {
+                "a" = {
+                    "n" = {
+                        e = ("insertText:", "✈");
+                    };
+                };
+            };
+        };
+        "r" = {
+            "o" = {
+                "o" = {
+                    "s" = {
+                        "t" = ("insertText:", "🐓");
+                    };
+                };
+            };
+        };
+        "s" = {
+            "h" = {
+                "r" = {
+                    "u" = {
+                        "g" = ("insertText:", "¯\\_(ツ)_/¯");
+                    };
+                };
+            };
+            "i" = {
+                "n" = {
+                    "g" = ("insertText:", "🎶");
+                };
+            };
+        };
+        "u" = {
+            "n" = {
+                "f" = {
+                    "l" = {
+                        "i" = {
+                            "p" = ("insertText:", "┬─┬ノ(ಠ_ಠノ)");
+                        };
+                    };
+                };
+            };
+        };
+        "y" = {
+            "a" = {
+                "y" = ("insertText:", "＼(｀0´)／");
+            };
+            "u" = {
+                "n" = {
+                    "o" = ("insertText:", "(屮'Д')屮");
+                };
+            };
+        };
+        "z" = {
+            "a" = {
+                "l" = {
+                    "g" = {
+                        "o" = ("insertText:", "H̸̡̪̯ͨ͊̽̅̾̎Ȩ̬̩̾͛ͪ̈́̀́͘ ̶̧̨̱̹̭̯ͧ̾ͬC̷̙̲̝͖ͭ̏ͥͮ͟Oͮ͏̮̪̝͍M̲̖͊̒ͪͩͬ̚̚͜Ȇ̴̟̟͙̞ͩ͌͝S̨̥̫͎̭ͯ̿̔̀ͅ");
+                    };
+                };
+            };
+        };
+    };
+}

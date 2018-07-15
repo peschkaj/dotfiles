@@ -116,24 +116,31 @@ cargo +nightly install --force clippy
 EOF
 #+END_SRC
 
-* Better Window Management
+* UI Improvements
+
+** Better Window Management
 
 #+BEGIN_SRC shell
 brew install chunkwm khd
 #+END_SRC
 
-* Emacs
+** Compose Key
 
-Set up emacs using the [[https://github.com/railwaycat/homebrew-emacsmacport][railwaycat homebrew port]]:
+Instructions taken from https://github.com/gnarf/osx-compose-key
+
+Install Karabiner-Elements from https://pqrs.org/osx/karabiner/ or...
 
 #+BEGIN_SRC shell
-brew tap railwaycat/emacsmacport
-brew install emacs-mac --with-natural-title-bar
+mkdir -p .config/karabiner
+ln -s src/peschkaj/dotfiles/karabiner.json .config/karabiner/karabiner.json
+brew install karabiner-elements
+mkdir -p ~/Library/KeyBindings
+ln -s ~/src/peschkaj/dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
 #+END_SRC
 
-* Fonts!
+** Fonts!
 
-** Source Code Pro
+*** Source Code Pro
 
 #+BEGIN_SRC shell
 cd ~/src
@@ -142,13 +149,27 @@ cd source-code-pro/OTF
 cp *.otf ~/Library/Fonts
 #+END_SRC
 
-** TODO Fira Code
+*** TODO Fira Code
 
 *Fill this in*
 
-** TODO Pragmata Pro
+*** TODO Pragmata Pro
 
 *Fill this in*
+
+
+* Emacs
+
+Set up emacs using the [[https://github.com/railwaycat/homebrew-emacsmacport][railwaycat homebrew port]]:
+
+#+BEGIN_SRC shell
+brew install emacs-plus --with-24bit-color
+#+END_SRC
+
+** Notifications
+
+Install [[https://github.com/julienXX/terminal-notifier][terminal-notifier]]
+
 
 * Haskell
 
@@ -170,6 +191,23 @@ Download and install Haskell Stack:
 #+BEGIN_SRC shell
 curl -sSL https://get.haskellstack.org/ | sh
 #+END_SRC
+
+** Haskell IDE Engine
+
+Visit [[https://github.com/alanz/haskell-ide-engine/][Haskell IDE Engine on GitHub]] for more information on this one.
+
+As of <2018-07-10 Tue> this can be installed via the following:
+
+#+BEGIN_SRC shell
+cd ~
+mkdir -p ~/src
+cd src
+git clone https://github.com/haskell/haskell-ide-engine --recursive
+cd haskell-ide-engine
+stack install
+#+END_SRC
+
+You should grab a book, this is a lengthy build process.
 
 ** Paper Boy
 

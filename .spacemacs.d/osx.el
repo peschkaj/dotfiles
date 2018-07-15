@@ -3,6 +3,7 @@
   "Local configuration layers declaration"
   (let ((local-configuration-layers
          '(
+
            (auto-completion (latex :variables
                                    auto-completion-enable-sort-by-usage t)
                             (haskell :variables haskell-completion-backend 'intero))
@@ -11,11 +12,14 @@
                   c-c++-enable-clang-support t
                   clang-format-style "file"
                   )
+           gtags
            latex
            (python :variables
                    python-enable-yapf-format-on-save t
                    flycheck-python-pycompile-executable "python3")
-           haskell
+           (haskell :variables
+                    haskell-completion-backend 'ghci
+                    haskell-process-type 'stack-ghci)
            ;; Moves pdf-tools to be managed by the operating system
            ;; See https://emacs.stackexchange.com/questions/13314/install-pdf-tools-on-emacs-macosx#22591 for additional details on this configuration
            (pdf :variables
@@ -27,6 +31,7 @@
                                      mac-pseudo-daemon
                                      google-c-style
                                      writeroom-mode
+                                     (lsp-haskell :location (recipe :fetcher github :repo "emacs-lsp/lsp-haskell"))
                                      ;; This next one is for yesod templates
                                      shakespeare-mode)))
     (dolist (package local-additional-packages)
@@ -37,10 +42,7 @@
   "local configuration function.
 This function is called at the very end of spacemacs initialization after layers configuration, after the general dotspacemacs/config
 "
-  ;; (setq exec-path-from-shell-arguments
-  ;;       (delete "-i" exec-path-from-shell-arguments))
-
-  ;; UI improvements specific to macOS
+   ;; UI improvements specific to macOS
   (setq default-frame-alist '((ns-transparent-titlebar . t)
                               (ns-appearance . dark)))
 
@@ -50,8 +52,12 @@ This function is called at the very end of spacemacs initialization after layers
    '(company-tooltip-common-selection
      ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 
+  (mac-pseudo-daemon-mode t)
+
+
   ;; Sets shell-mode to use zsh, no matter where it lives
   (setq shell-file-name "zsh")
+
 
   ;; we don't find the correct tex distribution for some reason
   (add-to-list 'exec-path "/usr/local/texlive/2017/bin/x86_64-darwin")
@@ -59,23 +65,16 @@ This function is called at the very end of spacemacs initialization after layers
 
   (setq-default TeX-engine 'xetex)
 
-  (mac-pseudo-daemon-mode t)
-
-  ;; (setenv "PATH" (concat (getenv "PATH") ":/Library/TeX/texbin"))
-  ;; (add-to-list 'exec-path "/Library/TeX/texbin/")
-  ;; Don't forget to symlink pdftex
-  ;; ln -s /Library/TeX/texbin/pdftex /usr/local/bin/pdflatex
-
   ;; OS X ls doesn't support --dired flag
   (setq dired-use-ls-dired nil)
 
-  ;(setq-default mac-right-option-modifier nil)
   (setq mac-option-key-is-meta nil)
   (setq mac-command-key-is-meta t)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier nil)
   (setq magit-repository-directories '("~/src/"))
 
+  ;; Configure dash-at-point
   (global-set-key "\C-cd" 'dash-at-point)
   (global-set-key "\C-ce" 'dash-at-point-with-docset)
 
@@ -84,15 +83,27 @@ This function is called at the very end of spacemacs initialization after layers
   (add-hook 'c-mode-common-hook 'google-set-c-style)
 
 
+  ;; Haskell language server configuration, stolen with love from
+  ;; https://github.com/alanz/haskell-ide-engine/#using-hie-with-spacemacs
+  (require 'lsp-haskell)
+  (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
+  (setq lsp-haskell-process-path-hie "hie-wrapper")
+
   ;; nobody likes scrollbars
   (set-scroll-bar-mode nil)
 
 
+  ;; Remove company-dabbrev from company-backends
+  (with-eval-after-load 'company
+    (delete 'company-dabbrev company-backends))
+
+
+  ;; glorious org-mode
   (setq org-directory "~/Documents/org/"
         org-src-tab-acts-natively t
         org-reverse-note-order t
         org-default-notes-file "~/Documents/org/notes.org"
-        org-agenda-files '("~/Documents/org/agenda.org")
+        org-agenda-files '("~/Documents/org/agenda.org" "~/Documents/org/geu.org")
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-deadline-if-done t
         org-agenda-ndays 7
@@ -111,8 +122,35 @@ This function is called at the very end of spacemacs initialization after layers
         org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
 
-  ;; TODO Remove company-dabbrev from company-backends
-  (delete 'company-dabbrev company-backends)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Set up notifications for org
+  (require 'appt)
+  (setq appt-time-msg-list nil)         ;; clear existing appt list
+  (setq appt-display-interval '10)      ;; warn every 10 minutes from t - appt-message-warning-time
+  (setq appt-message-warning-time '10   ;; sent first warning 10 minutes before appointment
+        appt-display-mode-line nil      ;; don't show in the modeline
+        appt-display-format 'window)    ;; passes notifications to the designated window function-key-map
+  (appt-activate 1)                     ;; activate appointment notification
+  (display-time)                        ;; activate time display
+
+  (org-agenda-to-appt)                  ;; generate the appt list from org agenda files on emacs launch
+  (run-at-time "24:01" 3600 'org-agenda-to-appt)           ;; update appt list hourly
+  (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
+
+  ;; set up the call to terminal-notifier
+  (defvar my-notifier-path
+    "/usr/local/bin/terminal-notifier")
+  (defun my-appt-send-notification (title msg)
+    (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs ")))
+
+  ;; designate the window function for my-appt-send-notification
+  (defun my-appt-display (min-to-app new-time msg)
+    (my-appt-send-notification
+     (format "'Appointment in %s minutes'" min-to-app)    ;; passed to -title in terminal-notifier call
+     (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
+  (setq appt-disp-window-function (function my-appt-display))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
   ;; org-ref configuration
   (setq reftex-default-bibliography '("~/Documents/reading/index.bib"))
@@ -129,9 +167,9 @@ This function is called at the very end of spacemacs initialization after layers
         bibtex-completion-notes-path "~/Documents/reading/index.org"
         )
 
+  ;; t - Prompt for a title and then add to notes.org unless you refile it
   (setq org-capture-templates
-        '(;; Prompt for a title and then add to notes.org unless you refile it
-          ("t" "todo" entry (file org-default-notes-file)
+        '(("t" "todo" entry (file org-default-notes-file)
            "* TODO %?\n%u\n%a\n" :clock-in t :clock-resume t)
           ("m" "Meeting" entry (file org-default-notes-file)
            "* MEETING with %? :MEETING:\n%t" :clock-in t :clock-resume t)
