@@ -133,9 +133,11 @@ Install Karabiner-Elements from https://pqrs.org/osx/karabiner/ or...
 #+BEGIN_SRC shell
 mkdir -p .config/karabiner
 cp src/peschkaj/dotfiles/karabiner.json .config/karabiner/karabiner.json
-brew install karabiner-elements
+
 mkdir -p ~/Library/KeyBindings
 cp ~/src/peschkaj/dotfiles/DefaultKeyBinding.dict ~/Library/KeyBindings/DefaultKeyBinding.dict
+
+brew install karabiner-elements
 #+END_SRC
 
 ** Fonts!
