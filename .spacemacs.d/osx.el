@@ -102,12 +102,21 @@ This function is called at the very end of spacemacs initialization after layers
   (setq org-directory "~/Documents/org/"
         org-src-tab-acts-natively t
         org-reverse-note-order t
+        ;; diary is a 0 length file to keep emacs happy
+        diary-file "~/Documents/org/diary"
         org-default-notes-file "~/Documents/org/notes.org"
-        org-agenda-files '("~/Documents/org/agenda.org" "~/Documents/org/geu.org")
+        org-agenda-files '("~/Documents/org/agenda.org"
+                           "~/Documents/org/geu.org"
+                           "~/Documents/org/inbox.org"
+                           "~/Documents/org/calsync/jeremiahpeschka-cal.org"
+                           "~/Documents/org/calsync/legitbiz-cal.org"
+                           "~/Documents/org/calsync/jpeschka-cal.org"
+                           )
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-deadline-if-done t
         org-agenda-ndays 7
         org-agenda-show-all-dates t
+        org-agenda-use-time-grid t
         org-deadline-warning-days 14
         org-journal-dir "~/Documents/org/journal/"
         org-journal-file-format "%Y%m%d"
@@ -118,9 +127,12 @@ This function is called at the very end of spacemacs initialization after layers
         ; as a headline
         org-journal-time-prefix "* "
         org-journal-time-format ""
+        ;; Include agenda archive files when searching
+        org-agenda-text-search-extra-files (quote (agenda-archives))
         ; sets org-refile to be able to work with any org-agenda-files
         org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
+
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Set up notifications for org

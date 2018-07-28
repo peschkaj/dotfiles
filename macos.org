@@ -172,6 +172,17 @@ brew install emacs-plus --with-24bit-color
 
 Install [[https://github.com/julienXX/terminal-notifier][terminal-notifier]]
 
+** Calendar sync
+
+This relies on [[https://github.com/asoroa/ical2org.py][ical2orgpy]]
+
+#+BEGIN_SRC shell
+pip install ical2orgpy
+ln -s ~/src/peschkaj/dotfiles/orgCalSync.sh ~/.local/bin/orgCalSync.sh
+#+END_SRC
+
+Use Lingon X to create a scheduled task that downloads every X minutes (30 is
+probably a bit aggressive, but whatever. Go for it)
 
 * Haskell
 
