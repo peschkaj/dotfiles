@@ -12,6 +12,7 @@ URL=https://calendar.google.com/calendar/ical/jeremiah.peschka%40gmail.com/priva
 $WGET -O $ICSFILE $URL
 $ICS2ORG $ICSFILE $ORGFILE
 rm -f $ICSFILE
+
 echo '#+CATEGORY: personal' | cat - $ORGFILE > temp && mv temp $ORGFILE
 
 ICSFILE=/Users/jeremiah/Documents/org/calsync/legitbiz.ics
@@ -23,8 +24,6 @@ $ICS2ORG $ICSFILE $ORGFILE
 rm -f $ICSFILE
 
 echo '#+CATEGORY: legitbiz' | cat - $ORGFILE > temp && mv temp $ORGFILE
-
-
 
 ICSFILE=/Users/jeremiah/Documents/org/calsync/jpeschka.ics
 ORGFILE=/Users/jeremiah/Documents/org/calsync/jpeschka-cal.org
