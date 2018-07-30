@@ -9,28 +9,27 @@ URL=https://calendar.google.com/calendar/ical/jeremiah.peschka%40gmail.com/priva
 
 # no customization needed below
 
+echo "#+CATEGORY: personal" > $ORGFILE
 $WGET -O $ICSFILE $URL
-$ICS2ORG $ICSFILE $ORGFILE
+$ICS2ORG $ICSFILE - >> $ORGFILE
 rm -f $ICSFILE
 
-echo '#+CATEGORY: personal' | cat - $ORGFILE > temp && mv temp $ORGFILE
+#echo '#+CATEGORY: personal' | cat - $ORGFILE > temp; mv temp $ORGFILE
 
 ICSFILE=/Users/jeremiah/Documents/org/calsync/legitbiz.ics
 ORGFILE=/Users/jeremiah/Documents/org/calsync/legitbiz-cal.org
 URL=https://user.fm/calendar/v1-9df9b444-779f-4e00-b9a6-30f8bf1fcbb4/Calendar.ics
 
+echo "#+CATEGORY: legitbiz" > $ORGFILE
 $WGET -O $ICSFILE $URL
-$ICS2ORG $ICSFILE $ORGFILE
+$ICS2ORG $ICSFILE - >> $ORGFILE
 rm -f $ICSFILE
-
-echo '#+CATEGORY: legitbiz' | cat - $ORGFILE > temp && mv temp $ORGFILE
 
 ICSFILE=/Users/jeremiah/Documents/org/calsync/jpeschka.ics
 ORGFILE=/Users/jeremiah/Documents/org/calsync/jpeschka-cal.org
 URL=https://calendar.google.com/calendar/ical/jpeschka%40pdx.edu/private-4d103f01e3d26f17c5a520f4dcbf0dd9/basic.ics
 
+echo "#+CATEGORY: pdx.edu" > $ORGFILE
 $WGET -O $ICSFILE $URL
-$ICS2ORG $ICSFILE $ORGFILE
+$ICS2ORG $ICSFILE - >> $ORGFILE
 rm -f $ICSFILE
-
-echo '#+CATEGORY: pdx.edu' | cat - $ORGFILE > temp && mv temp $ORGFILE
