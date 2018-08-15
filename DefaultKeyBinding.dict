@@ -6,6 +6,7 @@
          http://heisencoder.net/2008/04/fixing-up-mac-key-bindings-for-windows.html
          https://gist.github.com/gnarf/0d29c05b189a51894399
          http://osxnotes.net/keybindings.html
+         https://github.com/ttscoff/KeyBindings
     */
     "§" = {
         "$\UF700" = ("insertText:", "↑"); /* (Shift) Up arrow */
