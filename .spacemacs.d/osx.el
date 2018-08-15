@@ -31,6 +31,8 @@
                                      mac-pseudo-daemon
                                      google-c-style
                                      writeroom-mode
+                                     lsp-mode
+                                     lsp-ui
                                      (lsp-haskell :location (recipe :fetcher github :repo "emacs-lsp/lsp-haskell"))
                                      ;; This next one is for yesod templates
                                      shakespeare-mode)))
@@ -105,10 +107,11 @@ This function is called at the very end of spacemacs initialization after layers
         ;; diary is a 0 length file to keep emacs happy
         diary-file "~/Documents/org/diary"
         org-default-notes-file "~/Documents/org/notes.org"
-        org-agenda-files '("~/Documents/org/agenda.org"
-                           "~/Documents/org/inbox.org"
-                           "~/Documents/org/geu.org"
-                           "~/Documents/org/333.org"
+        org-agenda-files '("~/Documents/org/agenda.org"                          ;; Some kind of actual agenda
+                           "~/Documents/org/inbox.org"                           ;; A dumping ground
+                           "~/Documents/org/index.org"                           ;; The larger org-mode project list and general purpose index
+                           "~/Documents/org/geu.org"                             ;; agitating for labor
+                           "~/Documents/org/333.org"                             ;; CS333 - fun for you, fun for me
                            "~/Documents/org/calsync/jeremiahpeschka-cal.org"
                            "~/Documents/org/calsync/legitbiz-cal.org"
                            "~/Documents/org/calsync/jpeschka-cal.org"
