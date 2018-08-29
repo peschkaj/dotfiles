@@ -12,7 +12,7 @@ URL=https://calendar.google.com/calendar/ical/jeremiah.peschka%40gmail.com/priva
 logger -t "com.facility9.orgCalSync" "syncing personal email"
 echo "#+CATEGORY: personal" > $ORGFILE
 $WGET -O $ICSFILE $URL
-$ICS2ORG $ICSFILE - >> $ORGFILE
+$ICS2ORG -d 180 $ICSFILE - >> $ORGFILE
 rm -f $ICSFILE
 logger -t "com.facility9.orgCalSync" "syncing personal email complete"
 
@@ -25,7 +25,7 @@ URL=https://user.fm/calendar/v1-9df9b444-779f-4e00-b9a6-30f8bf1fcbb4/Calendar.ic
 logger -t "com.facility9.orgCalSync" "syncing legitbiz email"
 echo "#+CATEGORY: legitbiz" > $ORGFILE
 $WGET -O $ICSFILE $URL
-$ICS2ORG $ICSFILE - >> $ORGFILE
+$ICS2ORG -d 180 $ICSFILE - >> $ORGFILE
 rm -f $ICSFILE
 logger -t "com.facility9.orgCalSync" "syncing legitbiz email complete"
 

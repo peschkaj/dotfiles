@@ -17,8 +17,8 @@
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 
-(set-frame-font "PragmataPro 14" t t)
-(setq radian-font-size 141)
+(set-frame-font "PragmataPro 16" t t)
+;(setq radian-font-size 141)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom packages
@@ -220,6 +220,41 @@
 (defun radian-local--after-init ()
   (interactive)
 
+  (straight-use-package 'rainbow-delimiters)
+  ;;(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+  ;;(add-hook 'rust-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+  (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark red"))))
+ '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "orange red"))))
+ '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "gold"))))
+ '(rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :foreground "lime green"))))
+ '(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :foreground "deep sky blue"))))
+ '(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :foreground "cornflower blue"))))
+ '(rainbow-delimiters-depth-7-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark violet")))))
+
+  ;; (custom-set-faces `(rainbow-delimiters-depth-1-face   ((,c (:bold ,bold :foreground ,blue))
+  ;;                                                        (,ct (:bold ,bold :foreground ,ct-blue))))
+  ;;                   `(rainbow-delimiters-depth-2-face   ((,c (:bold ,bold :foreground ,magenta))
+  ;;                                                        (,ct (:bold ,bold :foreground ,ct-magenta))))
+  ;;                   `(rainbow-delimiters-depth-3-face   ((,c (:bold ,bold :foreground ,green))
+  ;;                                                        (,ct (:bold ,bold :foreground ,ct-green))))
+  ;;                   `(rainbow-delimiters-depth-4-face   ((,c (:bold ,bold :foreground ,red-d))
+  ;;                                                        (,ct (:bold ,bold :foreground ,ct-red-d))))
+  ;;                   `(rainbow-delimiters-depth-5-face   ((,c (:bold ,bold :foreground ,magenta-d))
+  ;;                                                        (,ct (:bold ,bold :foreground ,magenta-d))))
+  ;;                   `(rainbow-delimiters-unmatched-face ((,c (:bold ,bold :foreground ,red :inverse-video t))
+  ;;                                                        (,ct (:bold ,bold :foreground ,ct-red :inverse-video t)))))
+
+
+  (straight-use-package 'org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
   (straight-use-package 'hydra)
 
   (defun radian-insert-date ()
@@ -280,6 +315,11 @@
                   (winner-undo)
                   (setq this-command 'winner-undo))))
           (?r winner-redo)))
+
+
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; HYDRAS
 
   ;; Ace-window hydra controls - for the lazy
   ;; Trigger with 'M-o w'
@@ -347,37 +387,105 @@ _SPC_ cancel	_o_nly this   	_d_elete
 
   ;; Hydra for buffer o' buffers
   ;; Just press '.' to bring it up
-  (defhydra hydra-buffer-menu (:color pink
-                                      :hint nil)
+  (defhydra hydra-ibuffer-main (:color pink :hint nil)
     "
-^Mark^             ^Unmark^           ^Actions^          ^Search
-^^^^^^^^-----------------------------------------------------------------
-_m_: mark          _u_: unmark        _x_: execute       _R_: re-isearch
-_s_: save          _U_: unmark up     _b_: bury          _I_: isearch
-_d_: delete        ^ ^                _g_: refresh       _O_: multi-occur
-_D_: delete up     ^ ^                _T_: files only: % -28`Buffer-menu-files-only
-_~_: modified
+^Mark^         ^Actions^         ^View^          ^Select^              ^Navigation^
+_m_: mark      _D_: delete       _g_: refresh    _q_: quit             _k_:   ↑    _h_
+_u_: unmark    _s_: save marked  _S_: sort       _TAB_: toggle         _RET_: visit
+_*_: specific  _a_: all actions  _/_: filter     _o_: other window     _j_:   ↓    _l_
+_t_: toggle    _._: toggle hydra _H_: help       C-o other win no-select
 "
-    ("m" Buffer-menu-mark)
-    ("u" Buffer-menu-unmark)
-    ("U" Buffer-menu-backup-unmark)
-    ("d" Buffer-menu-delete)
-    ("D" Buffer-menu-delete-backwards)
-    ("s" Buffer-menu-save)
-    ("~" Buffer-menu-not-modified)
-    ("x" Buffer-menu-execute)
-    ("b" Buffer-menu-bury)
-    ("g" revert-buffer)
-    ("T" Buffer-menu-toggle-files-only)
-    ("O" Buffer-menu-multi-occur :color blue)
-    ("I" Buffer-menu-isearch-buffers :color blue)
-    ("R" Buffer-menu-isearch-buffers-regexp :color blue)
-    ("c" nil "cancel")
-    ("v" Buffer-menu-select "select" :color blue)
-    ("o" Buffer-menu-other-window "other-window" :color blue)
-    ("q" quit-window "quit" :color blue))
+    ("m" ibuffer-mark-forward)
+    ("u" ibuffer-unmark-forward)
+    ("*" hydra-ibuffer-mark/body :color blue)
+    ("t" ibuffer-toggle-marks)
 
-  (define-key Buffer-menu-mode-map "." 'hydra-buffer-menu/body)
+    ("D" ibuffer-do-delete)
+    ("s" ibuffer-do-save)
+    ("a" hydra-ibuffer-action/body :color blue)
+
+    ("g" ibuffer-update)
+    ("S" hydra-ibuffer-sort/body :color blue)
+    ("/" hydra-ibuffer-filter/body :color blue)
+    ("H" describe-mode :color blue)
+
+    ("h" ibuffer-backward-filter-group)
+    ("k" ibuffer-backward-line)
+    ("l" ibuffer-forward-filter-group)
+    ("j" ibuffer-forward-line)
+    ("RET" ibuffer-visit-buffer :color blue)
+
+    ("TAB" ibuffer-toggle-filter-group)
+
+    ("o" ibuffer-visit-buffer-other-window :color blue)
+    ("q" quit-window :color blue)
+    ("." nil :color blue))
+
+  (defhydra hydra-ibuffer-mark (:color teal :columns 5
+                                       :after-exit (hydra-ibuffer-main/body))
+    "Mark"
+    ("*" ibuffer-unmark-all "unmark all")
+    ("M" ibuffer-mark-by-mode "mode")
+    ("m" ibuffer-mark-modified-buffers "modified")
+    ("u" ibuffer-mark-unsaved-buffers "unsaved")
+    ("s" ibuffer-mark-special-buffers "special")
+    ("r" ibuffer-mark-read-only-buffers "read-only")
+    ("/" ibuffer-mark-dired-buffers "dired")
+    ("e" ibuffer-mark-dissociated-buffers "dissociated")
+    ("h" ibuffer-mark-help-buffers "help")
+    ("z" ibuffer-mark-compressed-file-buffers "compressed")
+    ("b" hydra-ibuffer-main/body "back" :color blue))
+
+  (defhydra hydra-ibuffer-action (:color teal :columns 4
+                                         :after-exit
+                                         (if (eq major-mode 'ibuffer-mode)
+                                             (hydra-ibuffer-main/body)))
+    "Action"
+    ("A" ibuffer-do-view "view")
+    ("E" ibuffer-do-eval "eval")
+    ("F" ibuffer-do-shell-command-file "shell-command-file")
+    ("I" ibuffer-do-query-replace-regexp "query-replace-regexp")
+    ("H" ibuffer-do-view-other-frame "view-other-frame")
+    ("N" ibuffer-do-shell-command-pipe-replace "shell-cmd-pipe-replace")
+    ("M" ibuffer-do-toggle-modified "toggle-modified")
+    ("O" ibuffer-do-occur "occur")
+    ("P" ibuffer-do-print "print")
+    ("Q" ibuffer-do-query-replace "query-replace")
+    ("R" ibuffer-do-rename-uniquely "rename-uniquely")
+    ("T" ibuffer-do-toggle-read-only "toggle-read-only")
+    ("U" ibuffer-do-replace-regexp "replace-regexp")
+    ("V" ibuffer-do-revert "revert")
+    ("W" ibuffer-do-view-and-eval "view-and-eval")
+    ("X" ibuffer-do-shell-command-pipe "shell-command-pipe")
+    ("b" nil "back"))
+
+  (defhydra hydra-ibuffer-sort (:color amaranth :columns 3)
+    "Sort"
+    ("i" ibuffer-invert-sorting "invert")
+    ("a" ibuffer-do-sort-by-alphabetic "alphabetic")
+    ("v" ibuffer-do-sort-by-recency "recently used")
+    ("s" ibuffer-do-sort-by-size "size")
+    ("f" ibuffer-do-sort-by-filename/process "filename")
+    ("m" ibuffer-do-sort-by-major-mode "mode")
+    ("b" hydra-ibuffer-main/body "back" :color blue))
+
+  (defhydra hydra-ibuffer-filter (:color amaranth :columns 4)
+    "Filter"
+    ("m" ibuffer-filter-by-used-mode "mode")
+    ("M" ibuffer-filter-by-derived-mode "derived mode")
+    ("n" ibuffer-filter-by-name "name")
+    ("c" ibuffer-filter-by-content "content")
+    ("e" ibuffer-filter-by-predicate "predicate")
+    ("f" ibuffer-filter-by-filename "filename")
+    (">" ibuffer-filter-by-size-gt "size")
+    ("<" ibuffer-filter-by-size-lt "size")
+    ("/" ibuffer-filter-disable "disable")
+    ("b" hydra-ibuffer-main/body "back" :color blue))
+
+  ;; toggle the hydra with '.'
+  (define-key ibuffer-mode-map "." 'hydra-ibuffer-main/body)
+  ;; Automatically open the hydra when ibuffer opens
+  (add-hook 'ibuffer-hook #'hydra-ibuffer-main/body)
 
   (custom-set-variables
    '(menu-bar-mode t)))
