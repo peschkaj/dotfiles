@@ -165,7 +165,8 @@ cp *.otf ~/Library/Fonts
 Set up emacs using the [[https://github.com/railwaycat/homebrew-emacsmacport][railwaycat homebrew port]]:
 
 #+BEGIN_SRC shell
-brew install emacs-plus --with-24bit-color
+brew install emacs-mac --with-imagemagick --with-modern-icon --with-natural-title-bar
+brew install watchexec
 #+END_SRC
 
 ** Notifications
@@ -184,6 +185,25 @@ ln -s ~/src/peschkaj/dotfiles/orgCalSync.sh ~/.local/bin/orgCalSync.sh
 Use Lingon X to create a scheduled task that downloads every X minutes (30 is
 probably a bit aggressive, but whatever. Go for it)
 
+** Choose between radian or spacemacs
+
+*** radian
+
+
+
+*** spacemacs
+
+#+BEGIN_SRC shell
+# First, check that any existing .emacs.d is out of the way
+mv .emacs.d _emacs_d_bak
+# Clone spacemacs
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+# link existing .spacemacs and .spacemacs.d
+ln -s ~/.spacemacs /Users/jeremiah/src/peschkaj/dotfiles/.spacemacs
+ln -s ~/.spacemacs.d /Users/jeremiah/src/peschkaj/dotfiles/.spacemacs
+#+END_SRC
+
+Now start emacs and wait for a long time
 * Haskell
 
 ** Haskell Platform
