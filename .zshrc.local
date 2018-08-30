@@ -1,0 +1,34 @@
+radian_after_init_hook() {
+  # Load OMZ Git library
+  zplugin snippet OMZ::lib/git.zsh
+
+  # Load Git plugin from OMZ
+  zplugin snippet OMZ::plugins/git/git.plugin.zsh
+  zplugin cdclear -q # <- forget completions provided up to this moment
+
+  setopt promptsubst
+
+  zplugin snippet OMZ::themes/agnoster.zsh-theme
+}
+
+alias ls="ls --color"
+alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
+
+# SSH aliases
+alias pdxada='ssh -i ~/.ssh/id_rsa jpeschka@ada.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias pdxlinux='ssh -i ~/.ssh/id_rsa jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias pdxlinuxlab='ssh -i ~/.ssh/id_rsa jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
+alias babbage='ssh -i ~/.ssh/id_rsa jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
+alias pdx333grader='ssh -i ~/.ssh/id_rsa cs333_1@linuxlab.cs.pdx.edu'
+
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
+export CFLAGS="-march=native"
+export CPPFLAGS="-I/usr/local/opt/llvm/include"
+
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+export ALTERNATE_EDITOR=""
+export EDITOR="emacsclient -c"
+export VISUAL="emacsclient -c -a emacs"

@@ -1,4 +1,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Start the server
+(server-start)
+;; make Emacs.app open files in an existing frame instead of a new frame
+(setq ns-pop-up-frames nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; replace yes or no with y or n
 (defun yes-or-no-p@maybe-just-y-or-n-p (orig-fun prompt)
   (funcall
@@ -18,11 +24,6 @@
     (mac-auto-operator-composition-mode))
 
 (set-frame-font "PragmataPro 16" t t)
-;(setq radian-font-size 141)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Custom packages
-;(straight-use-package 'projectile-ripgrep)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -119,9 +120,9 @@
 
 ;; Set up notifications for org
 (require 'appt)
-(setq appt-time-msg-list nil)         ;; clear existing appt list
-(setq appt-display-interval '10)      ;; warn every 10 minutes from t - appt-message-warning-time
-(setq appt-message-warning-time '10   ;; sent first warning 10 minutes before appointment
+(setq appt-time-msg-list nil          ;; clear existing appt list
+      appt-display-interval '10       ;; warn every 10 minutes from t - appt-message-warning-time
+      appt-message-warning-time '10   ;; sent first warning 10 minutes before appointment
       appt-display-mode-line nil      ;; don't show in the modeline
       appt-display-format 'window)    ;; passes notifications to the designated window function-key-map
 (appt-activate 1)                     ;; activate appointment notification
@@ -215,6 +216,29 @@
 
 (define-key global-map (kbd "C-c [") 'close-all-parentheses)
 
+;; trigger whitespace-cleanup on save
+(add-hook 'before-save-hook 'whitespace-cleanup)
+
+
+
+(when (featurep 'ns)
+  (defun ns-raise-emacs ()
+    "Raise Emacs."
+    (ns-do-applescript "tell application \"Emacs\" to activate"))
+
+  (defun ns-raise-emacs-with-frame (frame)
+    "Raise Emacs and select the provided frame."
+    (with-selected-frame frame
+      (when (display-graphic-p)
+        (ns-raise-emacs))))
+
+  (add-hook 'after-make-frame-functions 'ns-raise-emacs-with-frame)
+
+  (when (display-graphic-p)
+    (ns-raise-emacs)))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Customizing radian
 (defun radian-local--after-init ()
@@ -225,32 +249,35 @@
   ;;(add-hook 'rust-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
+  ;(straight-use-package 'mac-pseudo-daemon)
+  ;(mac-pseudo-daemon-mode t)
+
+
+  (straight-use-package 'dash-at-point)
+  (global-set-key "\C-cd" 'dash-at-point)
+  (global-set-key "\C-ce" 'dash-at-point-with-docset)
+
+  ;; sets up c and C++ programming environment
+  (straight-use-package 'google-c-style)
+  (setq c-basic-offset 2)
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+
+  ;; Adds writeroom-mode
+  (straight-use-package 'writeroom-mode)
+
+
   (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark red"))))
- '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "orange red"))))
- '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "gold"))))
- '(rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :foreground "lime green"))))
- '(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :foreground "deep sky blue"))))
- '(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :foreground "cornflower blue"))))
- '(rainbow-delimiters-depth-7-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark violet")))))
-
-  ;; (custom-set-faces `(rainbow-delimiters-depth-1-face   ((,c (:bold ,bold :foreground ,blue))
-  ;;                                                        (,ct (:bold ,bold :foreground ,ct-blue))))
-  ;;                   `(rainbow-delimiters-depth-2-face   ((,c (:bold ,bold :foreground ,magenta))
-  ;;                                                        (,ct (:bold ,bold :foreground ,ct-magenta))))
-  ;;                   `(rainbow-delimiters-depth-3-face   ((,c (:bold ,bold :foreground ,green))
-  ;;                                                        (,ct (:bold ,bold :foreground ,ct-green))))
-  ;;                   `(rainbow-delimiters-depth-4-face   ((,c (:bold ,bold :foreground ,red-d))
-  ;;                                                        (,ct (:bold ,bold :foreground ,ct-red-d))))
-  ;;                   `(rainbow-delimiters-depth-5-face   ((,c (:bold ,bold :foreground ,magenta-d))
-  ;;                                                        (,ct (:bold ,bold :foreground ,magenta-d))))
-  ;;                   `(rainbow-delimiters-unmatched-face ((,c (:bold ,bold :foreground ,red :inverse-video t))
-  ;;                                                        (,ct (:bold ,bold :foreground ,ct-red :inverse-video t)))))
-
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark red"))))
+   '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "orange red"))))
+   '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "gold"))))
+   '(rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :foreground "lime green"))))
+   '(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :foreground "deep sky blue"))))
+   '(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :foreground "cornflower blue"))))
+   '(rainbow-delimiters-depth-7-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark violet")))))
 
   (straight-use-package 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -327,12 +354,12 @@
     "
 Movement^^        ^Split^         ^Switch^		^Resize^
 ----------------------------------------------------------------
-_h_ ←       	_v_ertical    	_b_uffer		_q_ X←
-_j_ ↓        	_x_ horizontal	_f_ind files	_w_ X↓
-_k_ ↑        	_z_ undo      	_a_ce 1		_e_ X↑
-_l_ →        	_Z_ reset      	_s_wap		_r_ X→
-_F_ollow		_D_lt Other   	_S_ave		max_i_mize
-_SPC_ cancel	_o_nly this   	_d_elete
+_h_ ←           _v_ertical      _b_uffer		_q_ X←
+_j_ ↓           _x_ horizontal	_f_ind files	_w_ X↓
+_k_ ↑           _z_ undo        _a_ce 1		_e_ X↑
+_l_ →           _Z_ reset       _s_wap		_r_ X→
+_F_ollow		_D_lt Other     _S_ave		max_i_mize
+_SPC_ cancel	_o_nly this     _d_elete
 "
     ("h" windmove-left )
     ("j" windmove-down )
@@ -486,6 +513,9 @@ _t_: toggle    _._: toggle hydra _H_: help       C-o other win no-select
   (define-key ibuffer-mode-map "." 'hydra-ibuffer-main/body)
   ;; Automatically open the hydra when ibuffer opens
   (add-hook 'ibuffer-hook #'hydra-ibuffer-main/body)
+
+  (setq magit-repository-directories '("~/src/"))
+  (global-git-commit-mode t)
 
   (custom-set-variables
    '(menu-bar-mode t)))
