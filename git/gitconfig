@@ -1,3 +1,4 @@
+#; -*- mode: gitconfig -*-
 [user]
   email = jeremiah.peschka@gmail.com
   name = Jeremiah Peschka

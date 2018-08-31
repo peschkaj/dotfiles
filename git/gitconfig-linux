@@ -1,7 +1,8 @@
+#; -*- mode: gitconfig -*-
 [core]
-	editor = "emacsclient -t"
+  editor = "emacsclient -t"
 [merge]
-	tool = p4merge
+  tool = p4merge
 [mergetool]
   prompt = false
 [mergetool "p4merge"]
