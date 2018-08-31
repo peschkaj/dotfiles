@@ -25,6 +25,11 @@
 
 (set-frame-font "PragmataPro 16" t t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Disable smooth scrolling
+(if mac-mouse-wheel-smooth-scroll
+    (setq mac-mouse-wheel-smooth-scroll nil))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Global keys
@@ -289,8 +294,9 @@
     (interactive)
     (insert (format-time-string "%Y-%m-%dT%H:%M:%S" nil t)))
 
-  ;; (setq radian-color-theme-enable nil)
+
   (straight-use-package 'org-plus-contrib)
+  ;; (setq radian-color-theme-enable nil)
   ;; (straight-use-package 'challenger-deep-theme)
   ;; (load-theme 'challenger-deep t)
 
@@ -301,6 +307,14 @@
   (unbind-key "s-c")
   (unbind-key "s-r")
 
+  ;; Also add some sane keybindings
+  (setq mac-option-key-is-meta nil)
+  (setq mac-command-key-is-meta t)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier nil)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Better searching through ripgrep
   (straight-use-package 'projectile-ripgrep)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -544,6 +558,7 @@ _t_: toggle    _._: toggle hydra _H_: help       C-o other win no-select
             ("[TRACE]"   #XE387)
             ("[FIXME]"   #XE388)
             ("[TODO]"    #XE389)
+            ("TODO"      #XE389)
             ("[BUG]"     #XE38A)
             ("[NOTE]"    #XE38B)
             ("[HACK]"    #XE38C)
