@@ -7,6 +7,6 @@
   path = /Users/jeremiah/src/peschkaj/dotfiles/git/gitconfig-linux
 
 [core]
-  excludesfile = /Users/jeremiah/.gitignore_global
+  excludesfile = /Users/jeremiah/src/peschkaj/dotfiles/git/gitignore
 [magit]
   hideCampaign = true

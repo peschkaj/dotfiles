@@ -33,28 +33,36 @@ cd ~/src/peschkaj/
 git clone git@github.com:peschkaj/dotfiles.git
 git clone git@github.com:peschkaj/seekrets.git
 
+cd ~/src
+git clone git@github.com:raxod502/radian.git
+
+cd ~
 rm .zshrc .zshenv
 
-ln -s ~/src/peschkaj/dotfiles/.zshrc ~/.zshrc
-ln -s ~/src/peschkaj/dotfiles/.zshenv ~/.zshenv
+# set up ZSH
+ln -s ~/src/radian/shell/zsh/.zshrc ~/.zshrc
+ln -s ~/src/peschkaj/dotfiles/zsh/.zshrc.local ~/.zshrc.local
+
+# set up emacs
+mkdir -p ~/.emacs.d/straight/versions
+ln -s ~/src/radian/emacs/init.el ~/.emacs.d/init.el
+ln -s ~/src/radian/emacs/versions.el ~/.emacs.d/straight/versions/radian.el
+
+# set up git
+ln -s ~/src/radian/git/.gitconfig ~/.gitconfig
+ln -s ~/src/radian/git/.gitexclude ~/.gitexclude
+ln -s ~/src/peschkaj/dotfiles/git/.gitconfig.local ~/.gitconfig.local
+ln -s ~/src/peschkaj/dotfiles/GIT_IGNORE ~/.gitignore_global
+
+# source code formatting FTW
 ln -s ~/src/peschkaj/dotfiles/.clang-format ~/.clang-format
+
+# bspwm clone for macOS
 ln -s ~/src/peschkaj/dotfiles/chunkwmrc ~/.chunkwmrc
 ln -s ~/src/peschkaj/dotfiles/khdrc ~/.khdrc
 
-ln -s ~/src/peschkaj/dotfiles/GIT_IGNORE ~/.gitignore_global
 
-cat << EOF > ~/.gitconfig
-[include]
-    path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig
-[include]
-    path = /home/jeremiah/src/peschkaj/seekrets/git/gitconfig-github
-[include]
-    path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig-linux
 
-[core]
-    excludesfile = /home/jeremiah/.gitignore_global
-
-EOF
 #+END_SRC
 
 * git-open
@@ -73,7 +81,7 @@ git clone git@github.com:paulirish/git-open.git
 #+BEGIN_SRC shell
 brew install wget tree gnutls telnet cmake ncurses ponysay cowsay pkg-config \
              glib autoconf automake libtool graphviz imagemagick qemu protobuf \
-             ripgrep coreutils
+             ripgrep coreutils watchexec tree cmark-gfm markdown
 brew install ispell --with-lang-en
 brew install llvm --with-lldb --with-toolchain
 
@@ -189,9 +197,11 @@ probably a bit aggressive, but whatever. Go for it)
 
 *** radian
 
-
+This is already taken care of above
 
 *** spacemacs
+
+Blah, don't do this. Unless you _really_ want spacemacs
 
 #+BEGIN_SRC shell
 # First, check that any existing .emacs.d is out of the way
