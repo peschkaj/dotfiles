@@ -5,6 +5,10 @@
 (setq ns-pop-up-frames nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Change stack depth, someone is going nuts
+(setq max-lisp-eval-depth 10000)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; replace yes or no with y or n
 (defun yes-or-no-p@maybe-just-y-or-n-p (orig-fun prompt)
   (funcall
