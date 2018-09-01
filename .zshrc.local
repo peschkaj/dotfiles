@@ -1,3 +1,4 @@
+# -*- shell-script -*-
 radian_after_init_hook() {
   # Load OMZ Git library
   zplugin snippet OMZ::lib/git.zsh
@@ -14,12 +15,15 @@ radian_after_init_hook() {
 alias ls="ls --color"
 alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 
+
+
 # SSH aliases
 alias pdxada='ssh -i ~/.ssh/id_rsa jpeschka@ada.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 alias pdxlinux='ssh -i ~/.ssh/id_rsa jpeschka@linux.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 alias pdxlinuxlab='ssh -i ~/.ssh/id_rsa jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmux attach || tmux new"'
 alias babbage='ssh -i ~/.ssh/id_rsa jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 alias pdx333grader='ssh -i ~/.ssh/id_rsa cs333_1@linuxlab.cs.pdx.edu'
+alias pdxprint='ssh jpeschka@linux.cs.pdx.edu lpr -P fab12003bw1 -o sides=two-sided-long-edge <'
 
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
