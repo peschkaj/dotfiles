@@ -10,14 +10,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; replace yes or no with y or n
-(defun yes-or-no-p@maybe-just-y-or-n-p (orig-fun prompt)
-  (funcall
-   (if (eq this-command 'kill-buffer)
-       #'y-or-n-p
-     #'yes-or-no-p)
-   prompt))
+;; (defun yes-or-no-p@maybe-just-y-or-n-p (orig-fun prompt)
+;;   (funcall
+;;    (if (eq this-command 'kill-buffer)
+;;        #'y-or-n-p
+;;      #'yes-or-no-p)
+;;    prompt))
 
-(advice-add 'yes-or-no-p :around #'yes-or-no-p@maybe-just-y-or-n-p)
+;; (advice-add 'yes-or-no-p :around #'yes-or-no-p@maybe-just-y-or-n-p)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Font ligatures
