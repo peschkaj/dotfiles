@@ -154,19 +154,14 @@
    (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
 (setq appt-disp-window-function (function my-appt-display))
 
+
 ;; org-ref configuration
 (setq reftex-default-bibliography '("~/Documents/reading/index.bib"))
 (setq org-ref-notes-directory "~/Documents/reading/"
       org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
       org-ref-default-bibliography '("~/Documents/reading/index.bib")
       org-ref-pdf-directory "~/Documents/reading/lib/")
-;; ;; setting up helm bibtex to match org-ref
-;; (setq helm-bibtex-bibliography "~/Documents/reading/references.bib"  ;; where your references are stored
-;;       helm-bibtex-library-path "~/Documents/reading/lib/"            ;; where your pdfs etc are stored
-;;       helm-bibtex-notes-path "~/Documents/reading/index.org"         ;; where your notes are stored
-;;       bibtex-completion-bibliography "~/Documents/reading/index.bib" ;; writing completion
-;;       bibtex-completion-notes-path "~/Documents/reading/index.org"
-;;       )
+
 
 ;; t - Prompt for a title and then add to notes.org unless you refile it
 (setq org-capture-templates
@@ -253,6 +248,16 @@
 (defun radian-local--after-init ()
   (interactive)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; ivy-bibtex
+  (straight-use-packate 'ivy-bibtex)
+  ;; setting up helm bibtex to match org-ref
+  (setq bibtex-completion-bibliography "~/Documents/reading/index.bib" ;; writing completion
+        bibtex-completion-library-path '("~/Documents/reading/lib/")
+        bibtex-completion-notes-path "~/Documents/reading/index.org"
+        bibtex-completion-pdf-field "file"
+        )
+
   (straight-use-package 'rainbow-delimiters)
   ;;(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
   ;;(add-hook 'rust-mode-hook 'rainbow-delimiters-mode)
@@ -288,8 +293,18 @@
    '(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :foreground "cornflower blue"))))
    '(rainbow-delimiters-depth-7-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark violet")))))
 
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; MOAR ORG
+  ;;
+  ;; org-journal gives C-c C-j to create a new journal entry
+  (straight-use-package 'org-journal)
+  (straight-use-package 'org-plus-contrib)
+  ;; pretty bullets
   (straight-use-package 'org-bullets)
+  ;; always pretty bullets
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
 
   (straight-use-package 'hydra)
 
@@ -298,11 +313,11 @@
     (interactive)
     (insert (format-time-string "%Y-%m-%dT%H:%M:%S" nil t)))
 
-
-  (straight-use-package 'org-plus-contrib)
+  ;; maybe we'll fix challenger deep some day...
   ;; (setq radian-color-theme-enable nil)
   ;; (straight-use-package 'challenger-deep-theme)
   ;; (load-theme 'challenger-deep t)
+
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Remove platform keybindings so we don't accidentally close emacs
@@ -317,9 +332,11 @@
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier nil)
 
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Better searching through ripgrep
   (straight-use-package 'projectile-ripgrep)
+
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; haskell
@@ -334,11 +351,13 @@
   (add-hook 'haskell-mode-hook 'flycheck-mode)
   (setq lsp-haskell-process-path-hie "hie-wrapper")
 
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; pdf-tools
   (straight-use-package 'pdf-tools)
   (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
   (pdf-tools-install)
+
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; ace-window
@@ -362,10 +381,9 @@
           (?r winner-redo)))
 
 
-
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; HYDRAS
-
+  ;;
   ;; Ace-window hydra controls - for the lazy
   ;; Trigger with 'M-o w'
   (defhydra hydra-window ()
