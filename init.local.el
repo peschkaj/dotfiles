@@ -27,7 +27,7 @@
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 
-(set-frame-font "PragmataPro 16" t t)
+(set-frame-font "PragmataPro Liga 16" t t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Disable smooth scrolling
@@ -155,12 +155,6 @@
 (setq appt-disp-window-function (function my-appt-display))
 
 
-;; org-ref configuration
-(setq reftex-default-bibliography '("~/Documents/reading/index.bib"))
-(setq org-ref-notes-directory "~/Documents/reading/"
-      org-ref-bibliography-notes "~/Documents/reading/notes/index.org"
-      org-ref-default-bibliography '("~/Documents/reading/index.bib")
-      org-ref-pdf-directory "~/Documents/reading/lib/")
 
 
 ;; t - Prompt for a title and then add to notes.org unless you refile it
@@ -248,15 +242,41 @@
 (defun radian-local--after-init ()
   (interactive)
 
+
+
+  ;; org-ref configuration
+  (setq papers-dir   (expand-file-name "~/Documents/reading/")
+        papers-pdfs  (concat papers-dir "lib/")
+        papers-notes (concat papers-dir "index.org")
+        papers-refs  (concat papers-dir "index.bib")
+        bibtex-completion-bibliography (list papers-refs)
+        bibtex-completion-library-path papers-pdfs
+        bibtex-completion-notes-path   papers-notes
+        bibtex-completion-pdf-field    "file"
+        bibtex-completion-display-formats
+        '((article       . "${=has-pdf=:1}${=has-note=:1} ${=type=:3}  ${author:36} ${title:*} ${journal:40}")
+          (inbook        . "${=has-pdf=:1}${=has-note=:1} ${=type=:3}  ${author:36} ${title:*} Chapter ${chapter:32}")
+          (incollection  . "${=has-pdf=:1}${=has-note=:1} ${=type=:3}  ${author:36} ${title:*} ${booktitle:40}")
+          (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${=type=:3}  ${author:36} ${title:*} ${booktitle:40}")
+          (t             . "${=has-pdf=:1}${=has-note=:1} ${=type=:3}  ${author:36} ${title:*}"))
+        bibtex-completion-additional-search-fields '(keywords journal title)
+        reftex-default-bibliography  (list papers-refs)
+        org-ref-completion-library 'org-ref-ivy-cite
+        org-ref-notes-directory      papers-dir
+        org-ref-bibliography-notes   papers-notes
+        org-ref-default-bibliography (list papers-refs)
+        org-ref-pdf-directory        papers-pdfs)
+
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; ivy-bibtex
-  (straight-use-packate 'ivy-bibtex)
-  ;; setting up helm bibtex to match org-ref
-  (setq bibtex-completion-bibliography "~/Documents/reading/index.bib" ;; writing completion
-        bibtex-completion-library-path '("~/Documents/reading/lib/")
-        bibtex-completion-notes-path "~/Documents/reading/index.org"
-        bibtex-completion-pdf-field "file"
-        )
+  (use-package ivy-bibtex
+    :straight t
+    :after ivy)
+
+  ;; (use-package org-ref
+  ;;   :straight t)
+
 
   (straight-use-package 'rainbow-delimiters)
   ;;(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
@@ -270,6 +290,7 @@
   (straight-use-package 'dash-at-point)
   (global-set-key "\C-cd" 'dash-at-point)
   (global-set-key "\C-ce" 'dash-at-point-with-docset)
+  (global-set-key "\C-cfr" 'counsel-recentf)
 
   ;; sets up c and C++ programming environment
   (straight-use-package 'google-c-style)
