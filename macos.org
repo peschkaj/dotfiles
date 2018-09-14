@@ -12,12 +12,13 @@ Install [[https://brew.sh][Homebrew]]
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 #+END_SRC
 
-* ZSH and oh-my-zsh
+* ZSH
 
 #+BEGIN_SRC shell
 brew install zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 #+END_SRC
+
+~zplugin~ installation is handled below.
 
 * git
 
@@ -43,10 +44,6 @@ rm .zshrc .zshenv
 ln -s ~/src/radian/shell/zsh/.zshrc ~/.zshrc
 ln -s ~/src/peschkaj/dotfiles/zsh/.zshrc.local ~/.zshrc.local
 
-# set up emacs
-mkdir -p ~/.emacs.d/straight/versions
-ln -s ~/src/radian/emacs/init.el ~/.emacs.d/init.el
-ln -s ~/src/radian/emacs/versions.el ~/.emacs.d/straight/versions/radian.el
 
 # set up git
 ln -s ~/src/radian/git/.gitconfig ~/.gitconfig
@@ -175,6 +172,22 @@ Set up emacs using the [[https://github.com/railwaycat/homebrew-emacsmacport][ra
 #+BEGIN_SRC shell
 brew install emacs-mac --with-imagemagick --with-modern-icon --with-natural-title-bar
 brew install watchexec
+#+END_SRC
+
+Now we need to set up additional libraries:
+
+#+BEGIN_SRC shell
+# prepare for emacs
+git clone git@github.com:peschkaj/corgmacs.git ~/src/peschkaj/corgmacs
+ln -s ~/src/peschkaj/corgmacs .emacs.d
+
+# blackout makes it easy to remove a moqde from the mode line
+git clone git@github.com:raxod502/blackout.git ~/src/blackout/
+
+# LSP mode, UI, and LSP-haskell
+git clone git@github.com:emacs-lsp/lsp-mode.git
+git clone git@github.com:emacs-lsp/lsp-ui.git
+git clone git@github.com:emacs-lsp/lsp-haskell.git
 #+END_SRC
 
 ** Notifications

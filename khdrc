@@ -110,17 +110,19 @@ shift + alt - 4 : chunkc tiling::window --send-to-desktop 4
 shift + alt - 5 : chunkc tiling::window --send-to-desktop 5
 shift + alt - 6 : chunkc tiling::window --send-to-desktop 6
 
+
 # fast focus desktop
 # Doesn't work without chwm-sa
-# cmd + alt - x : chunkc tiling::desktop --focus $(chunkc get _last_active_desktop)
-# cmd + alt - z : chunkc tiling::desktop --focus prev
-# cmd + alt - c : chunkc tiling::desktop --focus next
-# cmd + alt - 1 : chunkc tiling::desktop --focus 1
-# cmd + alt - 2 : chunkc tiling::desktop --focus 2
-# cmd + alt - 3 : chunkc tiling::desktop --focus 3
-# cmd + alt - 4 : chunkc tiling::desktop --focus 4
-# cmd + alt - 5 : chunkc tiling::desktop --focus 5
-# cmd + alt - 6 : chunkc tiling::desktop --focus 6
+#ctrl - x : chunkc tiling::desktop --focus $(chunkc get _last_active_desktop)
+ctrl - left : chunkc tiling::desktop --focus prev
+ctrl - right : chunkc tiling::desktop --focus next
+ctrl - 1 : chunkc tiling::desktop --focus 1
+ctrl - 2 : chunkc tiling::desktop --focus 2
+ctrl - 3 : chunkc tiling::desktop --focus 3
+ctrl - 4 : chunkc tiling::desktop --focus 4
+ctrl - 5 : chunkc tiling::desktop --focus 5
+# ctrl + alt - 6 : chunkc tiling::desktop --focus 6
+
 
 # send window to desktop and switch desktop
 # shift + cmd - x : `id=$(chunkc get _last_active_desktop); chunkc tiling::window -d $id; khd -p "cmd + alt - $id" &> /dev/null`
@@ -198,8 +200,8 @@ fn + alt - t : chunkc tiling::window --toggle float;\
                chunkc tiling::window --grid-layout 4:4:1:1:2:2
 
 # toggle sticky, float and resize to picture-in-picture size
-fn + alt - s : chunkc tiling::window --toggle sticky;\
-               chunkc tiling::window --grid-layout 5:5:4:0:1:1
+shift + cmd - s : chunkc tiling::window --toggle sticky;\
+                  chunkc tiling::window --grid-layout 5:5:4:0:1:1
 
 # float next window to be tiled
 shift + alt - t : chunkc set window_float_next 1
