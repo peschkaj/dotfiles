@@ -36,3 +36,8 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c -a emacs"
+
+
+# Rust configuration
+export CARGO_HOME=$HOME/.cargo
+export PATH=$PATH:$CARGO_HOME/bin
