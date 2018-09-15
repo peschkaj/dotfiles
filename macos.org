@@ -185,9 +185,9 @@ ln -s ~/src/peschkaj/corgmacs .emacs.d
 git clone git@github.com:raxod502/blackout.git ~/src/blackout/
 
 # LSP mode, UI, and LSP-haskell
-git clone git@github.com:emacs-lsp/lsp-mode.git
-git clone git@github.com:emacs-lsp/lsp-ui.git
-git clone git@github.com:emacs-lsp/lsp-haskell.git
+git clone git@github.com:emacs-lsp/lsp-mode.git ~/src/lsp-mode
+git clone git@github.com:emacs-lsp/lsp-ui.git ~/src/lsp-ui
+git clone git@github.com:emacs-lsp/lsp-haskell.git ~/src/lsp-haskell
 #+END_SRC
 
 ** Notifications
