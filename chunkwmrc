@@ -98,3 +98,6 @@ chunkc core::load tiling.so
 chunkc tiling::rule --owner Finder --name Copy --state float &
 chunkc tiling::rule --owner \"App Store\" --state float &
 chunkc tiling::rule --owner Emacs --except "^$" --state tile &
+chunkc tiling::rule --name "\*lsp-ui.*" --state float &
+#chunkc tiling::rule --owner Emacs --name "" --state float &
+#chunkc tiling::rule --owner "Emacs.*" --state tile &
