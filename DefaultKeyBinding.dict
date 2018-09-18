@@ -9,6 +9,7 @@
          https://github.com/ttscoff/KeyBindings
     */
     "§" = {
+
         "$\UF700" = ("insertText:", "↑"); /* (Shift) Up arrow */
         "$\UF701" = ("insertText:", "↓"); /* (Shift) Down arrow */
         "$\UF702" = ("insertText:", "←"); /* (Shift) Left arrow */
@@ -22,7 +23,7 @@
         " " = {
             " " = ("insertText:", "\U00A0"); /* Non-breaking space */
         };
-        "+" = {
+        "=" = {
             "1" = ("insertText:", "👍");
         };
         "-" = {
@@ -117,8 +118,9 @@
             };
             "z" = ("insertText:", "H̸̡̪̯ͨ͊̽̅̾̎Ȩ̬̩̾͛ͪ̈́̀́͘ ̶̧̨̱̹̭̯ͧ̾ͬC̷̙̲̝͖ͭ̏ͥͮ͟Oͮ͏̮̪̝͍M̲̖͊̒ͪͩͬ̚̚͜Ȇ̴̟̟͙̞ͩ͌͝S̨̥̫͎̭ͯ̿̔̀ͅ");
         };
+        "l" = ("insertText:", "λ");
         "e" = {
-            "+" = ("insertText:", "👍");
+            "=" = ("insertText:", "👍");
             "-" = ("insertText:", "👎");
             "b" = ("insertText:", "🌯");
             "f" = ("insertText:", "👊");
@@ -162,13 +164,7 @@
             };
           };
         };
-        "l" = {
-            "i" = {
-                "p" = {
-                    "s" = ("insertText:", "💋");
-                };
-            };
-        };
+
         "m" = {
             "u" = {
                 "s" = {
