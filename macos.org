@@ -44,6 +44,9 @@ rm .zshrc .zshenv
 ln -s ~/src/radian/shell/zsh/.zshrc ~/.zshrc
 ln -s ~/src/peschkaj/dotfiles/zsh/.zshrc.local ~/.zshrc.local
 
+# Install zplugin
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+
 
 # set up git
 ln -s ~/src/radian/git/.gitconfig ~/.gitconfig
