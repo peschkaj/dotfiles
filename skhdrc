@@ -129,10 +129,10 @@ shift + cmd - l : chunkc tiling::window --warp east
 # fn + shift + alt - right  : chunkc tiling::window --grid-layout 1:2:1:0:1:1
 
 # create desktop, move window and follow focus
-shift + cmd - n : chunkc tiling::desktop --create;\
-                  id=$(chunkc tiling::query --desktops-for-monitor $(chunkc tiling::query --monitor-for-desktop $(chunkc tiling::query --desktop id)));\
-                  chunkc tiling::window --send-to-desktop $(echo ${id##* });\
-                  chunkc tiling::desktop --focus $(echo ${id##* })
+# shift + cmd - n : chunkc tiling::desktop --create;\
+#                   id=$(chunkc tiling::query --desktops-for-monitor $(chunkc tiling::query --monitor-for-desktop $(chunkc tiling::query --desktop id)));\
+#                   chunkc tiling::window --send-to-desktop $(echo ${id##* });\
+#                   chunkc tiling::desktop --focus $(echo ${id##* })
 
 # create desktop and follow focus
 fn + cmd + alt - n : chunkc tiling::desktop --create;\
@@ -151,7 +151,9 @@ ctrl - 3 : chunkc tiling::desktop --focus 3
 ctrl - 4 : chunkc tiling::desktop --focus 4
 ctrl - 5 : chunkc tiling::desktop --focus 5
 ctrl - 6 : chunkc tiling::desktop --focus 6
-# ctrl - 7 : chunkc tiling::desktop --focus 7
+ctrl - 7 : chunkc tiling::desktop --focus 7
+ctrl - 8 : chunkc tiling::desktop --focus 8
+ctrl - 9 : chunkc tiling::desktop --focus 9
 
 # send window to desktop
 shift + alt - x : chunkc tiling::window --send-to-desktop $(chunkc get _last_active_desktop)
@@ -163,7 +165,9 @@ shift + alt - 3 : chunkc tiling::window --send-to-desktop 3
 shift + alt - 4 : chunkc tiling::window --send-to-desktop 4
 shift + alt - 5 : chunkc tiling::window --send-to-desktop 5
 shift + alt - 6 : chunkc tiling::window --send-to-desktop 6
-# shift + alt - 7 : chunkc tiling::window --send-to-desktop 7
+shift + alt - 7 : chunkc tiling::window --send-to-desktop 7
+shift + alt - 8 : chunkc tiling::window --send-to-desktop 8
+shift + alt - 9 : chunkc tiling::window --send-to-desktop 9
 
 # send window to desktop and follow focus
 # shift + cmd - x : chunkc tiling::window --send-to-desktop $(chunkc get _last_active_desktop); chunkc tiling::desktop --focus $(chunkc get _last_active_desktop)
