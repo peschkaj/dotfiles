@@ -41,7 +41,17 @@ cd ~
 rm .zshrc .zshenv
 
 # set up ZSH
-ln -s ~/src/radian/shell/zsh/.zshrc ~/.zshrc
+# ln -s ~/src/radian/shell/zsh/.zshrc ~/.zshrc
+git clone git@github.com:jamesoff/zsh.git ~/.zsh
+ln -s ~/.zsh/.zshrc ~/.zshrc
+cat <<EOF >> ~/.zsh/.zshrc
+## External configuration
+### ~/.zshrc.local
+if [[ -f ~/.zshrc.local ]]; then
+    . ~/.zshrc.local
+fi
+EOF
+sed -i -- 's/prompt sorin/#prompt sorin/' ~/.zsh/.zshrc
 ln -s ~/src/peschkaj/dotfiles/zsh/.zshrc.local ~/.zshrc.local
 
 # Install zplugin
@@ -287,3 +297,8 @@ library = "Documents/reading/lib"
 move = true
 EOF
 #+END_SRC
+
+* VMware Fusion Note
+
+To get shared folders working, you'll need to use =vmhgfs-fuse ~/vmshare= in the
+VM. Shared folders will be present in that VM.
