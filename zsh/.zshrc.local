@@ -135,8 +135,8 @@ autoload -Uz run-help-ip
 autoload -Uz run-help-openssl
 autoload -Uz run-help-p4
 autoload -Uz run-help-sudo
-autoload -Uz run-help-svk
-autoload -Uz run-help-svn
+#autoload -Uz run-help-svk
+#autoload -Uz run-help-svn
 
 ## Aliases
 ### Filesystem navigation
@@ -175,7 +175,7 @@ if (( $+commands[emacs] )); then
 fi
 
 if (( $+commands[emacsclient] )); then
-    alias ec='emacsclient --alternate-editor= -nw'
+    alias ec='emacsclient --alternate-editor= -n'
     alias ecw='emacsclient --alternate-editor='
 fi
 
@@ -387,6 +387,7 @@ function man {
 alias ls="ls --color"
 alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 
+alias milc="java -jar /Users/jeremiah/src/mil-tools/mil-tools.jar -i/Users/jeremiah/src/mil-tools/lib/"
 
 
 # SSH aliases
@@ -396,6 +397,8 @@ alias pdxlinuxlab='ssh -i ~/.ssh/id_rsa jpeschka@linuxlab.cs.pdx.edu  -t $@ "tmu
 alias babbage='ssh -i ~/.ssh/id_rsa jpeschka@babbage.cs.pdx.edu -t $@ "tmux attach || tmux new"'
 alias pdx333grader='ssh -i ~/.ssh/id_rsa cs333_1@linuxlab.cs.pdx.edu'
 alias pdxprint='ssh jpeschka@linux.cs.pdx.edu lpr -P fab12003bw1 -o sides=two-sided-long-edge <'
+
+alias ubuntu='ssh ubuntu -t $@ "tmux attach || tmux new"'
 
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
@@ -407,9 +410,18 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -c"
-export VISUAL="emacsclient -c -a emacs"
+export VISUAL="emacsclient -c -n -a emacs"
+
+### Replace ec config
 
 
 # Rust configuration
 export CARGO_HOME=$HOME/.cargo
 export PATH=$PATH:$CARGO_HOME/bin
+
+# Move the "what did you mean" over to thefuck
+unsetopt correct
+unsetopt correctall
+
+eval $(thefuck --alias)
+alias f="fuck"
