@@ -400,7 +400,7 @@ alias pdxprint='ssh jpeschka@linux.cs.pdx.edu lpr -P fab12003bw1 -o sides=two-si
 
 alias ubuntu='ssh ubuntu -t $@ "tmux attach || tmux new"'
 
-export PATH="/usr/local/opt/llvm/bin:$PATH"
+
 export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 export CFLAGS="-march=native"
 export CPPFLAGS="-I/usr/local/opt/llvm/include"
@@ -413,8 +413,6 @@ export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c -n -a emacs"
 
 ### Replace ec config
-
-
 # Rust configuration
 export CARGO_HOME=$HOME/.cargo
 export PATH=$PATH:$CARGO_HOME/bin
@@ -425,3 +423,12 @@ unsetopt correctall
 
 eval $(thefuck --alias)
 alias f="fuck"
+
+# the main ZSH rc sets up scp as 'noglob scp' which is breaking uploading an entire folder
+unalias scp
+
+export LLVM_PATH="/usr/local/opt/llvm/bin:$PATH"
+export OLD_PATH=$PATH
+
+# Necessary, going forward, to make sure that SSH via TRAMP will work
+[ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
