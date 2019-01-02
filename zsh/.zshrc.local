@@ -405,8 +405,12 @@ export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 export CFLAGS="-march=native"
 export CPPFLAGS="-I/usr/local/opt/llvm/include"
 
+### Adds GNU coreutils to front of path. This probably breaks a bunch of shit.
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+### Cabal binaries (for Haskell)
+export PATH="$PATH:/Users/jeremiah/Library/Haskell/bin"
 
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -c"
