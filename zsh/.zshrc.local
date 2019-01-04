@@ -409,9 +409,6 @@ export CPPFLAGS="-I/usr/local/opt/llvm/include"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
-### Cabal binaries (for Haskell)
-export PATH="$PATH:/Users/jeremiah/Library/Haskell/bin"
-
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -c"
 export VISUAL="emacsclient -c -n -a emacs"
