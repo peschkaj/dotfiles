@@ -50,3 +50,10 @@ cabal.project.local~
 .ghc.environment.*
 
 # End of https://www.gitignore.io/api/haskell
+
+
+### Xmonad ###
+
+xmonad/xmonad.errors
+xmonad/-lm
+xmonad/xmonad-x86_64-linux
