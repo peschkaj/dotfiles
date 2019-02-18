@@ -50,14 +50,14 @@ main = do
     `additionalKeys` (myKeys myConfig)
     `additionalKeysP`
     [ ("M4-<Space>", spawn $ rofi)
-    , ("M-h", windowGo L False)
-    , ("M-j", windowGo D False)
-    , ("M-k", windowGo U False)
-    , ("M-l", windowGo R False)
-    , ("C-M-h", windowSwap L False)
-    , ("C-M-j", windowSwap D False)
-    , ("C-M-k", windowSwap U False)
-    , ("C-M-l", windowSwap R False)
+    , ("M4-h", windowGo L False)
+    , ("M4-j", windowGo D False)
+    , ("M4-k", windowGo U False)
+    , ("M4-l", windowGo R False)
+    , ("C-M4-h", windowSwap L False)
+    , ("C-M4-j", windowSwap D False)
+    , ("C-M4-k", windowSwap U False)
+    , ("C-M4-l", windowSwap R False)
     ]
 
 --------------------------------------------------------------------------------

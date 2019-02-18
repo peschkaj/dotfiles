@@ -425,3 +425,6 @@ unalias scp
 
 # Necessary, going forward, to make sure that SSH via TRAMP will work
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+
+# ghcup
+. "$HOME/.ghcup/env"
