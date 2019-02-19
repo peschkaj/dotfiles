@@ -12,7 +12,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %multicpu% | %memory% | %enp5s0% }{ %date% "
+   , template = " %multicpu% | %memory% | %enp5s0% | %StdinReader% }{ %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -40,23 +40,6 @@ Config {
 
         -- network activity monitor (dynamic interface resolution)
         [ Run Network "enp5s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-        -- , Run Network "en01" ["-L","0","-H","32","--normal","green","--high","red"] 10
-
-        -- Run Network "enp5s0"     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
-        --                            , "--Low"      , "1000"       -- units: B/s
-        --                            , "--High"     , "5000"       -- units: B/s
-        --                            , "--low"      , "#63a557"
-        --                            , "--normal"   , "#e2801d"
-        --                            , "--high"     , "#e2371d"
-        --                            ] 10
-
-        -- , Run Network "en01"       [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
-        --                            , "--Low"      , "1000"       -- units: B/s
-        --                            , "--High"     , "5000"       -- units: B/s
-        --                            , "--low"      , "#63a557"
-        --                            , "--normal"   , "#e2801d"
-        --                            , "--high"     , "#e2371d"
-        --                            ] 10
 
         -- cpu activity monitor
         , Run MultiCpu       [ "--template" , "CPU: <bar>"  --"Cpu: <total0>%|<total1>%|<total2>%|<total3>%"
@@ -90,7 +73,6 @@ Config {
         --                      , "--low"      , "#e2371d"
         --                      , "--normal"   , "#e2801d"
         --                      , "--high"     , "#63a557"
-
         --                      , "--" -- battery specific options
         --                                -- discharging status
         --                                , "-o" , "<left>% (<timeleft>)"
@@ -99,6 +81,7 @@ Config {
         --                                -- charged status
         --                                , "-i" , "<fc=#E2371D>Charged</fc>"
         --                      ] 50
+        , Run StdinReader
         ]
     }
 

@@ -1,22 +1,29 @@
-import XMonad
-import XMonad.Actions.CycleWS
-import XMonad.Actions.Navigation2D
-import XMonad.Config.Desktop
-import XMonad.Layout.BinarySpacePartition
-import XMonad.Util.Run
-import XMonad.Util.EZConfig
+import           XMonad
+import           XMonad.Actions.CycleWS
+import           XMonad.Actions.Navigation2D
+import           XMonad.Config.Desktop
+import           XMonad.Hooks.DynamicLog ( dynamicLogWithPP
+                                         , xmobarPP
+                                         , xmobarColor
+                                         , ppOutput
+                                         , ppTitle
+                                         , ppCurrent
+                                         , ppVisible
+                                         , ppHidden
+                                         , ppUrgent
+                                         , ppSort)
+import           XMonad.Layout.BinarySpacePartition
+import           XMonad.Util.EZConfig
+import           XMonad.Util.Run
 
 import qualified XMonad.StackSet as W
+
+import           Data.Char ( isPrint )
 
 rofi = "rofi -show run"
 
 --------------------------------------------------------------------------------
--- Possible mod keys
--- mod1 - Left Alt
--- mod2 - NUMLOCK
--- mod3 
-
-
+-- Key configs
 myModMask = mod4Mask -- changes the mod key to "super"
 
 myKeys baseConfig@(XConfig {modMask = modKey}) =
@@ -30,18 +37,32 @@ myKeys baseConfig@(XConfig {modMask = modKey}) =
                   ,(\i -> W.greedyView i . W.shift i, shiftMask .|. mod4Mask)
                   ]]
 
+--------------------------------------------------------------------------------
+-- | Desktop layouts
+myLayouts = emptyBSP
+
+--------------------------------------------------------------------------------
+-- | Log bar
+
+
 -- TODO: Add dynamicLogWithPP to xmobar, take a look at https://github.com/davidbrewer/xmonad-ubuntu-conf/blob/master/xmonad.hs
-myConfig = desktopConfig
+mkConfig xmProc = desktopConfig
   { terminal   = "kitty"
   , modMask    = myModMask -- super
   , layoutHook = desktopLayoutModifiers $ myLayouts
+  , logHook    = dynamicLogWithPP xmobarPP
+                 { ppOutput  = hPutStrLn xmProc
+                 , ppTitle   = xmobarColor "orange" "" . filter isPrint
+                 , ppCurrent = \s -> xmobarColor "green"  "" ( "[" ++ s ++ "]" )
+                 }
   , workspaces = map show [ 1 .. 9 :: Int ]
   }
 
 main = do
   xmobarProc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
+  let myConfig = mkConfig xmobarProc
   -- floatNextWindows <- newIORef 0
-  xmonad $ myConfig
+  xmonad $ myConfig 
     -- remove default modMask + [1 - 9] binding for switching workspaces
     `removeKeys` [(mod4Mask, n) | n <- [xK_1 .. xK_9]]
     -- remove modMask + SHIFT + [1 - 9] binding for flinging crap around workspaces
@@ -60,9 +81,3 @@ main = do
     , ("C-M4-l", windowSwap R False)
     ]
 
---------------------------------------------------------------------------------
--- | Desktop layouts
-myLayouts = emptyBSP
-
---------------------------------------------------------------------------------
--- | Keyboard layout
