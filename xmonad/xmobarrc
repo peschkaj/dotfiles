@@ -5,14 +5,15 @@ Config {
    , bgColor =      "#000000"
    , fgColor =      "#f6f6f6"
    --, position =     TopW L 98
-   , position =     TopSize C 75 24
+   --, position =     TopSize C 75 24
+   , position =     TopP 0 336
    , border =       BottomB
    , borderColor =  "#191919"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %multicpu% | %memory% | %enp5s0% | %StdinReader% }{ %date% "
+   , template = " %multicpu% | %memory% | %enp5s0% | %StdinReader% }{ %KPDX% | %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -40,6 +41,13 @@ Config {
 
         -- network activity monitor (dynamic interface resolution)
         [ Run Network "enp5s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+        , Run Weather "KPDX" [ "-t"
+                             , "<station>: <tempF>F"
+                             , "-L", "18"
+                             , "-H","25"
+                             , "--normal" , "green"
+                             , "--high"   , "red"
+                             , "--low"    , "lightblue"] 36000
 
         -- cpu activity monitor
         , Run MultiCpu       [ "--template" , "CPU: <bar>"  --"Cpu: <total0>%|<total1>%|<total2>%|<total3>%"

@@ -11,30 +11,16 @@
 #
 ####################################################################
 
-# background <color>         # color can be specified as an HTML hex triplet or
-                             # as a name from rgb.txt, note that '#' must be quoted
 background "#777777"
-
-# decorations <decspec>      # set trays window decorations; possible values for
-                             # decspec are: all, title, border, none
 decorations none
-
-# display <display name>     # as usual
-
-# dockapp_mode <mode>        # set dockapp mode, which can be either simple (for
-                             # e.g. OpenBox, wmaker for WindowMaker, or none
-                             # (default). NEW in 0.8.
 dockapp_mode none
-
-# fuzzy_edges [<level>]      # enable fuzzy edges and set fuzziness level. level
-                             # can be from 0 (disabled) to 3; this setting works
-                             # with tinting and/or transparent and/or pixmap
-                             # backgrounds
 fuzzy_edges 0
 
 # geometry <geometry>        # tray's geometry in standard X notation; width and
                              # height are specified in slot_size multiples
-geometry 1x1+0+0
+                             # position = display_width - (num_icons * icon_size)
+                             # position = 3840 - (12 * 28) = 3504
+geometry 12x1+3504+0
 
 # grow_gravity <gravity>     # one of N, S, E, W, NW, NE, SW, SE; tray will grow
                              # in the direction opposite to one specified by
@@ -44,10 +30,10 @@ geometry 1x1+0+0
 grow_gravity NE
 
 # icon_gravity <gravity>     # icon placement gravity, one of NW, NE, SW, SE
-icon_gravity NW
+icon_gravity E
 
 # icon_size <int>            # specifies dimensions of typical icon slot
-icon_size 24
+icon_size 28
 
 # log_level <level>          # controls the amount of logging output, level can
                              # be err (default), info, or trace (enabled only
@@ -67,9 +53,7 @@ log_level err
                              # * use_icon_hints - use icon window hints to
                              #     dtermine icon size
 
-# max_geometry <geometry>    # maximal tray dimensions; 0 in width/height means
-                             # no limit
-max_geometry 0x0
+max_geometry 12x1-0+0
 
 # no_shrink [<bool>]         # disables shrink-back mode
 no_shrink false
