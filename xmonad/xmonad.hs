@@ -21,10 +21,11 @@ import qualified XMonad.StackSet as W
 import           Data.Char ( isPrint )
 
 rofi = "rofi -show run"
+rofiClip = "rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'"
 
 --------------------------------------------------------------------------------
 -- Key configs
-myModMask = mod4Mask -- changes the mod key to "super"
+myModMask = mod3Mask -- changes the mod key to "right alt"
 
 myKeys baseConfig@(XConfig {modMask = modKey}) =
   -- ctrl-[1..9] %! Switch to workspace N
@@ -71,13 +72,17 @@ main = do
     `additionalKeys` (myKeys myConfig)
     `additionalKeysP`
     [ ("M4-<Space>", spawn $ rofi)
-    , ("M4-h", windowGo L False)
-    , ("M4-j", windowGo D False)
-    , ("M4-k", windowGo U False)
-    , ("M4-l", windowGo R False)
-    , ("C-M4-h", windowSwap L False)
-    , ("C-M4-j", windowSwap D False)
-    , ("C-M4-k", windowSwap U False)
-    , ("C-M4-l", windowSwap R False)
+    , ("M4-h",       windowGo L False)
+    , ("M4-j",       windowGo D False)
+    , ("M4-k",       windowGo U False)
+    , ("M4-l",       windowGo R False)
+    , ("C-M4-h",     windowSwap L False)
+    , ("C-M4-j",     windowSwap D False)
+    , ("C-M4-k",     windowSwap U False)
+    , ("C-M4-l",     windowSwap R False)
+    , ("M4-M1-5",    spawn $ "deepin-screenshot")
+    , ("M4-S-c",     spawn $ rofiClip)
+    , ("M-r",        sendMessage Rotate)
+    , ("M-s",        sendMessage Swap)
     ]
 
