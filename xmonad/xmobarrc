@@ -40,7 +40,14 @@ Config {
    , commands =
 
         -- network activity monitor (dynamic interface resolution)
-        [ Run Network "enp5s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+        [ Run Network "enp5s0" [ "--template" , "<dev>: <tx> | <rx>"
+                               , "-L"         , "0"
+                               , "-H"         , "10240000"
+                               , "--normal"   , "green"
+                               , "--high"     , "red"
+                               , "-w"         , "8"
+                               , "-S"         , "True"
+                               ] 10
         , Run Weather "KPDX" [ "-t"
                              , "<station>: <tempF>F"
                              , "-L", "18"

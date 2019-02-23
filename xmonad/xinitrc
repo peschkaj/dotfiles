@@ -1,4 +1,12 @@
 setxkbmap -option "ctrl:nocaps,compose:menu,altwin:swap_lalt_lwin"
 
+## Set up Alt_R as mod3, need to clear existing mod1 first
+xmodmap -e "clear mod1"
+xmodmap -e "add mod1 = Alt_L"
+xmodmap -e "add mod1 = Meta_L"
+xmodmap -e "add mod3 = Alt_R"
+
+
 dropbox &
 
+greenclip daemon &
