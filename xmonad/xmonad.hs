@@ -21,7 +21,8 @@ import qualified XMonad.StackSet as W
 import           Data.Char ( isPrint )
 
 rofi = "rofi -show run"
-rofiClip = "rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'"
+rofiClip = "/home/jeremiah/.local/bin/rofi-gpaste.sh"
+rofiPower = "/home/jeremiah/.local/bin/rofi-power \"/home/jeremiah/.local/bin/stop\""
 
 --------------------------------------------------------------------------------
 -- Key configs
@@ -61,17 +62,21 @@ mkConfig xmProc = desktopConfig
 
 main = do
   xmobarProc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
+  gpasteDaemon <- spawn "gpaste-client start"
   let myConfig = mkConfig xmobarProc
   -- floatNextWindows <- newIORef 0
-  xmonad $ myConfig 
+  xmonad $ myConfig
     -- remove default modMask + [1 - 9] binding for switching workspaces
     `removeKeys` [(mod4Mask, n) | n <- [xK_1 .. xK_9]]
     -- remove modMask + SHIFT + [1 - 9] binding for flinging crap around workspaces
     `removeKeys` [(mod4Mask .|. shiftMask, n) | n <- [xK_1 .. xK_9]]
+    -- Unset the quit xmonad command because we want a sane shutdown
+    `removeKeys` [(myModMask .|. shiftMask, xK_q)]
     -- add CTRL + [1 - 9] for switching workspaces
     `additionalKeys` (myKeys myConfig)
     `additionalKeysP`
-    [ ("M4-<Space>", spawn $ rofi)
+    [ ("M-S-q" , spawn "/home/jeremiah/.local/bin/stop")
+    , ("M4-<Space>", spawn $ rofi)
     , ("M4-h",       windowGo L False)
     , ("M4-j",       windowGo D False)
     , ("M4-k",       windowGo U False)
@@ -82,6 +87,7 @@ main = do
     , ("C-M4-l",     windowSwap R False)
     , ("M4-M1-5",    spawn $ "deepin-screenshot")
     , ("M4-S-c",     spawn $ rofiClip)
+    , ("M-p",        spawn $ rofiPower)
     , ("M-r",        sendMessage Rotate)
     , ("M-s",        sendMessage Swap)
     ]
