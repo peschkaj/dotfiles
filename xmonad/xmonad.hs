@@ -21,7 +21,7 @@ import qualified XMonad.StackSet as W
 import           Data.Char ( isPrint )
 
 rofi = "rofi -show run"
-rofiClip = "/home/jeremiah/.local/bin/rofi-gpaste.sh"
+rofiClip = "rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'"
 rofiPower = "/home/jeremiah/.local/bin/rofi-power \"/home/jeremiah/.local/bin/stop\""
 
 --------------------------------------------------------------------------------
@@ -62,7 +62,6 @@ mkConfig xmProc = desktopConfig
 
 main = do
   xmobarProc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
-  gpasteDaemon <- spawn "gpaste-client start"
   let myConfig = mkConfig xmobarProc
   -- floatNextWindows <- newIORef 0
   xmonad $ myConfig
