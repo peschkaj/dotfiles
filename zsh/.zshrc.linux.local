@@ -428,3 +428,12 @@ unalias scp
 
 # ghcup
 . "$HOME/.ghcup/env"
+
+
+autoload -Uz compinit
+compinit
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
+
+
+alias open=xdg-open
