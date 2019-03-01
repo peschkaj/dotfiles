@@ -21,6 +21,7 @@ import qualified XMonad.StackSet as W
 import           Data.Char ( isPrint )
 
 rofi = "rofi -show run"
+rofiCalc = "rofi -show calc -modi calc -no-show-match -no-sort"
 rofiClip = "rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'"
 rofiPower = "/home/jeremiah/.local/bin/rofi-power \"/home/jeremiah/.local/bin/stop\""
 
@@ -85,6 +86,7 @@ main = do
     , ("C-M4-k",     windowSwap U False)
     , ("C-M4-l",     windowSwap R False)
     , ("M4-M1-5",    spawn $ "deepin-screenshot")
+    , ("M4-c",       spawn $ rofiCalc)
     , ("M4-S-c",     spawn $ rofiClip)
     , ("M-p",        spawn $ rofiPower)
     , ("M-r",        sendMessage Rotate)
