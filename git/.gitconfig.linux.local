@@ -1,0 +1,12 @@
+#; -*- mode: gitconfig -*-
+[include]
+  path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig
+[include]
+  path = /home/jeremiah/src/peschkaj/seekrets/git/gitconfig-github
+[include]
+  path = /home/jeremiah/src/peschkaj/dotfiles/git/gitconfig-linux
+
+[core]
+  excludesfile = /home/jeremiah/src/peschkaj/dotfiles/git/gitignore
+[magit]
+  hideCampaign = true
