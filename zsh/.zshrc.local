@@ -387,7 +387,7 @@ function man {
 alias ls="ls --color"
 alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 
-alias milc="java -jar /Users/jeremiah/src/mil-tools/mil-tools.jar -i/Users/jeremiah/src/mil-tools/lib/"
+alias milc="java -jar /Users/jeremiah/src/habit-lang/mil-tools/mil-tools.jar -i/Users/jeremiah/src/mil-tools/lib/"
 
 
 # SSH aliases
@@ -401,9 +401,9 @@ alias pdxprint='ssh jpeschka@linux.cs.pdx.edu lpr -P fab12003bw1 -o sides=two-si
 alias ubuntu='ssh ubuntu -t $@ "tmux attach || tmux new"'
 
 
-export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
-export CFLAGS="-march=native"
-export CPPFLAGS="-I/usr/local/opt/llvm/include"
+# export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
+# export CFLAGS="-march=native"
+# export CPPFLAGS="-I/usr/local/opt/llvm/include"
 
 ### Adds GNU coreutils to front of path. This probably breaks a bunch of shit.
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -428,8 +428,11 @@ alias f="fuck"
 # the main ZSH rc sets up scp as 'noglob scp' which is breaking uploading an entire folder
 unalias scp
 
-export LLVM_PATH="/usr/local/opt/llvm/bin:$PATH"
+#export LLVM_PATH="/usr/local/opt/llvm/bin:$PATH"
 export OLD_PATH=$PATH
 
 # Necessary, going forward, to make sure that SSH via TRAMP will work
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+
+# GHCUP
+source /Users/jeremiah/.ghcup/env
