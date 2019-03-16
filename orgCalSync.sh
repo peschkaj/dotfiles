@@ -2,7 +2,7 @@
 
 # customize these
 WGET="/usr/bin/env wget"
-# ICS2ORG=/home/jeremiah/.local/bin/ical2orgpy
+ICS2ORG=/home/jeremiah/.local/bin/ical2orgpy
 # ICSFILE=/home/jeremiah/Documents/org/calsync/jeremiahpeschka.ics
 # ORGFILE=/home/jeremiah/Documents/org/calsync/jeremiahpeschka-cal.org
 # URL=https://calendar.google.com/calendar/ical/jeremiah.peschka%40gmail.com/private-a1288e9305374ef03e7c555a8074ad88/basic.ics

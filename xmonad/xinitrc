@@ -15,3 +15,5 @@ xmodmap -e "add mod3 = Alt_R"
 dropbox &
 
 greenclip daemon &
+
+volumeicon &
