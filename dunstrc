@@ -1,5 +1,5 @@
 [global]
-font = Iosevka Term 16
+font = Pragmata Pro 12
 
 # Allow a small subset of html markup:
 #   <b>bold</b>
@@ -11,7 +11,7 @@ font = Iosevka Term 16
 # <http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>.
 # If markup is not allowed, those tags will be stripped out of the
 # message.
-markup = yes
+allow_markup = yes
 plain_text = no
 
 # The format of the message.  Possible variables are:
@@ -22,7 +22,7 @@ plain_text = no
 #   %I  iconname (without its path)
 #   %p  progress value if set ([  0%] to [100%]) or nothing
 # Markup is allowed
-format = "%a - <b>%s</b>\n%b"
+format = "<b>%s</b>\n%b"
 
 # Sort messages by urgency.
 sort = no
@@ -56,7 +56,6 @@ ignore_newline = no
 stack_duplicates = yes
 hide_duplicates_count = yes
 
-
 # The geometry of the window:
 #   [{width}]x{height}[+/-{x}+/-{y}]
 # The geometry of the message window.
@@ -70,7 +69,7 @@ hide_duplicates_count = yes
 # The width can be negative.  In this case the actual width is the
 # screen width minus the width defined in within the geometry option.
 #geometry = "250x50-40+40"
-geometry = "300x50-15+100"
+geometry = "300x50-35+49"
 
 # Shrink window if it's smaller than the width.  Will be ignored if
 # width is 0.
@@ -79,12 +78,12 @@ shrink = no
 # The transparency of the window.  Range: [0; 100].
 # This option will only work if a compositing windowmanager is
 # present (e.g. xcompmgr, compiz, etc.).
-transparency = 5
+transparency = 10
 
 # Don't remove messages, if the user is idle (no mouse or keyboard input)
 # for longer than idle_threshold seconds.
 # Set to 0 to disable.
-idle_threshold = 0
+idle_threshold = 120
 
 # Which monitor should the notifications be displayed on.
 monitor = 0
@@ -139,44 +138,21 @@ separator_color = frame
 # Print a notification on startup.
 # This is mainly for error detection, since dbus (re-)starts dunst
 # automatically after a crash.
-startup_notification = false
+startup_notification = true
 
 # dmenu path.
 dmenu = /usr/bin/dmenu -p dunst:
 
 # Browser for opening urls in context menu.
-browser = /usr/bin/firefox -new-tab
+browser = /usr/bin/firefox-developer -new-tab
 
 # Align icons left/right/off
 icon_position = off
 max_icon_size = 80
 
-# Paths to default icons.
-icon_path = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/
-
-frame_width = 3
-frame_color = "#8EC07C"
-
-[shortcuts]
-
-# Shortcuts are specified as [modifier+][modifier+]...key
-# Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-# "mod3" and "mod4" (windows-key).
-# Xev might be helpful to find names for keys.
-
-# Close notification.
-close = ctrl+space
-
-# Close all notifications.
-close_all = ctrl+shift+space
-
-# Redisplay last message(s).
-# On the US keyboard layout "grave" is normally above TAB and left
-# of "1".
-history = ctrl+grave
-
-# Context menu.
-context = ctrl+shift+period
+[frame]
+width = 5
+color = "#8EC07C"
 
 [urgency_low]
 # IMPORTANT: colors have to be defined in quotation marks.
@@ -185,7 +161,7 @@ frame_color = "#3B7C87"
 foreground = "#3B7C87"
 background = "#191311"
 #background = "#2B313C"
-timeout = 4
+timeout = 5
 
 [urgency_normal]
 frame_color = "#5B8234"
@@ -198,68 +174,13 @@ timeout = 6
 frame_color = "#B7472A"
 foreground = "#B7472A"
 background = "#191311"
+font = Monospace 50
+geometry = "500x200-750+490"
 #background = "#2B313C"
-timeout = 8
+timeout = 0
 
 
-# Every section that isn't one of the above is interpreted as a rules to
-# override settings for certain messages.
-# Messages can be matched by "appname", "summary", "body", "icon", "category",
-# "msg_urgency" and you can override the "timeout", "urgency", "foreground",
-# "background", "new_icon" and "format".
-# Shell-like globbing will get expanded.
-#
-# SCRIPTING
-# You can specify a script that gets run when the rule matches by
-# setting the "script" option.
-# The script will be called as follows:
-#   script appname summary body icon urgency
-# where urgency can be "LOW", "NORMAL" or "CRITICAL".
-#
-# NOTE: if you don't want a notification to be displayed, set the format
-# to "".
-# NOTE: It might be helpful to run dunst -print in a terminal in order
-# to find fitting options for rules.
-
-#[espeak]
-#    summary = "*"
-#    script = dunst_espeak.sh
-
-#[script-test]
-#    summary = "*script*"
-#    script = dunst_test.sh
-
-#[ignore]
-#    # This notification will not be displayed
-#    summary = "foobar"
-#    format = ""
-
-#[signed_on]
-#    appname = Pidgin
-#    summary = "*signed on*"
-#    urgency = low
-#
-#[signed_off]
-#    appname = Pidgin
-#    summary = *signed off*
-#    urgency = low
-#
-#[says]
-#    appname = Pidgin
-#    summary = *says*
-#    urgency = critical
-#
-#[twitter]
-#    appname = Pidgin
-#    summary = *twitter.com*
-#    urgency = normal
-#
 # vim: ft=cfg
-
 [slack]
-    appname = Slack
-    format = ""
-
-[dropbox]
-    appname = "Dropbox"
-    format = ""
+  appname = Slack
+  format = ""
