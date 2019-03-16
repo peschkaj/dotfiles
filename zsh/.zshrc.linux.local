@@ -430,10 +430,6 @@ unalias scp
 . "$HOME/.ghcup/env"
 
 
-autoload -Uz compinit
-compinit
-# Completion for kitty
-kitty + complete setup zsh | source /dev/stdin
 
 
 alias open=xdg-open
@@ -461,3 +457,8 @@ function extract () {
 }
 
 alias d="kitty +kitten diff"
+
+autoload -Uz compinit
+compinit
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
