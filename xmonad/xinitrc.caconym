@@ -1,9 +1,4 @@
-.## export GTK_IM_MODULE=uim
-## export QT_IM_MODULE=uim
-## uim-xim &
-## export XMODIFIERS=@im=uim
-
-setxkbmap -option "ctrl:nocaps,compose:menu,altwin:swap_lalt_lwin"
+setxkbmap -option "ctrl:nocaps,altwin:swap_lalt_lwin"
 
 ## Set up Alt_R as mod3, need to clear existing mod1 first
 xmodmap -e "clear mod1"
