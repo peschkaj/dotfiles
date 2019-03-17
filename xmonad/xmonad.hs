@@ -24,6 +24,8 @@ rofi = "rofi -show run"
 rofiCalc = "rofi -show calc -modi calc -no-show-match -no-sort"
 rofiClip = "rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'"
 rofiPower = "/home/jeremiah/.local/bin/rofi-power \"/home/jeremiah/.local/bin/stop\""
+-- brightUp = ""
+-- brightDown = ""
 
 --------------------------------------------------------------------------------
 -- Key configs
@@ -91,5 +93,7 @@ main = do
     , ("M-p",        spawn $ rofiPower)
     , ("M-r",        sendMessage Rotate)
     , ("M-s",        sendMessage Swap)
+    -- , ("<XF86MonBrightnessUp>", spawn $ brightUp)
+    -- , ("<XF86MonBrightnessDown>", spawn $ brightDown)
     ]
 

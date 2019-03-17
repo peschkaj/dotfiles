@@ -387,7 +387,7 @@ function man {
 alias ls="ls --color"
 alias findgrep='find . -type f -print0 | xargs -0 grep -I -H -n --color=always'
 
-alias milc="java -jar /home/jeremiah/src/mil-tools/mil-tools.jar -i/home/jeremiah/src/mil-tools/lib/"
+alias milc="java -jar /home/jeremiah/src/habit-lang/mil-tools/mil-tools.jar -i/home/jeremiah/src/habit-lang/mil-tools/lib/"
 
 
 # SSH aliases

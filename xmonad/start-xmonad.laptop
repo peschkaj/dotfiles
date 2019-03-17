@@ -34,7 +34,7 @@ xcompmgr -n &
 # Default icon slot size for tray icons...
 # We will adjust this parameter if necessary depending on the
 # screen we end up using, to avoid gaps between xmobar and stalonetray
-STALONETRAY_SLOT_SIZE=28
+STALONETRAY_SLOT_SIZE=33
 
 # We handle our screen configuration using xrandr. You are likely to want to 
 # edit this section to match the specific demands of your setup. The below
@@ -44,8 +44,8 @@ STALONETRAY_SLOT_SIZE=28
 # Note that you can run xrandr at the command line to get a list of your
 # connected screens and find out what names you should use to refer to them.
 
-# Activate primary screen 
-xrandr --output DP-2 --auto --primary
+# Activate primary screen
+xrandr --output eDP-1-1 --auto --primary
 
 # TODO add xrandr for second monitor...
 
@@ -74,7 +74,7 @@ nitrogen --restore &
 # - By setting our maximum geometry to the same thing, the tray will not grow.
 # - The background color of the tray should be black.
 # - This program should not show up in any taskbar.
-# - Icons should be set to size "24". 
+# - Icons should be set to size "33". 
 # - Kludges argument of "force_icons_size" forces all icons to really, truly 
 #   be the size we set.
 # - window-strut "none" means windows are allowed to cover the tray. In
@@ -83,10 +83,9 @@ nitrogen --restore &
 stalonetray \
   --background '#000000' \
   --skip-taskbar \
-  --icon-size 28 \
   --slot-size $STALONETRAY_SLOT_SIZE \
   --kludges force_icons_size \
   --window-strut none \
   &
 
-  exec /home/jeremiah/.local/bin/xmonad
+exec /home/jeremiah/.local/bin/xmonad

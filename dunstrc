@@ -184,3 +184,7 @@ timeout = 0
 [slack]
   appname = Slack
   format = ""
+
+[dropbox]
+  appname = Dropbox
+  format  = ""
