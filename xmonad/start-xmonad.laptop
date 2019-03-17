@@ -80,6 +80,9 @@ nitrogen --restore &
 # - window-strut "none" means windows are allowed to cover the tray. In
 #   other words, trust xmonad to handle this part.
 #
+
+nm-applet &
+
 stalonetray \
   --background '#000000' \
   --skip-taskbar \
