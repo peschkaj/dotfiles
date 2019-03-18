@@ -13,7 +13,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %multicpu% | %memory% | %dynnetwork% | %StdinReader% }{ %KPDX% | %date% "
+   , template = " %multicpu% | %memory% | %dynnetwork% | %StdinReader% }{ %battery% | %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -68,7 +68,7 @@ Config {
 
         -- memory usage monitor
         , Run Memory         [ "--template" ,"Mem: <usedbar>"
-                             , "--Low"      , "20"        -- units: %
+                             , "--Low"      , "40"        -- units: %
                              , "--High"     , "90"        -- units: %
                              , "--low"      , "#63a557"
                              , "--normal"   , "#e2801d"
@@ -82,20 +82,20 @@ Config {
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
         , Run Date           "<fc=#ABABAB>%F %T</fc>" "date" 10
 
-        -- , Run Battery        [ "--template" , "Batt: <acstatus>"
-        --                      , "--Low"      , "10"        -- units: %
-        --                      , "--High"     , "80"        -- units: %
-        --                      , "--low"      , "#e2371d"
-        --                      , "--normal"   , "#e2801d"
-        --                      , "--high"     , "#63a557"
-        --                      , "--" -- battery specific options
-        --                                -- discharging status
-        --                                , "-o" , "<left>% (<timeleft>)"
-        --                                -- AC "on" status
-        --                                , "-O" , "<fc=#0D96E0>Charging</fc>"
-        --                                -- charged status
-        --                                , "-i" , "<fc=#E2371D>Charged</fc>"
-        --                      ] 50
+        , Run Battery        [ "--template" , "Batt: <acstatus>"
+                             , "--Low"      , "15"        -- units: %
+                             , "--High"     , "50"        -- units: %
+                             , "--low"      , "#e2371d"
+                             , "--normal"   , "#e2801d"
+                             , "--high"     , "#63a557"
+                             , "--" -- battery specific options
+                             -- discharging status
+                             , "-o" , "<left>% (<timeleft>)"
+                             -- AC "on" status
+                             , "-O" , "<fc=#0D96E0>Charging</fc>"
+                             -- charged status
+                             , "-i" , "<fc=#E2371D>Charged</fc>"
+                             ] 50
         , Run StdinReader
         ]
     }
