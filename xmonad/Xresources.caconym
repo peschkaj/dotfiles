@@ -1,0 +1,8 @@
+! Fonts {{{
+Xft.antialias: true
+Xft.hinting:   true
+Xft.rgba:      rgb
+Xft.hintstyle: hintful
+Xft.dpi:       192
+rofi.font:     Source Code Pro 18
+! }}}
