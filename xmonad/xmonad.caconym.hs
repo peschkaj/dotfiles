@@ -92,7 +92,8 @@ main = do
     , ("M-p",        spawn $ rofiPower)
     , ("M-r",        sendMessage Rotate)
     , ("M-s",        sendMessage Swap)
-    , ("<XF86MonBrightnessUp>",   spawn "light -A 10")
-    , ("<XF86MonBrightnessDown>", spawn "light -U 10")
+    , ("M-l",        spawn "mate-screensaver-command -l")
+    , ("<XF86MonBrightnessUp>",   spawn "light -A 5")
+    , ("<XF86MonBrightnessDown>", spawn "light -U 5")
     ]
 
