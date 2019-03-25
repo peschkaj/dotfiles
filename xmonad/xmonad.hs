@@ -66,7 +66,6 @@ mkConfig xmProc = desktopConfig
 main = do
   xmobarProc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
   let myConfig = mkConfig xmobarProc
-  -- floatNextWindows <- newIORef 0
   xmonad $ myConfig
     -- remove default modMask + [1 - 9] binding for switching workspaces
     `removeKeys` [(mod4Mask, n) | n <- [xK_1 .. xK_9]]
@@ -93,7 +92,5 @@ main = do
     , ("M-p",        spawn $ rofiPower)
     , ("M-r",        sendMessage Rotate)
     , ("M-s",        sendMessage Swap)
-    -- , ("<XF86MonBrightnessUp>", spawn $ brightUp)
-    -- , ("<XF86MonBrightnessDown>", spawn $ brightDown)
     ]
 
