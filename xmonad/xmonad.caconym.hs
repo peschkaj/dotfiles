@@ -93,6 +93,9 @@ main = do
     , ("M-r",        sendMessage Rotate)
     , ("M-s",        sendMessage Swap)
     , ("M-l",        spawn "mate-screensaver-command -l")
+    , ("M-n",        sendMessage FocusParent)
+    , ("M-C-n",      sendMessage SelectNode)
+    , ("M-S-n",      sendMessage MoveNode)
     , ("<XF86MonBrightnessUp>",   spawn "light -A 5")
     , ("<XF86MonBrightnessDown>", spawn "light -U 5")
     ]
