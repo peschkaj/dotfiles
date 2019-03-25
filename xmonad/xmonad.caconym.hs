@@ -31,8 +31,8 @@ rofiPower = "/home/jeremiah/.local/bin/rofi-power \"/home/jeremiah/.local/bin/st
 myModMask = mod3Mask -- changes the mod key to "right alt"
 
 myKeys baseConfig@(XConfig {modMask = modKey}) =
-  -- ctrl-[1..9] %! Switch to workspace N
-  -- ctrl-shift-[1..9] %! Move client to workspace N
+  -- ctrl-[1..9]           %! Switch to workspace N
+  -- ctrl-shift-[1..9]     %! Move client to workspace N
   -- ctrl-shift-win-[1..9] %! Move client and switch to workspace N
   [((m .|. controlMask, k), windows $ f i)
       | (i, k) <- zip (XMonad.workspaces baseConfig) [xK_1 .. xK_9]
@@ -47,9 +47,6 @@ myLayouts = emptyBSP
 
 --------------------------------------------------------------------------------
 -- | Log bar
-
-
--- TODO: Add dynamicLogWithPP to xmobar, take a look at https://github.com/davidbrewer/xmonad-ubuntu-conf/blob/master/xmonad.hs
 mkConfig xmProc = desktopConfig
   { terminal   = "kitty"
   , modMask    = myModMask -- super
@@ -65,18 +62,16 @@ mkConfig xmProc = desktopConfig
 main = do
   xmobarProc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
   let myConfig = mkConfig xmobarProc
-  -- floatNextWindows <- newIORef 0
   xmonad $ myConfig
     -- remove default modMask + [1 - 9] binding for switching workspaces
-    `removeKeys` [(mod4Mask, n) | n <- [xK_1 .. xK_9]]
+    `removeKeys` [(mod3Mask, n) | n <- [xK_1 .. xK_9]]
     -- remove modMask + SHIFT + [1 - 9] binding for flinging crap around workspaces
-    `removeKeys` [(mod4Mask .|. shiftMask, n) | n <- [xK_1 .. xK_9]]
+    `removeKeys` [(mod3Mask .|. shiftMask, n) | n <- [xK_1 .. xK_9]]
     -- Unset the quit xmonad command because we want a sane shutdown
     `removeKeys` [(myModMask .|. shiftMask, xK_q)]
-    -- add CTRL + [1 - 9] for switching workspaces
-    `additionalKeys` (myKeys myConfig)
+    -- `additionalKeys` (myKeys myConfig)
     `additionalKeysP`
-    [ ("M-S-q" , spawn "/home/jeremiah/.local/bin/stop")
+    [ ("M-S-q" ,     spawn "/home/jeremiah/.local/bin/stop")
     , ("M4-<Space>", spawn $ rofi)
     , ("M4-h",       windowGo L False)
     , ("M4-j",       windowGo D False)
@@ -99,4 +94,11 @@ main = do
     , ("<XF86MonBrightnessUp>",   spawn "light -A 5")
     , ("<XF86MonBrightnessDown>", spawn "light -U 5")
     ]
-
+    -- for some reason CapsLock + Shift_L doesn't work for this, but only for 2
+    `additionalKeys`   [((m .|. controlMask, k), windows $ f i)
+                       | (i, k) <- zip (XMonad.workspaces myConfig) [xK_1 .. xK_9]
+                       , (f, m) <- [(W.greedyView, 0)
+                                   ,(W.shift, shiftMask)
+                                   ,(\i -> W.greedyView i . W.shift i, shiftMask .|. mod4Mask)
+                                   ]]
+  
