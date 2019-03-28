@@ -62,6 +62,7 @@ mkConfig xmProc = desktopConfig
 main = do
   xmobarProc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
   let myConfig = mkConfig xmobarProc
+  -- floatNextWindows <- newIORef 0
   xmonad $ myConfig
     -- remove default modMask + [1 - 9] binding for switching workspaces
     `removeKeys` [(mod3Mask, n) | n <- [xK_1 .. xK_9]]
@@ -69,7 +70,7 @@ main = do
     `removeKeys` [(mod3Mask .|. shiftMask, n) | n <- [xK_1 .. xK_9]]
     -- Unset the quit xmonad command because we want a sane shutdown
     `removeKeys` [(myModMask .|. shiftMask, xK_q)]
-    -- `additionalKeys` (myKeys myConfig)
+    `additionalKeys` (myKeys myConfig)
     `additionalKeysP`
     [ ("M-S-q" ,     spawn "/home/jeremiah/.local/bin/stop")
     , ("M4-<Space>", spawn $ rofi)
@@ -94,11 +95,4 @@ main = do
     , ("<XF86MonBrightnessUp>",   spawn "light -A 5")
     , ("<XF86MonBrightnessDown>", spawn "light -U 5")
     ]
-    -- for some reason CapsLock + Shift_L doesn't work for this, but only for 2
-    `additionalKeys`   [((m .|. controlMask, k), windows $ f i)
-                       | (i, k) <- zip (XMonad.workspaces myConfig) [xK_1 .. xK_9]
-                       , (f, m) <- [(W.greedyView, 0)
-                                   ,(W.shift, shiftMask)
-                                   ,(\i -> W.greedyView i . W.shift i, shiftMask .|. mod4Mask)
-                                   ]]
-  
+
