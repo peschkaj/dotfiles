@@ -92,5 +92,6 @@ main = do
     , ("M-p",        spawn $ rofiPower)
     , ("M-r",        sendMessage Rotate)
     , ("M-s",        sendMessage Swap)
+    , ("C-, c",      kill)
     ]
 
