@@ -48,13 +48,6 @@ Config {
                          , "-w"         , "8"
                          , "-S"         , "True"
                          ] 10
-        , Run Weather "KPDX" [ "-t"
-                             , "<station>: <tempF>F"
-                             , "-L", "18"
-                             , "-H","25"
-                             , "--normal" , "green"
-                             , "--high"   , "red"
-                             , "--low"    , "lightblue"] 36000
 
         -- cpu activity monitor
         , Run MultiCpu       [ "--template" , "CPU: <bar>"  --"Cpu: <total0>%|<total1>%|<total2>%|<total3>%"
@@ -75,8 +68,6 @@ Config {
                              , "--high"     , "#e2371d"
                              , "--ppad"     , "2"
                              ] 10
-
-        , Run Weather "KPDX" [ "-t", "<station>: <tempF>F" ] 36000
 
         -- time and date indicator
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
