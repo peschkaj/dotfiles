@@ -12,7 +12,13 @@ import           XMonad.Hooks.DynamicLog ( dynamicLogWithPP
                                          , ppHidden
                                          , ppUrgent
                                          , ppSort)
+import           XMonad.Hooks.DynamicProperty
+import           XMonad.Hooks.ManageHelpers ( doCenterFloat
+                                            , doFullFloat
+                                            , isDialog
+                                            , isFullscreen)
 import           XMonad.Layout.BinarySpacePartition
+import           XMonad.Layout.Fullscreen 
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
 import qualified XMonad.Util.Brightness as B
@@ -20,6 +26,8 @@ import qualified XMonad.Util.Brightness as B
 import qualified XMonad.StackSet as W
 
 import           Data.Char ( isPrint )
+import           Data.List ( isPrefixOf )
+import           Data.Monoid (Endo, mconcat)
 
 rofi = "rofi -show run"
 rofiCalc = "rofi -show calc -modi calc -no-show-match -no-sort"
@@ -45,17 +53,53 @@ myKeys baseConfig@(XConfig {modMask = modKey}) =
 -- | Desktop layouts
 myLayouts = emptyBSP
 
+
+
+------------------------------------------------------------------------
+-- | Window rules
+-- Execute arbitrary actions and WindowSet manipulations when managing
+-- a new window. You can use this to, for example, always float a
+-- particular program, or have a client always appear on a particular
+-- workspace.
+--
+-- To find the property name associated with a program, use
+-- > xprop | grep WM_CLASS
+-- and click on the client you're interested in.
+--
+-- To match on the WM_NAME, you can use 'title' in the same way that
+-- 'className' and 'resource' are used below.
+--
+myManageHook :: Query (Endo WindowSet)
+myManageHook = composeAll
+    [ resource  =? "desktop_window" --> doIgnore
+    , className =? "Galculator"     --> doFloat
+    , className =? "Steam"          --> doFloat
+    , className =? "steam"          --> doFullFloat  -- bigpicture-mode
+    , className =? "Gimp"           --> doFloat
+    , className =? "stalonetray"    --> doIgnore
+    , isDialog                      --> doCenterFloat
+    , isFullscreen                  --> (doF W.focusDown <+> doFullFloat)
+    ]
+
+myDynNameHook = composeAll
+    [ (title =? "Downloading Files - Mozilla Firefox" --> doFloat)
+    ]
+
 --------------------------------------------------------------------------------
 -- | Log bar
 mkConfig xmProc = desktopConfig
   { terminal   = "kitty"
   , modMask    = myModMask -- super
   , layoutHook = desktopLayoutModifiers $ myLayouts
+  , manageHook = myManageHook
   , logHook    = dynamicLogWithPP xmobarPP
                  { ppOutput  = hPutStrLn xmProc
                  , ppTitle   = xmobarColor "orange" "" . filter isPrint
                  , ppCurrent = \s -> xmobarColor "green"  "" ( "[" ++ s ++ "]" )
                  }
+  , handleEventHook = fullscreenEventHook
+                      <+> dynamicPropertyChange "WM_NAME" myDynNameHook
+                      <+> handleEventHook desktopConfig
   , workspaces = map show [ 1 .. 9 :: Int ]
   }
 
