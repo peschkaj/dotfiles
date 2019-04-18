@@ -1,15 +1,15 @@
 # -*- shell-script -*-
 #radian_after_init_hook() {
   # Load OMZ Git library
-  zplugin snippet OMZ::lib/git.zsh
+  # zplugin snippet OMZ::lib/git.zsh
 
   # Load Git plugin from OMZ
-  zplugin snippet OMZ::plugins/git/git.plugin.zsh
-  zplugin cdclear -q # <- forget completions provided up to this moment
+  #zplugin snippet OMZ::plugins/git/git.plugin.zsh
+  #zplugin cdclear -q # <- forget completions provided up to this moment
 
   setopt promptsubst
 
-  zplugin snippet OMZ::themes/agnoster.zsh-theme
+  #zplugin snippet OMZ::themes/agnoster.zsh-theme
 #}
 
 ### Command line
@@ -399,7 +399,7 @@ alias pdxprint='ssh jpeschka@linux.cs.pdx.edu lpr -P fab12003bw1 -o sides=two-si
 alias ubuntu='ssh ubuntu -t $@ "tmux attach || tmux new"'
 
 
-export CFLAGS="-march=native"
+#export CFLAGS="-march=native"
 export RUSTFLAGS="-C target-cpu=native"
 
 export ALTERNATE_EDITOR=""
@@ -463,3 +463,6 @@ kitty + complete setup zsh | source /dev/stdin
 
 # opam configuration
 test -r /home/jeremiah/.opam/opam-init/init.zsh && . /home/jeremiah/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+source ~/gitstatus/gitstatus.plugin.zsh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+source $HOME/.purepower
