@@ -34,6 +34,7 @@ import           Data.Monoid                    ( Endo
                                                 )
 
 rofi = "rofi -show drun -modi drun"
+rofiRunCommand = "rofi -show run -modi run"
 rofiCalc = "rofi -show calc -modi calc -no-show-match -no-sort"
 rofiClip
   = "rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'"
@@ -128,6 +129,7 @@ main = do
     `additionalKeys`  (myKeys myConfig)
     `additionalKeysP` [ ("M-S-q", spawn "/home/jeremiah/.local/bin/stop")
                       , ("M4-<Space>"             , spawn $ rofi)
+                      , ("M4-r"                   , spawn $ rofiRunCommand)
                       , ("M4-h"                   , windowGo L False)
                       , ("M4-j"                   , windowGo D False)
                       , ("M4-k"                   , windowGo U False)
