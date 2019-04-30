@@ -466,3 +466,5 @@ test -r /home/jeremiah/.opam/opam-init/init.zsh && . /home/jeremiah/.opam/opam-i
 source ~/gitstatus/gitstatus.plugin.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.purepower
+
+alias rg="rg --pre=rgwrapper"
