@@ -138,7 +138,7 @@ main = do
                       , ("C-M4-j"                 , windowSwap D False)
                       , ("C-M4-k"                 , windowSwap U False)
                       , ("C-M4-l"                 , windowSwap R False)
-                      , ("M4-M1-5"                , spawn $ "deepin-screenshot")
+                      , ("M4-M1-5", spawn $ "shutter -s --profile=default")
                       , ("M4-c"                   , spawn $ rofiCharpicker)
                       , ("M4-S-c"                 , spawn $ rofiClip)
                       , ("M-p"                    , spawn $ rofiPower)
