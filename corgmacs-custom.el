@@ -9,8 +9,6 @@
                           (concat org-directory "agenda.org")               ;; Some kind of actual agenda
                           (concat org-directory "inbox.org")                ;; A dumping ground
                           (concat org-directory "index.org")                ;; The larger org-mode project list and general purpose index
-                          (concat org-directory "geu.org")                  ;; agitating for labor
-                          (concat org-directory "333.org")                  ;; CS333 - fun for you, fun for me
                           (concat org-directory "calsync/legitbiz-cal.org")
                           (concat org-directory "calsync/personal.org")
                           (concat org-directory "calsync/pdx.edu.org"))))
