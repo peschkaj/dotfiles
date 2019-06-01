@@ -17,4 +17,4 @@ blueman-applet &
 
 mate-screensaver &
 
-shutter &
+shutter --min_at_startup &
