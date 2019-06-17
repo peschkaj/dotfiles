@@ -23,7 +23,6 @@ import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.Fullscreen
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
-import qualified XMonad.Util.Brightness        as B
 
 import qualified XMonad.StackSet               as W
 
