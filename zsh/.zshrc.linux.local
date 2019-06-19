@@ -424,9 +424,8 @@ unalias scp
 # Necessary, going forward, to make sure that SSH via TRAMP will work
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
 
-# ghcup
-. "$HOME/.ghcup/env"
-
+# cabal
+export PATH=$HOME/.cabal/bin:$PATH
 
 
 
