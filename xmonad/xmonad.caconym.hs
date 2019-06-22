@@ -136,6 +136,7 @@ main = do
                       , ( "C-. t"
                         , spawn $ XMonad.terminal myConfig
                         )
+
                       -- Maps movement to both vim keys
                       , ("M4-h"   , windowGo L False)
                       , ("M4-j"   , windowGo D False)
@@ -154,12 +155,7 @@ main = do
                         )
                       -- Move windows around by hand
                       , ("M-r"                    , sendMessage Rotate)
-                      , ("C-. w r"                , sendMessage Rotate)
                       , ("M-s"                    , sendMessage Swap)
-                      , ("C-. w s"                , sendMessage Swap)
-                      , ("C-. w p"                , sendMessage FocusParent)
-                      , ("C-. w <Space>"          , sendMessage SelectNode)
-                      , ("C-. w y"                , sendMessage MoveNode)
                       , ("<XF86MonBrightnessUp>"  , spawn "light -A 5")
                       , ("<XF86MonBrightnessDown>", spawn "light -U 5")
                       ]
@@ -168,11 +164,25 @@ main = do
                         .  M.fromList
                         $  [ ( (0, xK_w)
                              , submap
-                             . M.fromList
-                             $ [ ((0, k), windows $ W.shift i)
-                               | (i, k) <- zip (XMonad.workspaces myConfig)
-                                               [xK_1 .. xK_9]
-                               ]
+                             .  M.fromList
+                             -- C-. w [1-9] sends the current window to workspace N
+                             $  [ ((0, k), windows $ W.shift i)
+                                | (i, k) <- zip (XMonad.workspaces myConfig)
+                                                [xK_1 .. xK_9]
+                                ]
+                             -- C-. w k     kills the current window
+                             -- C-. w s     swaps the two windows at the current tree level
+                             -- C-. w r     rotates the two windows at the current tree level - => |
+                             -- C-. w space selects the current window
+                             -- C-. w p     focuses the parent of the current window
+                             -- C-. w y     moves the selected window to the current location
+                             ++ [ ((0, xK_k)    , kill)
+                                , ((0, xK_s)    , sendMessage Swap)
+                                , ((0, xK_r)    , sendMessage Rotate)
+                                , ((0, xK_Space), sendMessage SelectNode)
+                                , ((0, xK_p)    , sendMessage FocusParent)
+                                , ((0, xK_y)    , sendMessage MoveNode)
+                                ]
                              )
                            ]
                         -- emacs-ish keys for switching windows C-. [b,f,p,n]
