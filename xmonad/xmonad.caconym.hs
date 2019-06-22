@@ -132,11 +132,6 @@ main = do
                       , ( "M4-r"
                         , spawn $ rofiRunCommand
                         )
-                      -- launch a terminal!
-                      , ( "C-. t"
-                        , spawn $ XMonad.terminal myConfig
-                        )
-
                       -- Maps movement to both vim keys
                       , ("M4-h"   , windowGo L False)
                       , ("M4-j"   , windowGo D False)
@@ -179,14 +174,19 @@ main = do
                              ++ [ ((0, xK_k)    , kill)
                                 , ((0, xK_s)    , sendMessage Swap)
                                 , ((0, xK_r)    , sendMessage Rotate)
-                                , ((0, xK_Space), sendMessage SelectNode)
+                                , ((0, xK_space), sendMessage SelectNode)
                                 , ((0, xK_p)    , sendMessage FocusParent)
                                 , ((0, xK_y)    , sendMessage MoveNode)
                                 ]
                              )
                            ]
-                        -- emacs-ish keys for switching windows C-. [b,f,p,n]
-                        ++ [ ((0, xK_b), windowGo L False)
+                        ++ [ -- C-. t    launch a terminal
+                             -- C-. b    move to the window on the left
+                             -- C-. n    move to the window below
+                             -- C-. p    move to the window above
+                             -- C-. f    move to the window on the right
+                             ((0, xK_t), spawn $ XMonad.terminal myConfig)
+                           , ((0, xK_b), windowGo L False)
                            , ((0, xK_n), windowGo D False)
                            , ((0, xK_p), windowGo U False)
                            , ((0, xK_f), windowGo R False)
