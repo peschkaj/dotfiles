@@ -89,12 +89,10 @@ myManageHook = composeAll
   , className =? "steam" --> doFullFloat  -- bigpicture-mode
   , className =? "Gimp" --> doFloat
   , className =? "stalonetray" --> doIgnore
+  , className =? "Guake" --> doFloat
   , isDialog --> doCenterFloat
   , isFullscreen --> (doF W.focusDown <+> doFullFloat)
   ]
-
-myDynNameHook =
-  composeAll [(title =? "Downloading Files - Mozilla Firefox" --> doFloat)]
 
 --------------------------------------------------------------------------------
 -- | Log bar
@@ -108,9 +106,7 @@ mkConfig xmProc = desktopConfig
                         , ppTitle = xmobarColor "orange" "" . filter isPrint
                         , ppCurrent = \s -> xmobarColor "green" "" ("[" ++ s ++ "]")
                         }
-  , handleEventHook = fullscreenEventHook
-                      <+> dynamicPropertyChange "WM_NAME" myDynNameHook
-                      <+> handleEventHook desktopConfig
+  , handleEventHook = fullscreenEventHook <+> handleEventHook desktopConfig
   , workspaces      = map show [1 .. 9 :: Int]
   }
 

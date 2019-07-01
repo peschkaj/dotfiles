@@ -18,3 +18,5 @@ blueman-applet &
 mate-screensaver &
 
 shutter --min_at_startup &
+
+guake &

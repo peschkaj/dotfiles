@@ -7,31 +7,24 @@
 # XMonad.
 
 wait_for_termination() {
-	  # Returns 0 after the window ID $1 doesn't exists anymore (ie,
-	  # doesn't appear in the output of wmctrl -l). If window still
-	  # exists after $2 seconds, returns -1.
+    # Returns 0 after the window ID $1 doesn't exists anymore (ie,
+    # doesn't appear in the output of wmctrl -l). If window still
+    # exists after $2 seconds, returns -1.
 
     end=$(($SECONDS+$2))
 
-	  while [ $SECONDS -lt $end ]; do
-		    if [[ -z `wmctrl -l | grep "^$1\s"` ]]; then
-			      return 0;
-		    fi
+    while [ $SECONDS -lt $end ]; do
+        if [[ -z `wmctrl -l | grep "^$1\s"` ]]; then
+            return 0;
+        fi
         sleep .05
-	  done
+    done
     return -1
 }
 
-for win in $(wmctrl -l | awk '{print $1}'); do
-	  wmctrl -ic $win;
-	  wait_for_termination $win 10;
-    if [[ $? != 0 ]]; then
-        notify-send -u critical "Cannot quit" "At least an application couldn't be closed."
-        exit -1
-    fi
-done
-
 # Politely terminate Emacs servers
+systemctl --user stop emacs.service
+
 for s in /tmp/emacs1000/*; do
     emacsclient -s $(basename $s) --eval '(kill-emacs)'
 done
@@ -40,12 +33,24 @@ for s in /tmp/emacs1000/*; do
     echo $s
 done
 
+for win in $(wmctrl -l | awk '{print $1}'); do
+    wmctrl -ic $win;
+    wait_for_termination $win 10;
+    if [[ $? != 0 ]]; then
+        notify-send -u critical "Cannot quit" "At least an application couldn't be closed."
+        exit -1
+    fi
+done
+
+
+
 # Last sanity check
 if [[ -z `wmctrl -l` ]]; then
     notify-send "XMonad" "Killing XMonad process with id $PPID."
     kill $PPID
-	  # killall xmonad
+    killall xmonad
+    killall xmonad-x86_64-linux
 else
-	  notify-send -u normal "Quit failed" "Relaunching termination script."
-	  ~/.xmonad/quit-xmonad.sh
+    notify-send -u normal "Quit failed" "Relaunching termination script."
+    ~/.xmonad/quit-xmonad.sh
 fi

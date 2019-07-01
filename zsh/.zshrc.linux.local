@@ -465,8 +465,16 @@ kitty + complete setup zsh | source /dev/stdin
 
 # opam configuration
 test -r /home/jeremiah/.opam/opam-init/init.zsh && . /home/jeremiah/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# Better shell
 source ~/gitstatus/gitstatus.plugin.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.purepower
 
+# Don't forget to use rgwrapper to pdftotext the pdfs
 alias rg="rg --pre=rgwrapper"
+
+### Fstar and Kremlin setup
+export FSTAR_HOME=$HOME/src/fstarlang/FStar/
+export KREMLIN_HOME=$HOME/src/fstarlang/kremlin
+export PATH=$PATH:$FSTAR_HOME/bin:$KREMLIN_HOME
