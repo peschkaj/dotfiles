@@ -1,7 +1,6 @@
-## export GTK_IM_MODULE=uim
-## export QT_IM_MODULE=uim
-## uim-xim &
-## export XMODIFIERS=@im=uim
+
+
+./.screenlayout/default.sh
 
 setxkbmap -option "ctrl:nocaps,compose:menu,altwin:swap_lalt_lwin"
 
@@ -11,11 +10,13 @@ xmodmap -e "add mod1 = Alt_L"
 xmodmap -e "add mod1 = Meta_L"
 xmodmap -e "add mod3 = Alt_R"
 
-
-dropbox &
+## Disabled until I can get a drive with ext4 set up
+# dropbox &
 
 greenclip daemon &
 
 volumeicon &
 
-cbatticon &
+shutter --min_at_startup &
+
+guake &
