@@ -13,7 +13,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %multicpu% | %memory% | %enp5s0% | %StdinReader% }{ %KPDX% | %date% "
+   , template = " %multicpu% | %memory% | %enp5s0% | %StdinReader% }{ %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -48,13 +48,6 @@ Config {
                                , "-w"         , "8"
                                , "-S"         , "True"
                                ] 10
-        , Run Weather "KPDX" [ "-t"
-                             , "<station>: <tempF>F"
-                             , "-L", "18"
-                             , "-H","25"
-                             , "--normal" , "green"
-                             , "--high"   , "red"
-                             , "--low"    , "lightblue"] 36000
 
         -- cpu activity monitor
         , Run MultiCpu       [ "--template" , "CPU: <bar>"  --"Cpu: <total0>%|<total1>%|<total2>%|<total3>%"
@@ -82,20 +75,7 @@ Config {
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
         , Run Date           "<fc=#ABABAB>%F %T</fc>" "date" 10
 
-        -- , Run Battery        [ "--template" , "Batt: <acstatus>"
-        --                      , "--Low"      , "10"        -- units: %
-        --                      , "--High"     , "80"        -- units: %
-        --                      , "--low"      , "#e2371d"
-        --                      , "--normal"   , "#e2801d"
-        --                      , "--high"     , "#63a557"
-        --                      , "--" -- battery specific options
-        --                                -- discharging status
-        --                                , "-o" , "<left>% (<timeleft>)"
-        --                                -- AC "on" status
-        --                                , "-O" , "<fc=#0D96E0>Charging</fc>"
-        --                                -- charged status
-        --                                , "-i" , "<fc=#E2371D>Charged</fc>"
-        --                      ] 50
+        -- stdinreader, duh
         , Run StdinReader
         ]
     }

@@ -128,7 +128,7 @@ main = do
                       , ( "M4-r"
                         , spawn $ rofiRunCommand
                         )
-                      -- Maps movement to both vim keys
+                      -- Maps movement to vim keys
                       , ("M4-h"   , windowGo L False)
                       , ("M4-j"   , windowGo D False)
                       , ("M4-k"   , windowGo U False)
@@ -137,9 +137,12 @@ main = do
                       , ("C-M4-j" , windowSwap D False)
                       , ("C-M4-k" , windowSwap U False)
                       , ("C-M4-l" , windowSwap R False)
+                      -- screenshots
                       , ("M4-M1-5", spawn $ "shutter -s --profile=default")
+                      -- emojis and clipboards
                       , ("M4-c"   , spawn $ rofiCharpicker)
                       , ("M4-S-c" , spawn $ rofiClip)
+                      -- power management
                       , ("M-p"    , spawn $ rofiPower)
                       , ( "M-l"
                         , spawn "mate-screensaver-command -l"
