@@ -9,9 +9,7 @@
                           (concat org-directory "agenda.org")               ;; Some kind of actual agenda
                           (concat org-directory "inbox.org")                ;; A dumping ground
                           (concat org-directory "index.org")                ;; The larger org-mode project list and general purpose index
-                          (concat org-directory "calsync/legitbiz-cal.org")
-                          (concat org-directory "calsync/personal.org")
-                          (concat org-directory "calsync/pdx.edu.org"))))
+                          )))
 
 (let ((jp/calsync
        (expand-file-name "calendar-sync.el" "~/src/peschkaj/seekrets/emacs")))
