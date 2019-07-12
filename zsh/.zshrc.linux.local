@@ -1,16 +1,5 @@
 # -*- shell-script -*-
-#radian_after_init_hook() {
-  # Load OMZ Git library
-  # zplugin snippet OMZ::lib/git.zsh
-
-  # Load Git plugin from OMZ
-  #zplugin snippet OMZ::plugins/git/git.plugin.zsh
-  #zplugin cdclear -q # <- forget completions provided up to this moment
-
-  setopt promptsubst
-
-  #zplugin snippet OMZ::themes/agnoster.zsh-theme
-#}
+setopt promptsubst
 
 ### Command line
 
@@ -375,12 +364,12 @@ fi
 # [1]: https://github.com/robbyrussell/oh-my-zsh/blob/3ebbb40b31fa1ce9f10040742cdb06ea04fa7c41/plugins/colored-man-pages/colored-man-pages.plugin.zsh
 function man {
     env \
-	LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-	LESS_TERMCAP_md=$(printf "\e[1;31m") \
-	LESS_TERMCAP_me=$(printf "\e[0m") \
-	LESS_TERMCAP_ue=$(printf "\e[0m") \
-	LESS_TERMCAP_us=$(printf "\e[1;32m") \
-	man $@
+  LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+  LESS_TERMCAP_md=$(printf "\e[1;31m") \
+  LESS_TERMCAP_me=$(printf "\e[0m") \
+  LESS_TERMCAP_ue=$(printf "\e[0m") \
+  LESS_TERMCAP_us=$(printf "\e[1;32m") \
+  man $@
 }
 
 
@@ -397,6 +386,7 @@ alias pdx333grader='ssh -i ~/.ssh/id_rsa cs333_1@king.cs.pdx.edu'
 alias pdxprint='ssh jpeschka@linux.cs.pdx.edu lpr -P fab12003bw1 -o sides=two-sided-long-edge <'
 
 alias ubuntu='ssh ubuntu -t $@ "tmux attach || tmux new"'
+alias hm='ssh -i ~/.ssh/id_rsa jeremiah@heavy-messing'
 
 
 #export CFLAGS="-march=native"
@@ -467,7 +457,6 @@ kitty + complete setup zsh | source /dev/stdin
 test -r /home/jeremiah/.opam/opam-init/init.zsh && . /home/jeremiah/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # Better shell
-source ~/gitstatus/gitstatus.plugin.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.purepower
 
@@ -478,3 +467,19 @@ alias rg="rg --pre=rgwrapper"
 export FSTAR_HOME=$HOME/src/fstarlang/FStar/
 export KREMLIN_HOME=$HOME/src/fstarlang/kremlin
 export PATH=$PATH:$FSTAR_HOME/bin:$KREMLIN_HOME
+
+### seL4 container build
+alias container='make -C /home/jeremiah/src/seL4/seL4-CAmkES-L4v-dockerfiles user HOST_DIR=$(pwd)'
+
+### Search with whatever is on the line when pressing up or down
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+## ${terminfo[STUFF]} is more likely to work than hardcoded keycodes like ^[[A
+## see https://unix.stackexchange.com/a/405358/74452 for additional information
+## or look at /etc/zsh/zshrc
+bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search # Up
+bindkey "${terminfo[kcud1]}" down-line-or-beginning-search # Down
+
+unsetopt AUTO_NAME_DIRS
