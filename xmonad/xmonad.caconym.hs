@@ -129,21 +129,27 @@ main = do
                         , spawn $ rofiRunCommand
                         )
                       -- Maps movement to vim keys
-                      , ("M4-h"   , windowGo L False)
-                      , ("M4-j"   , windowGo D False)
-                      , ("M4-k"   , windowGo U False)
-                      , ("M4-l"   , windowGo R False)
-                      , ("C-M4-h" , windowSwap L False)
-                      , ("C-M4-j" , windowSwap D False)
-                      , ("C-M4-k" , windowSwap U False)
-                      , ("C-M4-l" , windowSwap R False)
+                      , ("M4-h"  , windowGo L False)
+                      , ("M4-j"  , windowGo D False)
+                      , ("M4-k"  , windowGo U False)
+                      , ("M4-l"  , windowGo R False)
+                      , ("C-M4-h", windowSwap L False)
+                      , ("C-M4-j", windowSwap D False)
+                      , ("C-M4-k", windowSwap U False)
+                      , ( "C-M4-l"
+                        , windowSwap R False
+                        )
                       -- screenshots
-                      , ("M4-M1-5", spawn $ "shutter -s --profile=default")
+                      , ( "M4-M1-5"
+                        , spawn $ "shutter -s --profile=default"
+                        )
                       -- emojis and clipboards
-                      , ("M4-c"   , spawn $ rofiCharpicker)
-                      , ("M4-S-c" , spawn $ rofiClip)
+                      , ("M4-c", spawn $ rofiCharpicker)
+                      , ( "M4-S-c"
+                        , spawn $ rofiClip
+                        )
                       -- power management
-                      , ("M-p"    , spawn $ rofiPower)
+                      , ("M-p", spawn $ rofiPower)
                       , ( "M-l"
                         , spawn "mate-screensaver-command -l"
                         )
@@ -152,6 +158,9 @@ main = do
                       , ("M-s"                    , sendMessage Swap)
                       , ("<XF86MonBrightnessUp>"  , spawn "light -A 5")
                       , ("<XF86MonBrightnessDown>", spawn "light -U 5")
+                      , ("<XF86AudioPlay>"        , spawn "playerctl play-pause")
+                      , ("<XF86AudioNext>"        , spawn "playerctl next")
+                      , ("<XF86AudioPrevious>"    , spawn "playerctl previous")
                       ]
     `additionalKeys`  [ ( (controlMask, xK_period)
                         , submap
@@ -192,4 +201,3 @@ main = do
                            ]
                         )
                       ]
-
