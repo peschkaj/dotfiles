@@ -107,6 +107,11 @@ setopt hist_reduce_blanks
 # effect since history expansion is disabled.
 setopt hist_verify
 
+# Remove extendedglob support. By removing support for extended globs, we can
+# actually run clang using `clang -###` to see the underlying commands that the
+# clang driver script is using.
+unsetopt extendedglob
+
 ### Help system
 
 # By default, run-help is an alias to man. We want to turn that off so
