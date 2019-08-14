@@ -16,4 +16,9 @@
   (if (file-readable-p jp/calsync)
       (load-file jp/calsync)))
 
+(use-package paradox
+  :ensure t
+  :config (paradox-enable))
+
+
 ;;; corgmacs-custom.el ends here
