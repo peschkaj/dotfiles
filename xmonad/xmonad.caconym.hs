@@ -22,6 +22,7 @@ import           XMonad.Hooks.ManageHelpers     ( doCenterFloat
                                                 )
 import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.Fullscreen
+import           XMonad.Layout.NoBorders
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
 
@@ -63,7 +64,7 @@ myKeys baseConfig@(XConfig { modMask = modKey }) =
 
 --------------------------------------------------------------------------------
 -- | Desktop layouts
-myLayouts = emptyBSP
+myLayouts = emptyBSP ||| noBorders Full
 
 
 
@@ -158,7 +159,7 @@ main = do
                       , ("M-s"                    , sendMessage Swap)
                       , ("<XF86MonBrightnessUp>"  , spawn "light -A 5")
                       , ("<XF86MonBrightnessDown>", spawn "light -U 5")
-                      , ("<XF86AudioPlay>"        , spawn "playerctl play-pause")
+                      , ("<XF86AudioPlay>", spawn "playerctl play-pause")
                       , ("<XF86AudioNext>"        , spawn "playerctl next")
                       , ("<XF86AudioPrevious>"    , spawn "playerctl previous")
                       ]
