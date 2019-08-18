@@ -1,0 +1,8 @@
+To set up email simply:
+
+#+begin_src shell
+ln -s ~/src/peschkaj/dotfiles/email/offlineimaprc ~/.offlineimaprc
+ln -s ~/src/peschkaj/dotfiles/email/msmtprc ~/.msmtprc
+#+end_src
+
+TA DA!
