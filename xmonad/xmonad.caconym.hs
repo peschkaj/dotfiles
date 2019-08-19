@@ -20,6 +20,7 @@ import           XMonad.Hooks.ManageHelpers     ( doCenterFloat
                                                 , isDialog
                                                 , isFullscreen
                                                 )
+import           XMonad.Hooks.ManageDocks
 import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.NoBorders
@@ -64,6 +65,7 @@ myKeys baseConfig@(XConfig { modMask = modKey }) =
 
 --------------------------------------------------------------------------------
 -- | Desktop layouts
+-- Don't forget that you'll have to use M-space to toggle `noBorders Full`
 myLayouts = emptyBSP ||| noBorders Full
 
 
@@ -125,6 +127,8 @@ main = do
     `removeKeys`      [(myModMask .|. shiftMask, xK_q)]
     `additionalKeys`  (myKeys myConfig)
     `additionalKeysP` [ ("M-S-q"     , spawn "/home/jeremiah/.local/bin/stop")
+                      , ("M-q", spawn "xmonad --recompile; xmonad --restart")
+                      , ("M-b"       , sendMessage ToggleStruts)
                       , ("M4-<Space>", spawn $ rofi)
                       , ( "M4-r"
                         , spawn $ rofiRunCommand
