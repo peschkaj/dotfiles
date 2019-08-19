@@ -1,5 +1,5 @@
 [general]
-accounts = legit.biz
+accounts = legit.biz,pdx.edu
 maxsyncaccounts = 3
 pythonfile = ~/.offlineimap.py
 
@@ -12,7 +12,7 @@ autorefresh = 0.5
 ### autorefresh=0.5 and quick=10 yields 10 quick refreshes between each full
 ### refresh with 0.5 minutes between every refresh, regardless of type.
 quick = 10
-postsynchook = mu index --maildir ~/.mail/legit.biz
+postsynchook = /usr/bin/emacsclient -e '(mu4e-update-index)' > /dev/null
 
 [Repository LocalLegit]
 type = Maildir
@@ -40,7 +40,7 @@ localrepository = LocalPdx
 remoterepository = RemotePdx
 autorefresh = 0.5
 quick = 10
-postsynchook = mu index --maildir ~/.mail/pdx.edu
+postsynchook = /usr/bin/emacsclient -e '(mu4e-update-index)' > /dev/null
 
 [Repository LocalPdx]
 type = Maildir
@@ -48,7 +48,7 @@ localfolders = ~/.mail/pdx.edu
 
 [Repository RemotePdx]
 type = Gmail
-maxconnections = 5
+maxconnections = 2
 remoteuser = jpeschka@pdx.edu
 remotepasseval = get_pass("pdx.edu")
 folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail', '[Gmail]/Important', 'CS333', 'CS333/Winter2018', 'CS333/Spring2018', 'CS333/Summer2018', 'CS333/Fall2018', 'CS333/Winter2019', 'ABET', 'Mailspring/Snoozed', 'CS581', 'CS410 VM' ]
