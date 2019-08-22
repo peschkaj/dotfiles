@@ -27,53 +27,89 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mu4e configuration
 (use-package mu4e
-  :ensure nil
+  :ensure nil)
+
+(use-package helm-mu
+  :ensure t
+  :after mu4e)
+
+(use-package mu4e-conversation
+  :ensure t
+  :after mu4e
   :config
-  (setq mu4e-maildir "/home/jeremiah/.mail"
-        mail-user-agent 'mu4e-user-agent
-        mu4e-view-show-images t
-        ;mu4e-html2text-command "w3m -T text/html"
-        mu4e-html2text-command "pandoc -f html -t markdown "
-        mu4e-headers-date-format "%Y-%m-%d %H:%M"
-        mu4e-use-fancy-chars t
-        mu4e-attachment-dir "~/Downloads"
-        mu4e-sent-folder "/sent"
-        mu4e-drafts-folder "/drafts"
-        mu4e-completing-read-function 'completing-read
+  (global-mu4e-conversation-mode)
+  (setq mu4e-conversation-print-function 'mu4e-conversation-print-tree)
+  (add-hook 'mu4e-conversation-hook 'flyspell-mode))
 
-        ;; please close messages after sending...
-        mu4e-conversation-kill-buffer-on-exit t
-        message-kill-buffer-on-exit t
+(setq mu4e-maildir "/home/jeremiah/.mail"
+      mail-user-agent 'mu4e-user-agent
+      mu4e-view-show-images t
+      mu4e-html2text-command "w3m -dump -T text/html -cols 80 -o display_link_number=true"
+      mu4e-headers-date-format "%Y-%m-%d %H:%M"
+      mu4e-use-fancy-chars t
+      mu4e-attachment-dir "~/Downloads"
+      mu4e-sent-folder "/sent"
+      mu4e-drafts-folder "/drafts"
+      mu4e-completing-read-function 'completing-read
 
-        ;; Pick the first context on opening mu4e
-        mu4e-context-policy 'pick-first
+      ;; please close messages after sending...
+      mu4e-conversation-kill-buffer-on-exit t
+      message-kill-buffer-on-exit t
 
-        ;; nobody needs to confirm quitting
-        mu4e-confirm-quit nil
+      ;; Pick the first context on opening mu4e
+      mu4e-context-policy 'pick-first
 
-        ;; msmtp magical incantation
-        message-sendmail-f-is-evil 't
-        )
-  (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+      ;; nobody needs to confirm quitting
+      mu4e-confirm-quit nil
 
-  ;; Choose account label to feed msmtp -a option based on From header
-  ;; in Message buffer; This function must be added to
-  ;; message-send-mail-hook for on-the-fly change of From address before
-  ;; sending message since message-send-mail-hook is processed right
-  ;; before sending message.
-  (defun choose-msmtp-account ()
-    (if (message-mail-p)
-        (save-excursion
-          (let*
-              ((from (save-restriction
-                       (message-narrow-to-headers)
-                       (message-fetch-field "from")))
-               (account
-                (cond
-                 ((string-match "jeremiah@legit.biz" from) "legit.biz")
-                 ((string-match "jpeschka@pdx.edu" from) "pdx.edu"))))
-            (setq message-sendmail-extra-arguments (list '"-a" account))))))
-  (add-hook 'message-send-mail-hook 'choose-msmtp-account))
+      ;; msmtp magical incantation
+      message-sendmail-f-is-evil 't)
+
+(add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+
+(setq mu4e-compose-context-policy 'ask
+      mu4e-context-policy 'ask
+      mu4e-contexts
+      `( ,(make-mu4e-context
+           :name "legit.biz"
+           :enter-func (lambda () (mu4e-message "Switching to legit.biz context"))
+           :match-func (lambda (msg)
+                         (when msg (string-prefix-p "/legit.biz" (mu4e-message-field msg :maildir))))
+           :vars '((user-mail-address . "jeremiah@legit.biz")
+                   (user-full-name    . "Jeremiah Peschka")
+                   (mu4e-compose-signature . "Jeremiah Peschka")
+                   (mu4e-trash-folder . "/legit.biz/Trash")
+                   (mu4e-refile-folder . "/legit.biz/Archive")
+                   (mu4e-drafts-folder . "/legit.biz/Drafts"))
+           :match-func (lambda (msg)
+                         (when msg
+                           (or (mu4e-message-contact-field-matches msg
+                                                                   :to "jeremiah@legit.biz")
+                               (string= (mu4e-message-field msg :maildir) "/legit.biz")))))
+         ,(make-mu4e-context
+           :name "pdx.edu"
+           :enter-func (lambda () (mu4e-message "Switching to pdx.edu context"))
+           :match-func (lambda (msg)
+                         (when msg (string-prefix-p "/pdx.edu" (mu4e-message-field msg :maildir))))
+           :vars '((user-mail-address . "jpeschka@pdx.edu")
+                   (user-full-name . "Jeremiah Peschka")
+                   (mu4e-compose-signature . (concat "Jeremiah Peschka\n"
+                                                     "Phd Student\n"
+                                                     "Computer Science Department"))
+                   (mu4e-trash-folder . "/pdx.edu/[Gmail].Trash")
+                   (mu4e-refile-folder . "/pdx.edu/[Gmail].Archive")
+                   (mu4e-drafts-folder . "/pdx.edu/Drafts"))
+           :match-func (lambda (msg)
+                         (when msg
+                           ;; Try to match on the email address
+                           ;; if we can't match on either email address, match on the maildir
+                           (cond (mu4e-message-contact-field-matches msg
+                                                                     :to "jpeschka@pdx.edu")
+                                 (mu4e-message-contact-field-matches msg
+                                                                     :to "jeremiah.peschka@pdx.edu")
+                                 (string= (mu4e-message-field msg :maildir) "/pdx.edu"))))
+           )))
+
 
 ;; Configure sending mail
 (setq message-send-mail-function 'message-send-mail-with-sendmail
@@ -113,78 +149,54 @@
 ;; https://emacs.stackexchange.com/a/14827/8743 has more, err, advice.
 ;; (advice-add #'smtpmail-send-queued-mail :around #'async-smtpmail-send-queued-mail)
 
-(use-package helm-mu
-  :ensure t
-  :after mu4e)
-
-(use-package mu4e-conversation
-  :ensure t
-  :after mu4e
-  :config
-  (global-mu4e-conversation-mode)
-  (setq mu4e-conversation-print-function 'mu4e-conversation-print-tree)
-  (add-hook 'mu4e-conversation-hook 'flyspell-mode))
-
-(setq mu4e-contexts
-      `( ,(make-mu4e-context
-           :name "legit.biz"
-           :match-func (lambda (msg)
-                         (when msg (string-prefix-p "/legit.biz" (mu4e-message-field msg :maildir))))
-           :vars '((mu4e-trash-folder . "/legit.biz/Trash")
-                   (mu43-reflie-folder . "/legit.biz/Archive")))
-         ,(make-mu4e-context
-           :name "pdx.edu"
-           :match-func (lambda (msg)
-                         (when msg (string-prefix-p "/pdx.edu" (mu4e-message-field msg :maildir))))
-           :vars '((mu4e-trash-folder . "/pdx.edu/[Gmail].Trash")
-                   (mu4e-refile-folder . "/pdx.edu/[Gmail].Archive")
-                   ))
-         ))
-
-(defvar my-mu4e-account-alist
-  '(("legit.biz"
-     (mu4e-sent-folder "/legit.biz/Sent")
-     (user-mail-address "jeremiah@legit.biz")
-     (send-mail-function 'sendmail-send-it)
-     (sendmail-program "/usr/bin/msmtp")
-     (user-full-name "Jeremiah Peschka")
-     (mu4e-compose-signature (concat "--------------------\n"
-                                     "Jeremiah Peschka\n"))
-     )
-    ("pdx.edu"
-     (mu4e-sent-folder "/pdx.edu/Sent")
-     (user-email-address "jpeschka@pdx.edu")
-     (send-mail-function 'sendmail-send-it)
-     (sendmail-program "/usr/bin/msmtp")
-     (user-full-name "Jeremiah Peschka")
-     (mu4e-compose-signature (concat "Jeremiah Peschka\n"
-                                     "---------------------------\n"
-                                     "PhD Student\n"
-                                     "Computer Science Department\n")))))
 
 
-(defun my-mu4e-set-account ()
-"Set the account for composing a message.
-This function is taken from:
-https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html"
-  (let* ((account
-          (if mu4e-compose-parent-message
-              (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-                (string-match "/\\(.*?\\)/" maildir)
-                (match-string 1 maildir))
-            (completing-read (format "Compose with account: (%s) "
-                                     (mapconcat #'(lambda (var) (car var))
-                                                my-mu4e-account-alist "/"))
-                             (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
-                             nil t nil nil (caar my-mu4e-account-alist))))
-         (account-vars (cdr (assoc account my-mu4e-account-alist))))
-    (if account-vars
-        (mapc #'(lambda (var)
-                  (set (car var) (cadr var)))
-              account-vars)
-      (error "No email account found"))))
 
-(add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
+
+;; (defvar my-mu4e-account-alist
+;;   '(("legit.biz"
+;;      (mu4e-sent-folder "/legit.biz/Sent")
+;;      (user-mail-address "jeremiah@legit.biz")
+;;      (send-mail-function 'sendmail-send-it)
+;;      (sendmail-program "/usr/bin/msmtp")
+;;      (user-full-name "Jeremiah Peschka")
+;;      (mu4e-compose-signature (concat "--------------------\n"
+;;                                      "Jeremiah Peschka\n"))
+;;      )
+;;     ("pdx.edu"
+;;      (mu4e-sent-folder "/pdx.edu/Sent")
+;;      (user-email-address "jpeschka@pdx.edu")
+;;      (send-mail-function 'sendmail-send-it)
+;;      (sendmail-program "/usr/bin/msmtp")
+;;      (user-full-name "Jeremiah Peschka")
+;;      (mu4e-compose-signature (concat "Jeremiah Peschka\n"
+;;                                      "---------------------------\n"
+;;                                      "PhD Student\n"
+;;                                      "Computer Science Department\n")))))
+
+
+;; (defun my-mu4e-set-account ()
+;; "Set the account for composing a message.
+;; This function is taken from:
+;; https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html"
+;;   (let* ((account
+;;           (if mu4e-compose-parent-message
+;;               (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+;;                 (string-match "/\\(.*?\\)/" maildir)
+;;                 (match-string 1 maildir))
+;;             (completing-read (format "Compose with account: (%s) "
+;;                                      (mapconcat #'(lambda (var) (car var))
+;;                                                 my-mu4e-account-alist "/"))
+;;                              (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+;;                              nil t nil nil (caar my-mu4e-account-alist))))
+;;          (account-vars (cdr (assoc account my-mu4e-account-alist))))
+;;     (if account-vars
+;;         (mapc #'(lambda (var)
+;;                   (set (car var) (cadr var)))
+;;               account-vars)
+;;       (error "No email account found"))))
+
+;; (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
 
 ;; The following convinces offlineimap to really really delete things that we've
 ;; already deleted inside of mu4e
