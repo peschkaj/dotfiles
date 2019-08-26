@@ -26,6 +26,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mu4e configuration
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
 (use-package mu4e
   :ensure nil)
 
