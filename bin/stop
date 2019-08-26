@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # This script is used to properly quit/shutdown/etc when using XMonad
 # or any other standalone window manager.
