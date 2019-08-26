@@ -95,7 +95,7 @@
            :vars '((user-mail-address . "jpeschka@pdx.edu")
                    (user-full-name . "Jeremiah Peschka")
                    (mu4e-compose-signature . (concat "Jeremiah Peschka\n"
-                                                     "Phd Student\n"
+                                                     "PhD Student\n"
                                                      "Computer Science Department"))
                    (mu4e-trash-folder . "/pdx.edu/[Gmail].Trash")
                    (mu4e-refile-folder . "/pdx.edu/[Gmail].Archive")
