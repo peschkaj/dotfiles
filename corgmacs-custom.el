@@ -48,7 +48,9 @@
       mu4e-headers-date-format "%Y-%m-%d %H:%M"
       mu4e-use-fancy-chars t
       mu4e-attachment-dir "~/Downloads"
-      mu4e-sent-folder "/sent"
+      ;mu4e-sent-folder "/sent"
+      ;; don't save messages to Sent Messages, Gmail/IMAP takes care of this
+      ;mu4e-sent-messages-behavior 'delete
       mu4e-drafts-folder "/drafts"
       mu4e-completing-read-function 'completing-read
 
@@ -78,9 +80,10 @@
            :vars '((user-mail-address . "jeremiah@legit.biz")
                    (user-full-name    . "Jeremiah Peschka")
                    (mu4e-compose-signature . "Jeremiah Peschka")
-                   (mu4e-trash-folder . "/legit.biz/Trash")
+                   (mu4e-trash-folder  . "/legit.biz/Trash")
                    (mu4e-refile-folder . "/legit.biz/Archive")
-                   (mu4e-drafts-folder . "/legit.biz/Drafts"))
+                   (mu4e-drafts-folder . "/legit.biz/Drafts")
+                   (mu4e-sent-folder   . "/legit.biz/Sent"))
            :match-func (lambda (msg)
                          (when msg
                            (or (mu4e-message-contact-field-matches msg
@@ -96,8 +99,9 @@
                    (mu4e-compose-signature . (concat "Jeremiah Peschka\n"
                                                      "Phd Student\n"
                                                      "Computer Science Department"))
-                   (mu4e-trash-folder . "/pdx.edu/[Gmail].Trash")
+                   (mu4e-trash-folder  . "/pdx.edu/[Gmail].Trash")
                    (mu4e-refile-folder . "/pdx.edu/[Gmail].Archive")
+                   (mu4e-sent-folder   . "/pdx.edu/[Gmail].Sent")
                    (mu4e-drafts-folder . "/pdx.edu/Drafts"))
            :match-func (lambda (msg)
                          (when msg

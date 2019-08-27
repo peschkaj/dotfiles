@@ -7,7 +7,7 @@ pythonfile = ~/.offlineimap.py
 localrepository = LocalLegit
 remoterepository = RemoteLegit
 ### Minutes between syncs
-autorefresh = 0.5
+autorefresh = 3
 ### Quick syncs do not update if the only changes were to IMAP flags.
 ### autorefresh=0.5 and quick=10 yields 10 quick refreshes between each full
 ### refresh with 0.5 minutes between every refresh, regardless of type.
@@ -38,7 +38,7 @@ sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 [Account pdx.edu]
 localrepository = LocalPdx
 remoterepository = RemotePdx
-autorefresh = 0.5
+autorefresh = 3
 quick = 10
 postsynchook = /usr/bin/emacsclient -e '(mu4e-update-index)' > /dev/null
 
