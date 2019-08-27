@@ -22,6 +22,7 @@ import           XMonad.Hooks.ManageHelpers     ( doCenterFloat
                                                 )
 import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.Fullscreen
+import           XMonad.Layout.NoBorders
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
 
@@ -60,7 +61,8 @@ myKeys baseConfig@(XConfig {modMask = modKey}) =
 
 --------------------------------------------------------------------------------
 -- | Desktop layouts
-myLayouts = emptyBSP
+-- Don't forget that you'll have to use M-space to toggle `noBorders Full`
+myLayouts = emptyBSP ||| noBorders Full
 
 
 ------------------------------------------------------------------------
@@ -91,10 +93,6 @@ myManageHook = composeAll
   , isFullscreen --> (doF W.focusDown <+> doFullFloat)
   ]
 
-myDynNameHook =
-  composeAll [(title =? "Downloading Files - Mozilla Firefox" --> doFloat)]
-
-
 --------------------------------------------------------------------------------
 -- | Log bar
 mkConfig xmProc = desktopConfig
@@ -107,9 +105,7 @@ mkConfig xmProc = desktopConfig
                  , ppTitle   = xmobarColor "orange" "" . filter isPrint
                  , ppCurrent = \s -> xmobarColor "green"  "" ( "[" ++ s ++ "]" )
                  }
-  , handleEventHook = fullscreenEventHook
-                      <+> dynamicPropertyChange "WM_NAME" myDynNameHook
-                      <+> handleEventHook desktopConfig
+  , handleEventHook = fullscreenEventHook <+> handleEventHook desktopConfig
   , workspaces = map show [ 1 .. 9 :: Int ]
   }
 
@@ -194,4 +190,3 @@ main = do
                            ]
                         )
                       ]
-
