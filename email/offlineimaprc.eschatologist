@@ -1,0 +1,56 @@
+[general]
+accounts = legit.biz,pdx.edu
+maxsyncaccounts = 3
+pythonfile = ~/.offlineimap.py
+
+[Account legit.biz]
+localrepository = LocalLegit
+remoterepository = RemoteLegit
+### Minutes between syncs
+autorefresh = 0.5
+### Quick syncs do not update if the only changes were to IMAP flags.
+### autorefresh=0.5 and quick=10 yields 10 quick refreshes between each full
+### refresh with 0.5 minutes between every refresh, regardless of type.
+quick = 10
+postsynchook = /usr/local/bin/emacsclient -e '(mu4e-update-index)' > /dev/null
+
+[Repository LocalLegit]
+type = Maildir
+localfolders = ~/.mail/legit.biz
+
+[Repository RemoteLegit]
+type = IMAP
+### Instead of closing the connection once a sync is complete, offlineimap will
+### send empty data to the server to hold the connection open. A value of 60
+### attempts to hold the connection for a minute between syncs (both quick and
+### autorefresh).This setting has no effect if autorefresh and
+### holdconnectionopen are not both set.
+keepalive = 60
+holdconnectionopen = yes
+maxconnections = 2
+remoteuser = jeremiah@legit.biz
+remotepasseval = get_pass("legit.biz")
+remotehost = imap.fastmail.com
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+
+
+[Account pdx.edu]
+localrepository = LocalPdx
+remoterepository = RemotePdx
+autorefresh = 0.5
+quick = 10
+postsynchook = /usr/local/bin/emacsclient -e '(mu4e-update-index)' > /dev/null
+
+[Repository LocalPdx]
+type = Maildir
+localfolders = ~/.mail/pdx.edu
+
+[Repository RemotePdx]
+type = Gmail
+maxconnections = 2
+remoteuser = jpeschka@pdx.edu
+remotepasseval = get_pass("pdx.edu")
+folderfilter = lambda foldername: foldername not in ['[Gmail]/All Mail', '[Gmail]/Important', 'CS333', 'CS333/Winter2018', 'CS333/Spring2018', 'CS333/Summer2018', 'CS333/Fall2018', 'CS333/Winter2019', 'ABET', 'Mailspring/Snoozed', 'CS581', 'CS410 VM' ]
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl_version = tls1_2

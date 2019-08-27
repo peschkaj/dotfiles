@@ -410,9 +410,6 @@ export PATH=$HOME/.local/bin:$PATH:$CARGO_HOME/bin
 unsetopt correct
 unsetopt correctall
 
-eval $(thefuck --alias)
-alias f="fuck"
-
 # the main ZSH rc sets up scp as 'noglob scp' which is breaking uploading an entire folder
 unalias scp
 
