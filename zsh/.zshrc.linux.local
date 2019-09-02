@@ -420,7 +420,7 @@ unalias scp
 #export PATH=$HOME/.cabal/bin:$PATH
 
 # ghcup
-. "$HOME/.ghcup/env"
+#. "$HOME/.ghcup/env"
 
 
 
