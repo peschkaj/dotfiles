@@ -110,7 +110,7 @@ mkConfig xmProc = desktopConfig
   }
 
 main = do
-  xmobarProc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
+  xmobarProc <- spawnPipe "xmobar ~/.xmobarrc"
   let myConfig = mkConfig xmobarProc
   xmonad $ myConfig
     -- remove default modMask + [1 - 9] binding for switching workspaces

@@ -1,19 +1,19 @@
 Config {
 
    -- appearance
-     font =         "xft:Source Code Pro:size=8:bold:antialias=true"
+     font =         "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
    , bgColor =      "#000000"
    , fgColor =      "#f6f6f6"
    --, position =     TopW L 98
    --, position =     TopSize C 75 24
-   , position =     TopP 0 336
+   , position =     TopP 0 396
    , border =       BottomB
    , borderColor =  "#191919"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %multicpu% | %memory% | %enp36s0% | %StdinReader% }{ %date% "
+   , template = " %multicpu% | %memory% | %StdinReader% }{ %KPDX% | %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -40,14 +40,14 @@ Config {
    , commands =
 
         -- network activity monitor (dynamic interface resolution)
-        [ Run Network "enp36s0" [ "--template" , "<dev>: <tx> | <rx>"
-                               , "-L"         , "0"
-                               , "-H"         , "10240000"
-                               , "--normal"   , "green"
-                               , "--high"     , "red"
-                               , "-w"         , "8"
-                               , "-S"         , "True"
-                               ] 10
+        [ Run DynNetwork [ "--template" , "<dev>: <tx> | <rx>"
+                         , "-L"         , "0"
+                         , "-H"         , "10240000"
+                         , "--normal"   , "green"
+                         , "--high"     , "red"
+                         , "-w"         , "8"
+                         , "-S"         , "True"
+                         ] 10
 
         -- cpu activity monitor
         , Run MultiCpu       [ "--template" , "CPU: <bar>"  --"Cpu: <total0>%|<total1>%|<total2>%|<total3>%"
@@ -61,7 +61,7 @@ Config {
 
         -- memory usage monitor
         , Run Memory         [ "--template" ,"Mem: <usedbar>"
-                             , "--Low"      , "20"        -- units: %
+                             , "--Low"      , "40"        -- units: %
                              , "--High"     , "90"        -- units: %
                              , "--low"      , "#63a557"
                              , "--normal"   , "#e2801d"
