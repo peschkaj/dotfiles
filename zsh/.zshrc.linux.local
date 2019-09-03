@@ -485,3 +485,8 @@ bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search # Up
 bindkey "${terminfo[kcud1]}" down-line-or-beginning-search # Down
 
 unsetopt AUTO_NAME_DIRS
+
+## Add calculator plugin https://github.com/arzzen/calc.plugin.zsh
+## Can be activated using something like `= 2 * 2`
+## See the README for more details
+zplg load arzzen/calc.plugin.zsh
