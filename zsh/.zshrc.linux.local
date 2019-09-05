@@ -132,6 +132,9 @@ autoload -Uz run-help-sudo
 #autoload -Uz run-help-svk
 #autoload -Uz run-help-svn
 
+zle -N helpmap
+bindkey '^h' run-help
+
 ## Aliases
 ### Filesystem navigation
 #### cd
