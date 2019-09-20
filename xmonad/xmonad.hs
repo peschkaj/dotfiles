@@ -9,10 +9,12 @@ import           XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
                                                 , ppOutput
                                                 , ppTitle
                                                 , ppCurrent
+                                                , ppLayout
                                                 , ppVisible
                                                 , ppHidden
                                                 , ppUrgent
                                                 , ppSort
+                                                , PP(..)
                                                 )
 import           XMonad.Hooks.DynamicProperty
 import           XMonad.Hooks.ManageHelpers     ( doCenterFloat
@@ -23,6 +25,8 @@ import           XMonad.Hooks.ManageHelpers     ( doCenterFloat
 import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.NoBorders
+import           XMonad.Layout.PerWorkspace
+import           XMonad.Layout.Spacing
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
 
@@ -38,9 +42,13 @@ import qualified Data.Map                      as M
 rofi = "rofi -show drun -modi drun"
 rofiRunCommand = "rofi -show run -modi run"
 rofiCalc = "rofi -show calc -modi calc -no-show-match -no-sort"
-rofiClip = "rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'"
-rofiPower = "/home/jeremiah/.local/bin/rofi-power \"/home/jeremiah/.local/bin/stop\""
+rofiClip =
+  "rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'"
+rofiPower =
+  "/home/jeremiah/.local/bin/rofi-power \"/home/jeremiah/.local/bin/stop\""
 rofiCharpicker = "/home/jeremiah/src/charpicker/charpicker.sh"
+myFocusedBorderColor = "#52b0bb"
+myNormalBorderColor = "#08375A"
 -- brightUp = ""
 -- brightDown = ""
 
@@ -48,21 +56,27 @@ rofiCharpicker = "/home/jeremiah/src/charpicker/charpicker.sh"
 -- Key configs
 myModMask = mod3Mask -- changes the mod key to "right alt"
 
-myKeys baseConfig@(XConfig {modMask = modKey}) =
+myKeys baseConfig@(XConfig { modMask = modKey }) =
   -- ctrl-[1..9] %! Switch to workspace N
   -- ctrl-shift-[1..9] %! Move client to workspace N
   -- ctrl-shift-win-[1..9] %! Move client and switch to workspace N
-  [((m .|. controlMask, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces baseConfig) [xK_1 .. xK_9]
-      , (f, m) <- [(W.greedyView, 0)
-                  ,(W.shift, shiftMask)
-                  ,(\i -> W.greedyView i . W.shift i, shiftMask .|. mod4Mask)
-                  ]]
+  [ ((m .|. controlMask, k), windows $ f i)
+  | (i, k) <- zip (XMonad.workspaces baseConfig) [xK_1 .. xK_9]
+  , (f, m) <-
+    [ (W.greedyView                    , 0)
+    , (W.shift                         , shiftMask)
+    , (\i -> W.greedyView i . W.shift i, shiftMask .|. mod4Mask)
+    ]
+  ]
 
 --------------------------------------------------------------------------------
 -- | Desktop layouts
 -- Don't forget that you'll have to use M-space to toggle `noBorders Full`
-myLayouts = emptyBSP ||| noBorders Full
+myLayouts =
+  (spacing 10 $ emptyBSP) ||| (spacing 0 $ noBorders Full) ||| onWorkspace
+    "4"
+    (spacing 10 $ emptyBSP)
+    (spacing 0 $ noBorders Full)
 
 
 ------------------------------------------------------------------------
@@ -84,7 +98,7 @@ myManageHook = composeAll
   [ resource =? "desktop_window" --> doIgnore
   , className =? "Galculator" --> doFloat
   , className =? "Steam" --> doFloat
-  , className =?  "steam"--> doFullFloat  -- bigpicture-mode
+  , className =? "steam" --> doFullFloat  -- bigpicture-mode
   , className =? "Gimp" --> doFloat
   , className =? "stalonetray" --> doIgnore
   , className =? "Guake" --> doFloat
@@ -96,58 +110,76 @@ myManageHook = composeAll
 --------------------------------------------------------------------------------
 -- | Log bar
 mkConfig xmProc = desktopConfig
-  { terminal   = "kitty"
-  , modMask    = myModMask -- super
-  , layoutHook = desktopLayoutModifiers $ myLayouts
-  , manageHook = myManageHook
-  , logHook    = dynamicLogWithPP xmobarPP
-                 { ppOutput  = hPutStrLn xmProc
-                 , ppTitle   = xmobarColor "orange" "" . filter isPrint
-                 , ppCurrent = \s -> xmobarColor "green"  "" ( "[" ++ s ++ "]" )
-                 }
-  , handleEventHook = fullscreenEventHook <+> handleEventHook desktopConfig
-  , workspaces = map show [ 1 .. 9 :: Int ]
+  { terminal           = "kitty"
+  , modMask            = myModMask -- super
+  , layoutHook         = desktopLayoutModifiers $ myLayouts
+  , manageHook         = myManageHook
+  , logHook            = dynamicLogWithPP def
+                           { ppOutput = hPutStrLn xmProc
+                           , ppTitle = xmobarColor "orange" "" . filter isPrint
+                           , ppCurrent = \s -> xmobarColor "green" "" ("[" ++ s ++ "]")
+                           , ppLayout = const ""
+                           }
+  , handleEventHook    = fullscreenEventHook <+> handleEventHook desktopConfig
+  , workspaces         = map show [1 .. 9 :: Int]
+  , normalBorderColor  = myNormalBorderColor
+  , focusedBorderColor = myFocusedBorderColor
+  , borderWidth        = 2
   }
+
+myLayoutPrinter :: String -> String
+myLayoutPrinter "Spacing 0 Full" = "FULL"
+myLayoutPrinter "Spacing 10 BSP" = "BSP "
+myLayoutPrinter x                = x
 
 main = do
   xmobarProc <- spawnPipe "xmobar ~/.xmobarrc"
   let myConfig = mkConfig xmobarProc
-  xmonad $ myConfig
+  xmonad
+    $                 myConfig
     -- remove default modMask + [1 - 9] binding for switching workspaces
-    `removeKeys` [(mod4Mask, n) | n <- [xK_1 .. xK_9]]
+    `removeKeys`      [ (mod4Mask, n) | n <- [xK_1 .. xK_9] ]
     -- remove modMask + SHIFT + [1 - 9] binding for flinging crap around workspaces
-    `removeKeys` [(mod4Mask .|. shiftMask, n) | n <- [xK_1 .. xK_9]]
+    `removeKeys`      [ (mod4Mask .|. shiftMask, n) | n <- [xK_1 .. xK_9] ]
     -- Unset the quit xmonad command because we want a sane shutdown
-    `removeKeys` [(myModMask .|. shiftMask, xK_q)]
+    `removeKeys`      [(myModMask .|. shiftMask, xK_q)]
     -- add CTRL + [1 - 9] for switching workspaces
-    `additionalKeys` (myKeys myConfig)
+    `additionalKeys`  (myKeys myConfig)
     `additionalKeysP` [ ("M-S-q"     , spawn "/home/jeremiah/.local/bin/stop")
                       , ("M4-<Space>", spawn $ rofi)
                       , ( "M4-r"
                         , spawn $ rofiRunCommand
                         )
                       -- Maps movement to vim keys
-                      , ("M4-h"   , windowGo L False)
-                      , ("M4-j"   , windowGo D False)
-                      , ("M4-k"   , windowGo U False)
-                      , ("M4-l"   , windowGo R False)
-                      , ("C-M4-h" , windowSwap L False)
-                      , ("C-M4-j" , windowSwap D False)
-                      , ("C-M4-k" , windowSwap U False)
-                      , ("C-M4-l" , windowSwap R False)
+                      , ("M4-h"  , windowGo L False)
+                      , ("M4-j"  , windowGo D False)
+                      , ("M4-k"  , windowGo U False)
+                      , ("M4-l"  , windowGo R False)
+                      , ("C-M4-h", windowSwap L False)
+                      , ("C-M4-j", windowSwap D False)
+                      , ("C-M4-k", windowSwap U False)
+                      , ( "C-M4-l"
+                        , windowSwap R False
+                        )
                       -- screenshots
-                      , ("M4-M1-5", spawn $ "shutter -s --profile=default")
+                      , ( "M4-M1-5"
+                        , spawn $ "shutter -s --profile=default"
+                        )
                       -- emojis and clipboards
-                      , ("M4-c"   , spawn $ rofiCharpicker)
-                      , ("M4-S-c" , spawn $ rofiClip)
+                      , ("M4-c", spawn $ rofiCharpicker)
+                      , ( "M4-S-c"
+                        , spawn $ rofiClip
+                        )
                       -- power management
-                      , ("M-p"    , spawn $ rofiPower)
+                      , ( "M-p"
+                        , spawn $ rofiPower
+                        )
                       -- , ( "M-l"
                       --   , spawn "mate-screensaver-command -l"
                       --   )
                       -- Move windows around by hand
-                      , ("M-r"                    , sendMessage Rotate)
-                      , ("M-s"                    , sendMessage Swap)
+                      , ("M-r", sendMessage Rotate)
+                      , ("M-s", sendMessage Swap)
                       -- , ("<XF86MonBrightnessUp>"  , spawn "light -A 5")
                       -- , ("<XF86MonBrightnessDown>", spawn "light -U 5")
                       ]
