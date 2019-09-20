@@ -9,10 +9,12 @@ import           XMonad.Hooks.DynamicLog        ( dynamicLogWithPP
                                                 , ppOutput
                                                 , ppTitle
                                                 , ppCurrent
+                                                , ppLayout
                                                 , ppVisible
                                                 , ppHidden
                                                 , ppUrgent
                                                 , ppSort
+                                                , PP(..)
                                                 )
 import           XMonad.Hooks.DynamicProperty
 import           XMonad.Hooks.ManageHelpers     ( doCenterFloat
@@ -24,6 +26,8 @@ import           XMonad.Hooks.ManageDocks
 import           XMonad.Layout.BinarySpacePartition
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.NoBorders
+import           XMonad.Layout.PerWorkspace
+import           XMonad.Layout.Spacing
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run
 
@@ -44,6 +48,8 @@ rofiClip =
 rofiPower =
   "/home/jeremiah/.local/bin/rofi-power \"/home/jeremiah/.local/bin/stop\""
 rofiCharpicker = "/home/jeremiah/src/charpicker/charpicker.sh"
+myFocusedBorderColor = "#52b0bb"
+myNormalBorderColor = "#08375A"
 
 --------------------------------------------------------------------------------
 -- Key configs
@@ -66,8 +72,8 @@ myKeys baseConfig@(XConfig { modMask = modKey }) =
 --------------------------------------------------------------------------------
 -- | Desktop layouts
 -- Don't forget that you'll have to use M-space to toggle `noBorders Full`
-myLayouts = emptyBSP ||| noBorders Full
-
+myLayouts = onWorkspace "4" (noBorders Full)  -- emacs gets a fullscreen
+          $ (spacing 10 $ emptyBSP)           -- everyone else has to share
 
 
 ------------------------------------------------------------------------
@@ -100,17 +106,22 @@ myManageHook = composeAll
 --------------------------------------------------------------------------------
 -- | Log bar
 mkConfig xmProc = desktopConfig
-  { terminal        = "kitty"
-  , modMask         = myModMask -- super
-  , layoutHook      = desktopLayoutModifiers $ myLayouts
-  , manageHook      = myManageHook
-  , logHook         = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmProc
-                        , ppTitle = xmobarColor "orange" "" . filter isPrint
-                        , ppCurrent = \s -> xmobarColor "green" "" ("[" ++ s ++ "]")
-                        }
-  , handleEventHook = fullscreenEventHook <+> handleEventHook desktopConfig
-  , workspaces      = map show [1 .. 9 :: Int]
+  { terminal           = "kitty"
+  , modMask            = myModMask -- super
+  , layoutHook         = desktopLayoutModifiers $ myLayouts
+  --, layoutHook         = onWorkspace "4" (spacing 0 $ noBorders Full) $ (spacing 10 $ emptyBSP)
+  , manageHook         = myManageHook
+  , logHook            = dynamicLogWithPP def
+                           { ppOutput = hPutStrLn xmProc
+                           , ppTitle = xmobarColor "orange" "" . filter isPrint
+                           , ppCurrent = \s -> xmobarColor "green" "" ("[" ++ s ++ "]")
+                           , ppLayout = const ""
+                           }
+  , handleEventHook    = fullscreenEventHook <+> handleEventHook desktopConfig
+  , workspaces         = map show [1 .. 9 :: Int]
+  , normalBorderColor  = myNormalBorderColor
+  , focusedBorderColor = myFocusedBorderColor
+  , borderWidth        = 2
   }
 
 main = do
