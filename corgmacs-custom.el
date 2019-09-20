@@ -11,11 +11,6 @@
                           (concat org-directory "index.org")                ;; The larger org-mode project list and general purpose index
                           )))
 
-(let ((jp/calsync
-       (expand-file-name "calendar-sync.el" "~/src/peschkaj/seekrets/emacs")))
-  (if (file-readable-p jp/calsync)
-      (load-file jp/calsync)))
-
 (use-package paradox
   :ensure t
   :config (paradox-enable))
