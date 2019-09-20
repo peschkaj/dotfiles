@@ -13,7 +13,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " %multicpu% | %memory% | %StdinReader% }{ %KPDX% | %date% "
+   , template = " %multicpu% | %memory% | %StdinReader% }{ %date% "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -69,7 +69,7 @@ Config {
                              , "--ppad"     , "2"
                              ] 10
 
-        , Run Weather "KPDX" [ "-t", "<station>: <tempF>F" ] 36000
+        -- , Run Weather "KPDX" [ "-t", "<station>: <tempF>F" ] 36000
 
         -- time and date indicator
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
