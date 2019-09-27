@@ -72,8 +72,8 @@ myKeys baseConfig@(XConfig { modMask = modKey }) =
 --------------------------------------------------------------------------------
 -- | Desktop layouts
 -- Don't forget that you'll have to use M-space to toggle `noBorders Full`
-myLayouts = onWorkspace "4" (noBorders Full)  -- emacs gets a fullscreen
-          $ (spacing 10 $ emptyBSP)           -- everyone else has to share
+myLayouts =
+  onWorkspace "4" (noBorders Full) $ (spacing 10 $ emptyBSP) ||| noBorders Full
 
 
 ------------------------------------------------------------------------
@@ -109,7 +109,6 @@ mkConfig xmProc = desktopConfig
   { terminal           = "kitty"
   , modMask            = myModMask -- super
   , layoutHook         = desktopLayoutModifiers $ myLayouts
-  --, layoutHook         = onWorkspace "4" (spacing 0 $ noBorders Full) $ (spacing 10 $ emptyBSP)
   , manageHook         = myManageHook
   , logHook            = dynamicLogWithPP def
                            { ppOutput = hPutStrLn xmProc
@@ -127,7 +126,6 @@ mkConfig xmProc = desktopConfig
 main = do
   xmobarProc <- spawnPipe "~/.local/bin/xmobar ~/.xmobarrc"
   let myConfig = mkConfig xmobarProc
-  -- floatNextWindows <- newIORef 0
   xmonad
     $                 myConfig
     -- remove default modMask + [1 - 9] binding for switching workspaces

@@ -49,8 +49,6 @@ rofiPower =
 rofiCharpicker = "/home/jeremiah/src/charpicker/charpicker.sh"
 myFocusedBorderColor = "#52b0bb"
 myNormalBorderColor = "#08375A"
--- brightUp = ""
--- brightDown = ""
 
 --------------------------------------------------------------------------------
 -- Key configs
@@ -73,11 +71,7 @@ myKeys baseConfig@(XConfig { modMask = modKey }) =
 -- | Desktop layouts
 -- Don't forget that you'll have to use M-space to toggle `noBorders Full`
 myLayouts =
-  (spacing 10 $ emptyBSP) ||| (spacing 0 $ noBorders Full) ||| onWorkspace
-    "4"
-    (spacing 10 $ emptyBSP)
-    (spacing 0 $ noBorders Full)
-
+  onWorkspace "4" (noBorders Full) $ (spacing 10 $ emptyBSP) ||| noBorders Full
 
 ------------------------------------------------------------------------
 -- | Window rules
