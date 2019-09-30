@@ -92,9 +92,7 @@
                          (when msg (string-prefix-p "/pdx.edu" (mu4e-message-field msg :maildir))))
            :vars '((user-mail-address . "jpeschka@pdx.edu")
                    (user-full-name . "Jeremiah Peschka")
-                   (mu4e-compose-signature . (concat "Jeremiah Peschka\n"
-                                                     "PhD Student\n"
-                                                     "Computer Science Department"))
+                   (mu4e-compose-signature . "Jeremiah Peschka")
                    (mu4e-trash-folder  . "/pdx.edu/[Gmail].Trash")
                    (mu4e-refile-folder . "/pdx.edu/[Gmail].Archive")
                    (mu4e-sent-folder   . "/pdx.edu/[Gmail].Sent")
