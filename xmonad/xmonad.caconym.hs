@@ -73,7 +73,9 @@ myKeys baseConfig@(XConfig { modMask = modKey }) =
 -- | Desktop layouts
 -- Don't forget that you'll have to use M-space to toggle `noBorders Full`
 myLayouts =
-  onWorkspace "4" (noBorders Full) $ (spacing 10 $ emptyBSP) ||| noBorders Full
+  onWorkspace "4" (noBorders Full)
+    $   (smartBorders (spacing 10 $ emptyBSP))
+    ||| noBorders Full
 
 
 ------------------------------------------------------------------------
