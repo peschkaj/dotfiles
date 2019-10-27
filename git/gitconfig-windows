@@ -1,17 +1,10 @@
 #; -*- mode: gitconfig -*-
 [core]
   editor = code --wait --new-window
-  autocrlf = true
-  safecrlf = warn
+  autocrlf = input
+  safecrlf = false
   fscache = true
   preloadindex = true
-[merge]
-  tool = vsdiffmerge
-[mergetool]
-  prompt = true
-[mergetool "vsdiffmerge"]
-  cmd = \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\Teamoundation\\Team Explorer\\vsdiffmerge.exe\" \"$REMOTE\" \"$LOCAL\" \"$BASE\" \"$MERGED\" //m
-  keepBackup = false
-  trustExitCode = true
+
 [gc]
   auto = 256
