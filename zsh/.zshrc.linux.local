@@ -1,5 +1,11 @@
 # -*- shell-script -*-
 setopt promptsubst
+radian_after_init_hook() {
+  ## Add calculator plugin https://github.com/arzzen/calc.plugin.zsh
+  ### Can be activated using something like `= 2 * 2`
+  ### See the README for more details
+  zinit light arzzen/calc.plugin.zsh
+}
 
 ### Command line
 
@@ -414,7 +420,7 @@ unsetopt correct
 unsetopt correctall
 
 # the main ZSH rc sets up scp as 'noglob scp' which is breaking uploading an entire folder
-unalias scp
+#unalias scp
 
 # Necessary, going forward, to make sure that SSH via TRAMP will work
 [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
@@ -456,7 +462,7 @@ alias d="kitty +kitten diff"
 autoload -Uz compinit
 compinit
 # Completion for kitty
-kitty + complete setup zsh | source /dev/stdin
+#kitty + complete setup zsh | source /dev/stdin
 
 # opam configuration
 test -r /home/jeremiah/.opam/opam-init/init.zsh && . /home/jeremiah/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
@@ -489,10 +495,6 @@ bindkey "${terminfo[kcud1]}" down-line-or-beginning-search # Down
 
 unsetopt AUTO_NAME_DIRS
 
-## Add calculator plugin https://github.com/arzzen/calc.plugin.zsh
-## Can be activated using something like `= 2 * 2`
-## See the README for more details
-zplg load arzzen/calc.plugin.zsh
 
 ## NVM config
 export NVM_DIR="$HOME/.config"
