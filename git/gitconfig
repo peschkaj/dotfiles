@@ -4,6 +4,9 @@
   name = Jeremiah Peschka
 [core]
 
+
+
+
 [alias]
   aliases = config --get-regexp alias
   amend = commit --amend
@@ -42,3 +45,5 @@
   ui = true
 [push]
   default = simple
+[diff]
+  wsErrorHighlight = old,new
