@@ -1,10 +1,7 @@
 #; -*- mode: gitconfig -*-
 [core]
   editor = code --wait --new-window
-  autocrlf = input
-  safecrlf = false
-  fscache = true
-  preloadindex = true
+
 
 [gc]
   auto = 256
